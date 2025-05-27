@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import { Box } from '@chakra-ui/react';
+import { Provider } from "@/components/ui/provider"
 import "./globals.css";
 import { Header } from "../components/ui/Header";
 
@@ -28,10 +30,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <Header />
-        <Box as="main" pt="60px">
-          {children}
-        </Box>
+        <Provider>
+          <Header />
+          <Box as="main" pt="60px">
+            {children}
+          </Box>
+        </Provider>
       </body>
     </html>
   );

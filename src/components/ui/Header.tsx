@@ -1,7 +1,6 @@
 'use client';
 
 import { Box, Flex, Button } from '@chakra-ui/react';
-import { useColorModeValue } from '@chakra-ui/color-mode';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
