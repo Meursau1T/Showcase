@@ -1,13 +1,13 @@
 'use client';
 
-import { Box, Flex, Button, useColorModeValue } from '@chakra-ui/react';
+import { Box, Flex, Button } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
 export function Header() {
   const pathname = usePathname();
-  const bg = useColorModeValue('white', 'gray.800');
-  const activeColor = useColorModeValue('blue.500', 'blue.200');
+  const bg = 'white';
+  const activeColor = 'blue.500';
 
   const navItems = [
     { name: '首页', path: '/' },
