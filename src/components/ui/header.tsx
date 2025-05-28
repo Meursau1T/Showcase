@@ -34,18 +34,14 @@ const navItems = [
     path: '/products' 
   },
   {
-    name: { zh: '品牌专栏', en: 'Brand' },
+    name: { zh: '关于我们', en: 'About' },
     subItems: [
-      { name: { zh: '公司简介', en: 'Company Profile' }, path: '/brand/profile' },
-      { name: { zh: '企业文化', en: 'Corporate Culture' }, path: '/brand/culture' },
-      { name: { zh: '组织架构', en: 'Organization' }, path: '/brand/structure' },
-      { name: { zh: '公司专利', en: 'Patents' }, path: '/brand/patents' }
+      { name: { zh: '公司简介', en: 'Company Profile' }, path: '/about/profile' },
+      { name: { zh: '企业文化', en: 'Corporate Culture' }, path: '/about/culture' },
+      { name: { zh: '组织架构', en: 'Organization' }, path: '/about/structure' },
+      { name: { zh: '公司专利', en: 'Patents' }, path: '/about/patents' }
     ]
-  },
-  { 
-    name: { zh: '关于我们', en: 'About' }, 
-    path: '/about' 
-  },
+  }
 ];
 
 type ItemProp = {
