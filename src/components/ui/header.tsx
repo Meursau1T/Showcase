@@ -5,11 +5,8 @@ import {
   Flex, 
   Button, 
   Menu, 
-  MenuButton, 
-  MenuList, 
-  MenuItem 
+  Portal
 } from '@chakra-ui/react';
-import { ChevronDownIcon } from '@chakra-ui/icons';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
@@ -68,7 +65,7 @@ export function Header({ locale }: HeaderProps) {
       >
         {navItems.map((item) => (
           'path' in item ? (
-            <Link key={item.path} href={item.path} passHref>
+            <Link key={item.path} href={item.path as 'string'} passHref>
               <Button
                 variant="ghost"
                 colorScheme="blue"
@@ -80,31 +77,30 @@ export function Header({ locale }: HeaderProps) {
               </Button>
             </Link>
           ) : (
-            <Menu key={item.name[locale]} isLazy>
-              <MenuButton
-                as={Button}
-                variant="ghost"
-                colorScheme="blue"
-                rightIcon={<ChevronDownIcon />}
-                mx={2}
-                _hover={{ bg: 'gray.100' }}
-                _expanded={{ bg: 'gray.200' }}
-              >
-                {item.name[locale]}
-              </MenuButton>
-              <MenuList minW="200px" boxShadow="xl">
-                {item.subItems.map((subItem) => (
-                  <Link key={subItem.path} href={subItem.path} passHref>
-                    <MenuItem 
-                      py={2}
-                      _hover={{ bg: 'blue.50', color: 'blue.600' }}
-                    >
-                      {subItem.name[locale]}
-                    </MenuItem>
-                  </Link>
-                ))}
-              </MenuList>
-            </Menu>
+            <Menu.Root key={item.name[locale]}>
+              <Menu.Trigger asChild>
+                <Button
+                  variant="ghost"
+                  colorScheme="blue"
+                  color={pathname === item.path ? activeColor : 'inherit'}
+                  fontWeight={pathname === item.path ? 'semibold' : 'normal'}
+                  mx={2}
+                >
+                  {item.name[locale]}
+                </Button>
+              </Menu.Trigger>
+              <Portal>
+                <Menu.Positioner>
+                  <Menu.Content>
+                    {item.subItems.map((subItem) => (
+                      <Link key={subItem.path} href={subItem.path} passHref>
+                        <Menu.Item value={subItem.name[locale]}>{subItem.name[locale]}</Menu.Item>
+                      </Link>
+                    ))}
+                  </Menu.Content>
+                </Menu.Positioner>
+              </Portal>
+            </Menu.Root>
           )
         ))}
       </Flex>
