@@ -46,7 +46,12 @@ type ItemProp = {
 }
 
 const NormalItem = ({ item, pathname, activeColor, locale }: ItemProp) => (
-  <Link key={item.path} href={item.path as 'string'} passHref>
+  <Link 
+    key={item.path} 
+    href={item.path as 'string'} 
+    passHref
+    className="opacity-70 hover:opacity-100 transition-opacity duration-200"
+  >
     <Button
       variant="plain"
       colorScheme="blue"
