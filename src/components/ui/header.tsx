@@ -14,6 +14,16 @@ type HeaderProps = {
   locale: 'zh' | 'en';
 }
 
+const isActivePath = (pathname: string, item: typeof navItems[0]) => {
+  if ('path' in item) {
+    return pathname === item.path;
+  }
+  if ('subItems' in item) {
+    return item.subItems.some(subItem => pathname.startsWith(subItem.path));
+  }
+  return false;
+};
+
 const navItems = [
   { 
     name: { zh: '首页', en: 'Home' }, 
@@ -50,13 +60,13 @@ const NormalItem = ({ item, pathname, activeColor, locale }: ItemProp) => (
     key={item.path} 
     href={item.path as 'string'} 
     passHref
-    className={ pathname === item.path ? "" : "opacity-70 hover:opacity-100"}
+    className={isActivePath(pathname, item) ? "" : "opacity-70 hover:opacity-100"}
   >
     <Button
       variant="plain"
       colorScheme="blue"
-      color={pathname === item.path ? activeColor : 'inherit'}
-      fontWeight={pathname === item.path ? 'semibold' : 'normal'}
+      color={isActivePath(pathname, item) ? activeColor : 'inherit'}
+      fontWeight={isActivePath(pathname, item) ? 'semibold' : 'normal'}
       mx={2}
     >
       {item.name[locale]}
@@ -68,11 +78,11 @@ const DropDownItem = ({ item, pathname, locale, activeColor }: ItemProp) => (
   <Menu.Root key={item.name[locale]}>
     <Menu.Trigger asChild>
       <Button
-        className={pathname.includes(item.path!) ? "" : "opacity-70 hover:opacity-100"}
+        className={isActivePath(pathname, item) ? "" : "opacity-70 hover:opacity-100"}
         variant="plain"
         colorScheme="blue"
-        color={pathname.includes(item.path!) ? activeColor : 'inherit'}
-        fontWeight={pathname.includes(item.path!) ? 'semibold' : 'normal'}
+        color={isActivePath(pathname, item) ? activeColor : 'inherit'}
+        fontWeight={isActivePath(pathname, item) ? 'semibold' : 'normal'}
         mx={2}
       >
         {item.name[locale]}
