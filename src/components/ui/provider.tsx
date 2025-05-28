@@ -13,3 +13,14 @@ export function Provider(props: ColorModeProviderProps) {
     </ChakraProvider>
   )
 }
+interface ProviderProps extends ColorModeProviderProps {
+  lang?: string;
+}
+
+export function Provider({ lang = 'en', ...props }: ProviderProps) {
+  return (
+    <ChakraProvider value={defaultSystem}>
+      <ColorModeProvider {...props} />
+    </ChakraProvider>
+  )
+}

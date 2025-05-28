@@ -4,6 +4,7 @@ import { Box } from '@chakra-ui/react';
 import { Provider } from "@/components/ui/provider"
 import "./globals.css";
 import { Header } from "../components/ui/header";
+import { cookies } from 'next/headers';
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -25,8 +26,10 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const lang = cookies().get('lang')?.value || 'en';
+  
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={lang} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
