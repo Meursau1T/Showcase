@@ -50,7 +50,7 @@ const NormalItem = ({ item, pathname, activeColor, locale }: ItemProp) => (
     key={item.path} 
     href={item.path as 'string'} 
     passHref
-    className="opacity-70 hover:opacity-100 transition-opacity duration-200"
+    className={ pathname === item.path ? "" : "opacity-70 hover:opacity-100"}
   >
     <Button
       variant="plain"
@@ -68,10 +68,11 @@ const DropDownItem = ({ item, pathname, locale, activeColor }: ItemProp) => (
   <Menu.Root key={item.name[locale]}>
     <Menu.Trigger asChild>
       <Button
+        className={pathname.includes(item.path!) ? "" : "opacity-70 hover:opacity-100"}
         variant="plain"
         colorScheme="blue"
-        color={pathname === item.path ? activeColor : 'inherit'}
-        fontWeight={pathname === item.path ? 'semibold' : 'normal'}
+        color={pathname.includes(item.path!) ? activeColor : 'inherit'}
+        fontWeight={pathname.includes(item.path!) ? 'semibold' : 'normal'}
         mx={2}
       >
         {item.name[locale]}
@@ -103,7 +104,6 @@ export function Header({ locale }: HeaderProps) {
   const pathname = usePathname();
   const bg = 'white';
   const activeColor = 'blue.600';
-
 
   return (
     <Box 
