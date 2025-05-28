@@ -19,7 +19,7 @@ export function Header({ locale }: HeaderProps) {
       path: '/' 
     },
     { 
-      name: { zh: '产品中心', en: 'Products Center' }, 
+      name: { zh: '产品中心', en: 'Products' }, 
       path: '/products' 
     },
     { 
