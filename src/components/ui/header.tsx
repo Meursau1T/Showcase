@@ -48,7 +48,7 @@ type ItemProp = {
 const NormalItem = ({ item, pathname, activeColor, locale }: ItemProp) => (
   <Link key={item.path} href={item.path as 'string'} passHref>
     <Button
-      variant="ghost"
+      variant="plain"
       colorScheme="blue"
       color={pathname === item.path ? activeColor : 'inherit'}
       fontWeight={pathname === item.path ? 'semibold' : 'normal'}
@@ -63,7 +63,7 @@ const DropDownItem = ({ item, pathname, locale, activeColor }: ItemProp) => (
   <Menu.Root key={item.name[locale]}>
     <Menu.Trigger asChild>
       <Button
-        variant="ghost"
+        variant="plain"
         colorScheme="blue"
         color={pathname === item.path ? activeColor : 'inherit'}
         fontWeight={pathname === item.path ? 'semibold' : 'normal'}
@@ -97,7 +97,7 @@ const UnionMenuItem = (props: ItemProp) => {
 export function Header({ locale }: HeaderProps) {
   const pathname = usePathname();
   const bg = 'white';
-  const activeColor = 'blue.500';
+  const activeColor = 'blue.600';
 
 
   return (
