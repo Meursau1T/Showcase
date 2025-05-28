@@ -3,16 +3,27 @@
 import { Box, Flex, Button } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { getLocale } from '@/utils/get-locale';
 
 export function Header() {
   const pathname = usePathname();
   const bg = 'white';
   const activeColor = 'blue.500';
+  const locale = getLocale();
 
   const navItems = [
-    { name: '首页', path: '/' },
-    { name: '产品列表', path: '/products' },
-    { name: '联系我们', path: '/contact' },
+    { 
+      name: { zh: '首页', en: 'Home' }, 
+      path: '/' 
+    },
+    { 
+      name: { zh: '产品列表', en: 'Products' }, 
+      path: '/products' 
+    },
+    { 
+      name: { zh: '联系我们', en: 'Contact' }, 
+      path: '/contact' 
+    },
   ];
 
   return (
@@ -44,7 +55,7 @@ export function Header() {
               fontWeight={pathname === item.path ? 'semibold' : 'normal'}
               mx={2}
             >
-              {item.name}
+              {item.name[locale]}
             </Button>
           </Link>
         ))}
