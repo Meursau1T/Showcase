@@ -3,13 +3,15 @@
 import { Box, Flex, Button } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { getLocale } from '@/utils/get-locale';
 
-export function Header() {
+type HeaderProps = {
+  locale: 'zh' | 'en';
+}
+
+export function Header({ locale }: HeaderProps) {
   const pathname = usePathname();
   const bg = 'white';
   const activeColor = 'blue.500';
-  const locale = getLocale();
 
   const navItems = [
     { 

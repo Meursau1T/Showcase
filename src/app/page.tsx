@@ -1,5 +1,5 @@
 import { Flex, Heading, Box, Image, Text } from '@chakra-ui/react';
-import { getLocale } from '@/utils/get-locale';
+import { cookies } from 'next/headers';
 
 const products = [
   {
@@ -34,8 +34,8 @@ const products = [
   }
 ];
 
-export default function Home() {
-  const locale = getLocale();
+export default async function Home() {
+  const locale = (await cookies()).get('lang')?.value || 'en';
   
   return (
     <Box as="main" className="flex min-h-screen flex-col">
