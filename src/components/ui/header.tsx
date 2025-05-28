@@ -19,12 +19,16 @@ export function Header({ locale }: HeaderProps) {
       path: '/' 
     },
     { 
-      name: { zh: '产品列表', en: 'Products' }, 
+      name: { zh: '产品中心', en: 'Products Center' }, 
       path: '/products' 
     },
     { 
-      name: { zh: '联系我们', en: 'Contact' }, 
-      path: '/contact' 
+      name: { zh: '品牌专栏', en: 'Brand' }, 
+      path: '/brand' 
+    },
+    { 
+      name: { zh: '关于我们', en: 'About' }, 
+      path: '/about' 
     },
   ];
 
