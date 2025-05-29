@@ -1,6 +1,3 @@
-import { Provider } from './provider';
-import { Header } from './header';
-export {
-  Provider,
-  Header
-};
+export * from './provider';
+export * from './header';
+export * from './footer';

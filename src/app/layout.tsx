@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 import { Box } from '@chakra-ui/react';
 import { Provider } from "@/components/ui/provider"
 import "./globals.css";
-import { Header } from "../components/ui/header";
+import { Header, Footer } from "@/components/ui/";
 
 type Lang = 'en' | 'zh';
 
@@ -36,6 +36,7 @@ export default async function RootLayout({ children }: RootLayoutParam) {
           <Box as="main" pt="60px">
             {children}
           </Box>
+          <Footer />
         </Provider>
       </body>
     </html>
