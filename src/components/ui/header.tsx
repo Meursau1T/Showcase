@@ -5,7 +5,8 @@ import {
   Flex, 
   Button, 
   Menu, 
-  Portal
+  Portal,
+  Image
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -125,24 +126,38 @@ export function Header({ locale }: HeaderProps) {
       boxShadow="sm"
       width="100%"
     >
-      <Flex 
-        maxW="container.xl" 
-        mx="auto" 
-        px={4} 
-        py={3} 
-        justify="flex-end" 
-        align="center"
-      >
-        {navItems.map((item) => (
-          <UnionMenuItem
-            key={item.name[locale]}
-            {...{
-              item,
-              locale,
-              activeColor,
-              pathname,
-            }}
-          />))}
+      <Flex mx="auto" justify="flex-start" align="flex-start">
+        <Link href="/" passHref>
+          <Box 
+            position="relative" 
+            maxW="56px"
+            flexShrink={0}
+          >
+            <Image
+              src="/logo.jpg"
+              alt={locale === 'zh' ? '公司标志' : 'Company Logo'}
+              style={{ objectFit: 'contain' }}
+            />
+          </Box>
+        </Link>
+        <Flex 
+          mx="auto" 
+          px={4} 
+          py={3} 
+          justify="flex-end" 
+          align="center"
+        >
+          {navItems.map((item) => (
+            <UnionMenuItem
+              key={item.name[locale]}
+              {...{
+                item,
+                locale,
+                activeColor,
+                pathname,
+              }}
+            />))}
+        </Flex>
       </Flex>
     </Box>
   );
