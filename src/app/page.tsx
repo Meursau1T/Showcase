@@ -1,5 +1,5 @@
+import type { PageParam } from '@/type';
 import { Flex, Heading, Box, Image, Text } from '@chakra-ui/react';
-import { cookies } from 'next/headers';
 
 const products = [
   {
@@ -34,8 +34,8 @@ const products = [
   }
 ];
 
-export default async function Home() {
-  const locale = (await cookies()).get('lang')?.value || 'en';
+export default async function Home({ searchParams }: PageParam) {
+  const locale = (await searchParams)['lang'] || 'en';
   
   return (
     <Box as="main" className="flex min-h-screen flex-col">
