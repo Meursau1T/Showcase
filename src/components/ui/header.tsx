@@ -16,7 +16,7 @@ type HeaderProps = {
   locale: 'zh' | 'en';
 }
 
-const isActivePath = (pathname: string, item: typeof navItems[0]) => {
+const isActivePath = (pathname: string, item: ReturnType<typeof navItems>[0]) => {
   if ('path' in item) {
     return pathname === item.path;
   }
@@ -26,7 +26,7 @@ const isActivePath = (pathname: string, item: typeof navItems[0]) => {
   return false;
 };
 
-const navItems = [
+const navItems = ({ langCb }: { langCb: Function }) => [
   { 
     name: { zh: '首页', en: 'Home' }, 
     path: '/' 
@@ -54,17 +54,19 @@ const navItems = [
       {
         name: { zh: '中文', en: '中文' },
         path: `?lang=zh`,
+        onClick: () => langCb('zh')
       },
       {
         name: { zh: 'English', en: 'English' },
         path: '?lang=en',
+        onClick: () => langCb('en')
       },
     ],
   }
 ];
 
 type ItemProp = {
-  item: typeof navItems[0];
+  item: ReturnType<typeof navItems>[0];
   pathname: string;
   activeColor: string;
   locale: HeaderProps['locale'];
@@ -163,7 +165,7 @@ export function Header(props: HeaderProps) {
           justify="flex-end" 
           align="center"
         >
-          {navItems.map((item) => (
+          {navItems({ langCb: setLocale}).map((item) => (
             <UnionMenuItem
               key={item.name[locale]}
               {...{
