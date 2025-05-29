@@ -17,17 +17,19 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({
   
   if (textContent) {
     contentElement = (
-      <Text fontSize="md" className="whitespace-pre-line">
+      <Text fontSize="lg" p="72px" className="whitespace-pre-line">
         {textContent}
       </Text>
     );
   } else if (imageContent) {
     contentElement = (
-      <img 
-        src={imageContent} 
-        alt="Content" 
-        className="max-w-full h-auto"
-      />
+      <Box p="72px">
+        <img 
+          src={imageContent} 
+          alt="Content" 
+          className="max-w-full h-auto"
+        />
+      </Box>
     );
   }
 
@@ -46,9 +48,7 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({
       </Box>
       
       {/* 内容区域 */}
-      <Box className="mt-8">
-        {contentElement}
-      </Box>
+      {contentElement}
     </Box>
   );
 };
