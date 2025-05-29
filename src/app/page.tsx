@@ -1,6 +1,7 @@
 import type { PageParam } from '@/type';
 import { ParseLang } from '@/utils';
 import { Flex, Heading, Box, Image, Text } from '@chakra-ui/react';
+import Link from 'next/link';
 
 const products = [
   {
@@ -32,6 +33,34 @@ const products = [
     image: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png',
     title: { zh: '产品5', en: 'Product 5' },
     description: { zh: '产品5描述', en: 'Product 5 description' }
+  }
+];
+
+const news = [
+  {
+    id: 1,
+    title: { zh: '新闻标题1', en: 'News Title 1' },
+    path: '/news/1'
+  },
+  {
+    id: 2, 
+    title: { zh: '新闻标题2', en: 'News Title 2' },
+    path: '/news/2'
+  },
+  {
+    id: 3,
+    title: { zh: '新闻标题3', en: 'News Title 3' },
+    path: '/news/3'
+  },
+  {
+    id: 4,
+    title: { zh: '新闻标题4', en: 'News Title 4' },
+    path: '/news/4'
+  },
+  {
+    id: 5,
+    title: { zh: '新闻标题5', en: 'News Title 5' },
+    path: '/news/5'
   }
 ];
 
@@ -81,6 +110,27 @@ export default async function Home({ searchParams }: PageParam) {
             </Box>
           ))}
         </Flex>
+      </Box>
+
+      {/* 新闻区域 */}
+      <Box className="mt-12 w-full bg-gray-50 py-8">
+        <Box className="px-[24px] md:px-[144px]">
+          <Heading as="h2" size="xl" mb={6} textAlign="left">
+            {locale === 'zh' ? '新闻' : 'News'}
+          </Heading>
+          
+          <Box className="flex flex-col gap-1">
+            {news.map((item) => (
+              <Link 
+                key={item.id}
+                href={item.path}
+                className="h-[36px] flex items-center hover:bg-gray-100 px-2 rounded"
+              >
+                <Text fontSize="md">{item.title[locale]}</Text>
+              </Link>
+            ))}
+          </Box>
+        </Box>
       </Box>
     </Box>
   );
