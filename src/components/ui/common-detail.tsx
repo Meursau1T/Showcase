@@ -22,13 +22,8 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({
       
       {/* 内容区域 */}
       <Box className="mt-8">
-        {textContent && imageContent ? (
-          // 同时存在文本和图片时优先显示文本
-          <Text fontSize="md" className="whitespace-pre-line">
-            {textContent}
-          </Text>
-        ) : textContent ? (
-          // 只有文本内容
+        {textContent ? (
+          // 有文本内容
           <Text fontSize="md" className="whitespace-pre-line">
             {textContent}
           </Text>
