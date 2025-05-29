@@ -107,9 +107,18 @@ const DropDownItem = ({ item, pathname, locale, activeColor }: ItemProp) => (
       <Menu.Positioner>
         <Menu.Content>
           {item.subItems && item.subItems.map((subItem) => (
-            <Link key={subItem.path} href={subItem.path} passHref>
-              <Menu.Item value={subItem.name[locale]}>{subItem.name[locale]}</Menu.Item>
-            </Link>
+            <Menu.Item
+              key={subItem.path}
+              value={subItem.name[locale]}
+              onClick={(e) => {
+                if (subItem.onClick) {
+                  e.preventDefault(); // 阻止默认导航行为
+                  subItem.onClick();  // 调用自定义的 onClick
+                }
+              }}
+            >
+              {subItem.name[locale]}
+            </Menu.Item>
           ))}
         </Menu.Content>
       </Menu.Positioner>
