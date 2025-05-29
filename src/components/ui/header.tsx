@@ -64,7 +64,6 @@ const NormalItem = ({ item, pathname, activeColor, locale }: ItemProp) => (
   >
     <Button
       variant="plain"
-      colorScheme="blue"
       color={isActivePath(pathname, item) ? activeColor : 'inherit'}
       fontWeight={isActivePath(pathname, item) ? 'semibold' : 'normal'}
       mx={2}
@@ -80,7 +79,6 @@ const DropDownItem = ({ item, pathname, locale, activeColor }: ItemProp) => (
       <Button
         className={isActivePath(pathname, item) ? "" : "opacity-70 hover:opacity-100"}
         variant="plain"
-        colorScheme="blue"
         color={isActivePath(pathname, item) ? activeColor : 'inherit'}
         fontWeight={isActivePath(pathname, item) ? 'semibold' : 'normal'}
         mx={2}
@@ -113,7 +111,7 @@ const UnionMenuItem = (props: ItemProp) => {
 export function Header({ locale }: HeaderProps) {
   const pathname = usePathname();
   const bg = 'white';
-  const activeColor = 'blue.600';
+  const activeColor = 'var(--color-darkblue)';
 
   return (
     <Box 

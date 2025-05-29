@@ -82,9 +82,9 @@ export default async function Home({ searchParams }: PageParam) {
       </Box>
 
       {/* 产品区域 */}
-      <Box className="mt-[24px] pr-[24px] pl-[24px] md:pr-[144px] md:pl-[144px]">
-        <Heading as="h2" size="xl" mb={6} textAlign="left">
-          {locale === 'zh' ? '产品' : 'Products'}
+      <Box className="mt-[24px] mb-[72px] pr-[24px] pl-[24px] md:pr-[144px] md:pl-[144px]">
+        <Heading as="h2" size="5xl" mb={6} textAlign="center" color={"var(--color-darkblue)"}>
+          {locale === 'zh' ? '产品' : 'PRODUCTS'}
         </Heading>
         
         <Flex 
@@ -113,10 +113,10 @@ export default async function Home({ searchParams }: PageParam) {
       </Box>
 
       {/* 新闻区域 */}
-      <Box className="mt-12 w-full bg-gray-50 py-8">
+      <Box className="mt-12 w-full py-8 text-white" backgroundImage={"url(https://ufi-aftermarket.com/wp-content/uploads/2018/03/bg-footer.jpg)"}>
         <Box className="px-[24px] md:px-[144px]">
-          <Heading as="h2" size="xl" mb={6} textAlign="left">
-            {locale === 'zh' ? '新闻' : 'News'}
+          <Heading as="h2" size="5xl" mb={6} textAlign="center">
+            {locale === 'zh' ? '新闻' : 'NEWS'}
           </Heading>
           
           <Box className="flex flex-col gap-1">
@@ -124,7 +124,7 @@ export default async function Home({ searchParams }: PageParam) {
               <Link 
                 key={item.id}
                 href={item.path}
-                className="h-[36px] flex items-center hover:bg-gray-100 px-2 rounded"
+                className="h-[36px] flex items-center opacity-85 hover:opacity-100 px-2 rounded"
               >
                 <Text fontSize="md">{item.title[locale]}</Text>
               </Link>
