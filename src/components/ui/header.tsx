@@ -110,10 +110,13 @@ const DropDownItem = ({ item, pathname, locale, activeColor }: ItemProp) => (
             <Menu.Item
               key={subItem.path}
               value={subItem.name[locale]}
-              onClick={(e) => {
-                if (subItem.onClick) {
-                  e.preventDefault(); // 阻止默认导航行为
+              onClick={(e: React.MouseEvent) => {
+                // @ts-ignore
+                if (typeof subItem.onClick !== 'undefined') {
+                  e.preventDefault();
+                // @ts-ignore
                   subItem.onClick();  // 调用自定义的 onClick
+                  location.href = location.pathname + subItem.path;
                 }
               }}
             >
