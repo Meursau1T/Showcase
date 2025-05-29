@@ -15,20 +15,27 @@ export default async function AboutCulturePage({ searchParams }: PageParam) {
   // 定义不同语言的文化内容
   const cultureContent: Record<string, CultureContent> = {
     en: {
-      backgroundImage: '/public/test_banner.jpg',
-      textContent: `Our corporate culture is built on three core values:
+      backgroundImage: '/test_banner.jpg',
+      textContent: `
+# Culture
+Our corporate culture is built on three core values:
       
-      1. Innovation - We constantly challenge the status quo
-      2. Integrity - We do what's right, not what's easy
-      3. Collaboration - Together we achieve more`,
+1. **Innovation** - We constantly challenge the status quo
+2. **Integrity** - We do what's right, not what's easy
+3. **Collaboration** - Together we achieve more`,
     },
     zh: {
-      backgroundImage: '/public/test_banner.jpg',
-      textContent: `我们的企业文化建立在三个核心价值观之上：
-      
-      1. 创新 - 我们不断挑战现状
-      2. 诚信 - 我们做正确的事，而不是容易的事
-      3. 协作 - 团结一致，我们才能取得更多成就`,
+      backgroundImage: '/test_banner.jpg',
+      textContent: `
+# 企业文化
+
+我们的核心价值观包括：
+
+- **创新**：持续改进产品和技术
+- **诚信**：对客户和员工保持透明
+- **协作**：跨部门合作实现共同目标
+
+了解更多：[公司官网](https://example.com)`,
     }
   };
 
