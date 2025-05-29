@@ -12,6 +12,25 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({
   textContent,
   imageContent
 }) => {
+  // 提取内容渲染逻辑到变量
+  let contentElement: React.ReactNode = null;
+  
+  if (textContent) {
+    contentElement = (
+      <Text fontSize="md" className="whitespace-pre-line">
+        {textContent}
+      </Text>
+    );
+  } else if (imageContent) {
+    contentElement = (
+      <img 
+        src={imageContent} 
+        alt="Content" 
+        className="max-w-full h-auto"
+      />
+    );
+  }
+
   return (
     <Box className="flex flex-col w-full">
       {/* 背景图片区域 */}
@@ -22,19 +41,7 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({
       
       {/* 内容区域 */}
       <Box className="mt-8">
-        {textContent ? (
-          // 有文本内容
-          <Text fontSize="md" className="whitespace-pre-line">
-            {textContent}
-          </Text>
-        ) : imageContent ? (
-          // 只有图片内容
-          <img 
-            src={imageContent} 
-            alt="Content" 
-            className="max-w-full h-auto"
-          />
-        ) : null}
+        {contentElement}
       </Box>
     </Box>
   );
