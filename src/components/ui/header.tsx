@@ -116,8 +116,8 @@ const DropDownItem = ({ item, pathname, locale, activeColor }: ItemProp) => (
                   e.preventDefault();
                 // @ts-ignore
                   subItem.onClick();  // 调用自定义的 onClick
-                  location.href = location.pathname + subItem.path;
                 }
+                location.href = subItem.path;
               }}
             >
               {subItem.name[locale]}
