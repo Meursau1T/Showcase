@@ -1,6 +1,6 @@
 import type { PageParam } from '@/type';
 import { ParseLang } from '@/utils';
-import { Flex, Heading, Box, Image, Text } from '@chakra-ui/react';
+import { Flex, Heading, Box, Image, Text, Card } from '@chakra-ui/react';
 import Link from 'next/link';
 
 const products = [
@@ -94,20 +94,13 @@ export default async function Home({ searchParams }: PageParam) {
           className="w-full"
         >
           {products.map((product) => (
-            <Box 
-              key={product.id}
-              className="w-[200px]"
-              borderWidth="1px" 
-              borderRadius="lg" 
-              overflow="hidden"
-              p={4}
-            >
+            <Card.Root key={product.id} className="w-[200px]" overflow="hidden" variant="subtle" borderRadius="0">
               <Image src={product.image} alt={product.title[locale]} h="120px" mx="auto" />
-              <Box mt={4}>
-                <Heading as="h3" size="md">{product.title[locale]}</Heading>
-                <Text mt={2}>{product.description[locale]}</Text>
-              </Box>
-            </Box>
+              <Card.Body gap="2">
+                <Card.Title>{product.title[locale]}</Card.Title>
+                <Card.Description>{product.description[locale]}</Card.Description>
+              </Card.Body>
+            </Card.Root>
           ))}
         </Flex>
       </Box>

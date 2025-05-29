@@ -126,22 +126,23 @@ export function Header({ locale }: HeaderProps) {
       boxShadow="sm"
       width="100%"
     >
-      <Flex mx="auto" justify="flex-start" align="flex-start">
+      <Flex mx="auto" justify="space-between" align="center">
         <Link href="/" passHref>
           <Box 
             position="relative" 
             maxW="56px"
             flexShrink={0}
+            marginLeft={"32px"}
           >
             <Image
               src="/logo.jpg"
+              marginTop={'8px'}
               alt={locale === 'zh' ? '公司标志' : 'Company Logo'}
               style={{ objectFit: 'contain' }}
             />
           </Box>
         </Link>
         <Flex 
-          mx="auto" 
           px={4} 
           py={3} 
           justify="flex-end" 
