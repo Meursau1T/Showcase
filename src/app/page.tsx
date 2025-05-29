@@ -52,7 +52,7 @@ export default async function Home({ searchParams }: PageParam) {
       </Box>
 
       {/* 产品区域 */}
-      <Box p={8}>
+      <Box p={8} className="px-[72px] md:px-6">
         <Heading as="h2" size="xl" mb={6} textAlign="center">
           {locale === 'zh' ? '产品' : 'Products'}
         </Heading>
@@ -61,11 +61,12 @@ export default async function Home({ searchParams }: PageParam) {
           gap={6} 
           wrap="wrap" 
           justify="center"
+          className="w-full"
         >
           {products.map((product) => (
             <Box 
               key={product.id}
-              w="200px" 
+              className="w-[calc(25%-18px)] min-w-[200px] max-w-[300px]"
               borderWidth="1px" 
               borderRadius="lg" 
               overflow="hidden"
