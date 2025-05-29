@@ -10,6 +10,7 @@ import {
 } from '@chakra-ui/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
 type HeaderProps = {
   locale: 'zh' | 'en';
@@ -47,6 +48,19 @@ const navItems = [
       { name: { zh: '公司专利', en: 'Patents' }, path: '/about/patents' }
     ]
   },
+  {
+    name: { zh: '语言', en: 'Lang' },
+    subItems: [
+      {
+        name: { zh: '中文', en: '中文' },
+        path: `?lang=zh`,
+      },
+      {
+        name: { zh: 'English', en: 'English' },
+        path: '?lang=en',
+      },
+    ],
+  }
 ];
 
 type ItemProp = {
@@ -109,7 +123,8 @@ const UnionMenuItem = (props: ItemProp) => {
   }
 }
 
-export function Header({ locale }: HeaderProps) {
+export function Header(props: HeaderProps) {
+  const [locale, setLocale] = useState(props.locale);
   const pathname = usePathname();
   const bg = 'white';
   const activeColor = 'var(--color-darkblue)';
