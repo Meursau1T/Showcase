@@ -1,4 +1,4 @@
-import { Box, Text } from '@chakra-ui/react';
+import { Box, Text, Image } from '@chakra-ui/react';
 import React from 'react';
 
 interface CommonDetailProps {
@@ -35,9 +35,15 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({
     <Box className="flex flex-col w-full">
       {/* 背景图片区域 */}
       <Box 
-        className="w-full h-[300px] bg-cover bg-center"
-        style={{ backgroundImage: `url(${backgroundImage})` }}
-      />
+        w="full" 
+        h="300px" 
+        bg="gray.100" 
+        display="flex" 
+        alignItems="center" 
+        justifyContent="center"
+      >
+        <Image src="/test_banner.jpg" alt="Banner" maxH="100%" w="100vw"/>
+      </Box>
       
       {/* 内容区域 */}
       <Box className="mt-8">
