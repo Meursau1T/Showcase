@@ -167,7 +167,7 @@ export default function ProductsPage() {
                 <Flex mt={8} justify="center" gap={2} flexWrap="wrap">
                   <Button
                     onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                    // isDisabled={currentPage === 1}
+                    disabled={currentPage === 1}
                     size="sm"
                   >
                     &lt;
@@ -193,7 +193,7 @@ export default function ProductsPage() {
                   
                   <Button
                     onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                    // isDisabled={currentPage === totalPages}
+                    disabled={currentPage === 1}
                     size="sm"
                   >
                     &gt;
