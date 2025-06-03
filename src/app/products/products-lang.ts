@@ -9,7 +9,8 @@ export const productsText = {
   },
   searchOptions: {
     name: { en: "Product Name", zh: "产品名称" },
-    oem: { en: "OEM Code", zh: "OEM编码" }
+    oem: { en: "OEM Code", zh: "OEM编码" },
+    label: { en: "Search Type", zh: "搜索类型" }
   },
   categories: {
     en: "Product Categories",

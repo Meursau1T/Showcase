@@ -65,15 +65,17 @@ export default function ProductsPage() {
       <Flex mb={8} gap={2} alignItems="center">
         <Select.Root 
           width="150px"
-          // value={searchType}
-          // onChange={({ value }) => setSearchType(value as "name" | "oem")}
+          onValueChange={({ value }) => setSearchType(value[0] as typeof searchType)}
           collection={searchOptionsCollection}
         >
           <Select.HiddenSelect />
           <Select.Control>
             <Select.Trigger>
-              <Select.ValueText />
+              <Select.ValueText placeholder={productsText.searchOptions.label[lang]} />
             </Select.Trigger>
+            <Select.IndicatorGroup>
+              <Select.Indicator />
+            </Select.IndicatorGroup>
           </Select.Control>
           <Select.Positioner>
             <Select.Content>
