@@ -1,5 +1,5 @@
 "use client";
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Box, Flex, Input, Button, Checkbox, Grid, Text, Select, createListCollection  } from '@chakra-ui/react';
 import { productsText } from './products-lang';
 import { getLang } from '@/utils';
@@ -39,14 +39,16 @@ export default function ProductsPage() {
 
   // 分页逻辑
   const itemsPerPage = 20;
-  const filteredProducts = mockProducts.filter(p => {
-    const matchesFilter = filters.length === 0 || filters.includes(p.category);
-    const matchesSearch = searchTerm === '' || 
-      (searchType === 'name' 
-        ? p.name.toLowerCase().includes(searchTerm.toLowerCase())
-        : p.oem.toLowerCase().includes(searchTerm.toLowerCase()));
-    return matchesFilter && matchesSearch;
-  });
+  const filteredProducts = useMemo(() =>
+    mockProducts.filter(p => {
+      const matchesFilter = filters.length === 0 || filters.includes(p.category);
+      const matchesSearch = searchTerm === '' ||
+        (searchType === 'name'
+          ? p.name.toLowerCase().includes(searchTerm.toLowerCase())
+          : p.oem.toLowerCase().includes(searchTerm.toLowerCase()));
+      return matchesFilter && matchesSearch;
+    })
+  , [mockProducts, searchType]);
   
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const paginatedProducts = filteredProducts.slice(
