@@ -1,12 +1,20 @@
 "use client";
 import { useState } from 'react';
-import { Box, Flex, Input, Select, Button, Checkbox, Grid, Text } from '@chakra-ui/react';
+import { Box, Flex, Input, Button, Checkbox, Grid, Text } from '@chakra-ui/react';
+import { Select, createListCollection } from '@chakra-ui/react';
 import { productsText } from './products-lang';
 import { PageParam } from '@/type';
 
 export default function ProductsPage({ searchParams }: PageParam) {
   const lang = searchParams?.lang === 'zh' ? 'zh' : 'en';
   
+  // 创建搜索选项集合
+  const searchOptionsCollection = createListCollection({
+    items: [
+      { label: productsText.searchOptions.name[lang], value: "name" },
+      { label: productsText.searchOptions.oem[lang], value: "oem" },
+    ],
+  });
   const [searchType, setSearchType] = useState<'name' | 'oem'>('name');
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState<string[]>([]);
@@ -56,14 +64,28 @@ export default function ProductsPage({ searchParams }: PageParam) {
 
       {/* 搜索栏 */}
       <Flex mb={8} gap={2} alignItems="center">
-        <Select 
-          width="150px" 
+        <Select.Root 
+          width="150px"
           value={searchType}
-          onChange={(e) => setSearchType(e.target.value as any)}
+          onChange={({ value }) => setSearchType(value as "name" | "oem")}
+          collection={searchOptionsCollection}
         >
-          <option value="name">{productsText.searchOptions.name[lang]}</option>
-          <option value="oem">{productsText.searchOptions.oem[lang]}</option>
-        </Select>
+          <Select.HiddenSelect />
+          <Select.Control>
+            <Select.Trigger>
+              <Select.ValueText />
+            </Select.Trigger>
+          </Select.Control>
+          <Select.Positioner>
+            <Select.Content>
+              {searchOptionsCollection.items.map((option) => (
+                <Select.Item key={option.value} item={option}>
+                  {option.label}
+                </Select.Item>
+              ))}
+            </Select.Content>
+          </Select.Positioner>
+        </Select.Root>
         
         <Input
           flex={1}
