@@ -128,3 +128,40 @@ export const Footer = async ({ locale }: Footer) => {
     </Box>
   );
 };
+
+const footerContent = {
+  en: {
+    companyName: 'UFI Aftermarket',
+    headquarters: 'Headquarters: Via Europa, 26 - 46047 Porto Mantovano (MN) - Italia',
+    commercialRegister: 'Commercial Register: MN 215768',
+    vatNumber: 'VAT Registration Number: 00221810237',
+    supportTitle: 'Support',
+    supportText: 'For any information on the new catalog or our products, please contact UFI customer service.',
+    contactUs: 'Contact us',
+    catalogTitle: 'Online Catalog',
+    oilFilters: 'Oil Filters',
+    fuelFilters: 'Fuel Filters',
+    airFilters: 'Air Filters',
+    cabinFilters: 'Cabin Filters',
+    otherFilters: 'Other Filters',
+    socialTitle: 'UFI Social',
+    copyright: (year: number) => `© ${year} UFI Aftermarket. All rights reserved.`,
+  },
+  zh: {
+    companyName: 'UFI 售后市场',
+    headquarters: '总部：意大利波河畔蒙特贝罗（MN）欧罗巴街 26 号',
+    commercialRegister: '商业注册号：MN 215768',
+    vatNumber: '增值税号：00221810237',
+    supportTitle: '支持',
+    supportText: '如需了解新产品目录或我们的产品信息，请联系 UFI 客户服务。',
+    contactUs: '联系我们',
+    catalogTitle: '在线产品目录',
+    oilFilters: '机油滤清器',
+    fuelFilters: '燃油滤清器',
+    airFilters: '空气滤清器',
+    cabinFilters: '空调滤清器',
+    otherFilters: '其他滤清器',
+    socialTitle: 'UFI 社交平台',
+    copyright: (year: number) => `© ${year} UFI 售后市场。保留所有权利。`,
+  },
+};
