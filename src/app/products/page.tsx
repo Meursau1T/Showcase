@@ -1,6 +1,6 @@
 "use client";
 import { useState, useMemo } from 'react';
-import { Box, Flex, Input, Button, Checkbox, Grid, Text, Select, createListCollection  } from '@chakra-ui/react';
+import { Box, Flex, Input, Button, Checkbox, Grid, Text, Select, createListCollection, Image } from '@chakra-ui/react';
 import { productsText } from './products-lang';
 import { getLang } from '@/utils';
 
@@ -34,7 +34,8 @@ export default function ProductsPage() {
     id: i + 1,
     name: `Product ${i + 1}`,
     oem: `OEM-${String(i+1).padStart(4, '0')}`,
-    category: productsText.filterOptions[i % 5].key
+    category: productsText.filterOptions[i % 5].key,
+    imgUrl: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png'
   }));
 
   // 分页逻辑
@@ -148,6 +149,18 @@ export default function ProductsPage() {
                       boxShadow="sm"
                       _hover={{ boxShadow: 'md' }}
                     >
+                      {/* 展示图片 */}
+                      <Box mb={3} h="150px">
+                        <Image
+                          src={product.imgUrl}
+                          alt={product.name}
+                          width="100%"
+                          height="100%"
+                          objectFit="cover"
+                          borderRadius="md"
+                        />
+                      </Box>
+
                       <Text fontWeight="medium">{product.name}</Text>
                       <Text fontSize="sm" color="gray.600" mt={1}>
                         {lang === 'zh' ? 'OEM编码: ' : 'OEM: '}{product.oem}
