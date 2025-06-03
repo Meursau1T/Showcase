@@ -117,7 +117,7 @@ export default function ProductsPage() {
             <Checkbox.Root
               variant={'solid'}
               key={option.key}
-              // checked={filters.includes(option.key)}
+              checked={filters.includes(option.key)}
               onChange={() => toggleFilter(option.key)}
             >
               <Checkbox.HiddenInput />
