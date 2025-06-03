@@ -2,10 +2,10 @@ import { PageParam } from "@/type";
 
 /** Page通过参数解析得到Lang */
 export const parseLang = async (params: PageParam['searchParams']) => {
-  const syncParams = await params;
-  if (!syncParams) {
+  if (!params) {
     return 'en';
   }
+  const syncParams = await params;
   const lang = syncParams['lang'] || 'en';
   return lang === 'zh' ? 'zh' : 'en';
 }
