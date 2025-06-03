@@ -4,15 +4,18 @@ import {
   Flex,
   Text,
   Link,
-  Button,
   Grid,
   GridItem,
   Image,
 } from '@chakra-ui/react';
-import { PageParam } from '@/type';
-import { parseLang } from '@/utils';
 
-const SocialLink = ({ href, icon, label }) => {
+type SocialLinkProps = {
+  href: string;
+  icon: string;
+  label: string;
+}
+
+const SocialLink = ({ href, icon, label }: SocialLinkProps) => {
   return (
     <Link href={href} display="flex" /**align="center" */color="gray.300">
       <Image src={icon} alt={label} boxSize="24px" mr={3} />
@@ -21,8 +24,7 @@ const SocialLink = ({ href, icon, label }) => {
   );
 };
 
-export const Footer = async ({ searchParams }: PageParam) => {
-  const lang = await parseLang(searchParams);
+export const Footer = async () => {
   const currentYear = new Date().getFullYear();
 
   return (
