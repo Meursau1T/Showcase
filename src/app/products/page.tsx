@@ -122,6 +122,7 @@ export default function ProductsPage() {
               key={option.key}
               checked={filters.includes(option.key)}
               onChange={() => toggleFilter(option.key)}
+              className="mr-[12px]"
             >
               <Checkbox.HiddenInput />
               <Checkbox.Control />
