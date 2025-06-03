@@ -8,23 +8,21 @@ import {
   Grid,
   GridItem,
   Image,
-  useColorModeValue,
 } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+import { PageParam } from '@/type';
+import { parseLang } from '@/utils';
 
 const SocialLink = ({ href, icon, label }) => {
   return (
-    <Link href={href} isExternal display="flex" align="center" color="gray.300">
+    <Link href={href} display="flex" /**align="center" */color="gray.300">
       <Image src={icon} alt={label} boxSize="24px" mr={3} />
       <Text fontSize="16px">{label}</Text>
     </Link>
   );
 };
 
-export const Footer = () => {
-  const router = useRouter();
-  const { locale } = router;
-
+export const Footer = async ({ searchParams }: PageParam) => {
+  const lang = await parseLang(searchParams);
   const currentYear = new Date().getFullYear();
 
   return (
@@ -80,15 +78,14 @@ export const Footer = () => {
           <Text fontSize="16px" mb={4}>
             For any information on the new catalog or our products, please contact UFI customer service.
           </Text>
-          <Button
-            variant="link"
+          <Link
             color="teal.300"
             fontSize="18px"
             fontWeight="semibold"
             _hover={{ color: 'teal.400' }}
           >
             Contact us
-          </Button>
+          </Link>
         </GridItem>
 
         {/* 第三列：Online Catalog */}
