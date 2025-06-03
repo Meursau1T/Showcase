@@ -106,25 +106,6 @@ export default async function Home({ searchParams }: PageParam) {
       </Box>
 
       {/* 新闻区域 */}
-      <Box className="mt-12 w-full py-8 text-white" backgroundImage={"url(https://ufi-aftermarket.com/wp-content/uploads/2018/03/bg-footer.jpg)"}>
-        <Box className="px-[24px] md:px-[144px]">
-          <Heading as="h2" size="5xl" mb={6} textAlign="center">
-            {locale === 'zh' ? '新闻' : 'NEWS'}
-          </Heading>
-          
-          <Box className="flex flex-col gap-1">
-            {news.map((item) => (
-              <Link 
-                key={item.id}
-                href={item.path}
-                className="h-[36px] flex items-center opacity-85 hover:opacity-100 px-2 rounded"
-              >
-                <Text fontSize="md">{item.title[locale]}</Text>
-              </Link>
-            ))}
-          </Box>
-        </Box>
-      </Box>
     </Box>
   );
 }
