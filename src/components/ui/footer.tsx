@@ -67,23 +67,23 @@ export const Footer = async ({ locale }: Footer) => {
               <Image src="/path-to-ufi-logo.png" alt="UFI Logo" boxSize="30px" />
             </Box>
             <Text fontSize="24px" fontWeight="bold">
-              UFI Aftermarket
+              {footerContent[locale].companyName}
             </Text>
           </Flex>
           <Text fontSize="16px" mb={2}>
-            Headquarters: Via Europa, 26 - 46047 Porto Mantovano (MN) - Italia
+            {footerContent[locale].headquarters}
           </Text>
-          <Text fontSize="14px">Commercial Register: MN 215768</Text>
-          <Text fontSize="14px">VAT Registration Number: 00221810237</Text>
+          <Text fontSize="14px">{footerContent[locale].commercialRegister}</Text>
+          <Text fontSize="14px">{footerContent[locale].vatNumber}</Text>
         </GridItem>
 
         {/* 第二列：Support */}
         <GridItem>
           <Text fontSize="24px" fontWeight="bold" mb={4}>
-            Support
+            {footerContent[locale].supportTitle}
           </Text>
           <Text fontSize="16px" mb={4}>
-            For any information on the new catalog or our products, please contact UFI customer service.
+            {footerContent[locale].supportText}
           </Text>
           <Link
             color="teal.300"
@@ -91,28 +91,38 @@ export const Footer = async ({ locale }: Footer) => {
             fontWeight="semibold"
             _hover={{ color: 'teal.400' }}
           >
-            Contact us
+            {footerContent[locale].contactUs}
           </Link>
         </GridItem>
 
         {/* 第三列：Online Catalog */}
         <GridItem>
           <Text fontSize="24px" fontWeight="bold" mb={4}>
-            Online Catalog
+            {footerContent[locale].catalogTitle}
           </Text>
           <Grid templateColumns="repeat(2, 1fr)" gapY={3} gapX={6}>
-            <Link href="#" color="gray.300" fontSize="16px">Oil Filters</Link>
-            <Link href="#" color="gray.300" fontSize="16px">Fuel Filters</Link>
-            <Link href="#" color="gray.300" fontSize="16px">Air Filters</Link>
-            <Link href="#" color="gray.300" fontSize="16px">Cabin Filters</Link>
-            <Link href="#" color="gray.300" fontSize="16px">Other Filters</Link>
+            <Link href="#" color="gray.300" fontSize="16px">
+              {footerContent[locale].oilFilters}
+            </Link>
+            <Link href="#" color="gray.300" fontSize="16px">
+              {footerContent[locale].fuelFilters}
+            </Link>
+            <Link href="#" color="gray.300" fontSize="16px">
+              {footerContent[locale].airFilters}
+            </Link>
+            <Link href="#" color="gray.300" fontSize="16px">
+              {footerContent[locale].cabinFilters}
+            </Link>
+            <Link href="#" color="gray.300" fontSize="16px">
+              {footerContent[locale].otherFilters}
+            </Link>
           </Grid>
         </GridItem>
 
         {/* 第四列：UFI Social */}
         <GridItem>
           <Text fontSize="24px" fontWeight="bold" mb={4}>
-            UFI Social
+            {footerContent[locale].socialTitle}
           </Text>
           <Flex direction="column" gap={4}>
             <SocialLink href="#" icon="/fb.svg" label="Facebook" />
@@ -123,7 +133,7 @@ export const Footer = async ({ locale }: Footer) => {
 
       {/* 版权信息 */}
       <Box textAlign="center" mt={8} fontSize="sm" color="gray.400">
-        © {currentYear} UFI Aftermarket. All rights reserved.
+        {footerContent[locale].copyright(currentYear)}
       </Box>
     </Box>
   );
