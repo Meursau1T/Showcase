@@ -115,14 +115,10 @@ export default function ProductsPage() {
           </Text>
           {productsText.filterOptions.map((option) => (
             <Checkbox.Root
-              defaultChecked
               variant={'solid'}
               key={option.key}
-              checked={filters.includes(option.key)}
+              // checked={filters.includes(option.key)}
               onChange={() => toggleFilter(option.key)}
-              display="block"
-              mb={2}
-              colorScheme="blue"
             >
               <Checkbox.HiddenInput />
               <Checkbox.Control />
