@@ -36,7 +36,7 @@ export default async function RootLayout({ children }: RootLayoutParam) {
           <Box as="main" pt="60px" className="min-h-screen">
             {children}
           </Box>
-          <Footer />
+          <Footer locale={locale as Lang}/>
         </Provider>
       </body>
     </html>

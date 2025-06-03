@@ -15,6 +15,10 @@ type SocialLinkProps = {
   label: string;
 }
 
+type Footer = {
+  locale: 'zh' | 'en';
+}
+
 const SocialLink = ({ href, icon, label }: SocialLinkProps) => {
   return (
     <Link href={href} display="flex" /**align="center" */color="gray.300">
@@ -24,7 +28,8 @@ const SocialLink = ({ href, icon, label }: SocialLinkProps) => {
   );
 };
 
-export const Footer = async () => {
+
+export const Footer = async ({ locale }: Footer) => {
   const currentYear = new Date().getFullYear();
 
   return (
@@ -110,12 +115,8 @@ export const Footer = async () => {
             UFI Social
           </Text>
           <Flex direction="column" gap={4}>
-            <SocialLink href="#" icon="/path-to-facebook.png" label="Facebook" />
-            <SocialLink href="#" icon="/path-to-youtube.png" label="YouTube" />
-            <SocialLink href="#" icon="/path-to-linkedin.png" label="LinkedIn" />
-            <SocialLink href="#" icon="/path-to-wechat.png" label="WeChat" />
-            <SocialLink href="#" icon="/path-to-instagram.png" label="Instagram" />
-            <SocialLink href="#" icon="/path-to-vk.png" label="VK" />
+            <SocialLink href="#" icon="/fb.svg" label="Facebook" />
+            <SocialLink href="#" icon="/wechat.svg" label="WeChat" />
           </Flex>
         </GridItem>
       </Grid>
