@@ -33,7 +33,7 @@ export default async function RootLayout({ children }: RootLayoutParam) {
       >
         <Provider>
           <Header locale={locale as Lang} />
-          <Box as="main" pt="60px">
+          <Box as="main" pt="60px" className="min-h-screen">
             {children}
           </Box>
           <Footer />
