@@ -1,12 +1,11 @@
 "use client";
 import { useState } from 'react';
-import { Box, Flex, Input, Button, Checkbox, Grid, Text } from '@chakra-ui/react';
-import { Select, createListCollection } from '@chakra-ui/react';
+import { Box, Flex, Input, Button, Checkbox, Grid, Text, Select, createListCollection  } from '@chakra-ui/react';
 import { productsText } from './products-lang';
-import { PageParam } from '@/type';
+import { getLang } from '@/utils';
 
-export default function ProductsPage({ searchParams }: PageParam) {
-  const lang = searchParams?.lang === 'zh' ? 'zh' : 'en';
+export default function ProductsPage() {
+  const lang = getLang();
   
   // 创建搜索选项集合
   const searchOptionsCollection = createListCollection({
@@ -66,8 +65,8 @@ export default function ProductsPage({ searchParams }: PageParam) {
       <Flex mb={8} gap={2} alignItems="center">
         <Select.Root 
           width="150px"
-          value={searchType}
-          onChange={({ value }) => setSearchType(value as "name" | "oem")}
+          // value={searchType}
+          // onChange={({ value }) => setSearchType(value as "name" | "oem")}
           collection={searchOptionsCollection}
         >
           <Select.HiddenSelect />
@@ -113,16 +112,20 @@ export default function ProductsPage({ searchParams }: PageParam) {
             {productsText.categories[lang]}
           </Text>
           {productsText.filterOptions.map((option) => (
-            <Checkbox
+            <Checkbox.Root
+              defaultChecked
+              variant={'solid'}
               key={option.key}
-              isChecked={filters.includes(option.key)}
+              checked={filters.includes(option.key)}
               onChange={() => toggleFilter(option.key)}
               display="block"
               mb={2}
               colorScheme="blue"
             >
-              {option[lang]}
-            </Checkbox>
+              <Checkbox.HiddenInput />
+              <Checkbox.Control />
+              <Checkbox.Label>{option[lang]}</Checkbox.Label>
+            </Checkbox.Root>
           ))}
         </Box>
 
@@ -162,7 +165,7 @@ export default function ProductsPage({ searchParams }: PageParam) {
                 <Flex mt={8} justify="center" gap={2} flexWrap="wrap">
                   <Button
                     onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                    isDisabled={currentPage === 1}
+                    // isDisabled={currentPage === 1}
                     size="sm"
                   >
                     &lt;
@@ -188,7 +191,7 @@ export default function ProductsPage({ searchParams }: PageParam) {
                   
                   <Button
                     onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                    isDisabled={currentPage === totalPages}
+                    // isDisabled={currentPage === totalPages}
                     size="sm"
                   >
                     &gt;

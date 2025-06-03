@@ -1,5 +1,5 @@
 import { CommonDetail } from '@/components/ui/common-detail';
-import { ParseLang } from '@/utils/parse-lang';
+import { parseLang } from '@/utils/parse-lang';
 import type { PageParam } from '@/type';
 
 // 定义文化内容的数据结构
@@ -10,7 +10,7 @@ interface CultureContent {
 }
 
 export default async function AboutCulturePage({ searchParams }: PageParam) {
-  const lang = await ParseLang(searchParams);
+  const lang = await parseLang(searchParams);
   
   // 定义不同语言的文化内容
   const cultureContent: Record<string, CultureContent> = {

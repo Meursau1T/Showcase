@@ -1,5 +1,5 @@
 import type { PageParam } from '@/type';
-import { ParseLang } from '@/utils';
+import { parseLang } from '@/utils';
 import { Flex, Heading, Box, Image, Text, Card } from '@chakra-ui/react';
 import Link from 'next/link';
 
@@ -65,7 +65,7 @@ const news = [
 ];
 
 export default async function Home({ searchParams }: PageParam) {
-  const locale = await ParseLang(searchParams);
+  const locale = await parseLang(searchParams);
   
   return (
     <Box as="main" className="flex min-h-screen flex-col">
