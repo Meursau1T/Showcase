@@ -118,15 +118,15 @@ export const Footer = async ({ locale }: Footer) => {
 
 const footerContent = {
   en: {
-    companyName: 'UFI Aftermarket',
-    headquarters: 'Headquarters: Via Europa, 26 - 46047 Porto Mantovano (MN) - Italia',
-    commercialRegister: 'Commercial Register: MN 215768',
-    vatNumber: 'VAT Registration Number: 00221810237',
+    companyName: 'Dongguan Yuming Filter Products Co., Ltd.',
+    headquarters: 'Address: Building M, Xiaqiao Industrial Park, Dongcheng District, Dongguan City, Guangdong Province',
+    commercialRegister: 'Phone: 0769-82208192 82208193',
+    vatNumber: 'Fax: 0769-82208190',
     supportTitle: 'Support',
     supportText: 'For any information on the new catalog or our products, please contact UFI customer service.',
     contactUs: 'Contact us',
     socialTitle: 'Social',
-    copyright: (year: number) => `© ${year} UFI Aftermarket. All rights reserved.`,
+    copyright: (year: number) => `© ${year} Dongguan Yuming Filter Products Co., Ltd. All rights reserved.`,
   },
   zh: {
     companyName: '东莞市钰铭滤清器制品有限公司',
