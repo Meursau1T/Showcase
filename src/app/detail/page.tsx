@@ -1,4 +1,4 @@
-import { Box, Flex, Text, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/react';
+import { Box, Flex, Text, Table } from '@chakra-ui/react';
 
 export default function DetailPage() {
   // MOCK 数据
