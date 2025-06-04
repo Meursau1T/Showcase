@@ -117,11 +117,11 @@ const footerContent = {
   zh: {
     companyName: '东莞市钰铭滤清器制品有限公司',
     headquarters: '地址: 广东省东莞市东城区下桥工业园M栋',
-    commercialRegister: '电话: 0769-82208192 82208193',
-    vatNumber: '传真: 0769-82208190',
-    supportTitle: '支持',
-    supportText: '如需了解新产品目录或我们的产品信息，请联系 UFI 客户服务。',
-    contactUs: '联系我们',
+    phoneNumber: '电话: 0769-82208192 82208193',
+    faxNumber: '传真: 0769-82208190',
+    contact: '联系人: 宋先生',
+    postal: '邮编: 523466'
+    email: '邮箱: song761214@163.com'
     socialTitle: '社交平台',
     copyright: (year: number) => `版权所有 © ${year} 东莞市钰铭滤清器制品有限公司`,
   },
