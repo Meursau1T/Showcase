@@ -44,46 +44,51 @@ export const Footer = async ({ locale }: Footer) => {
       color="white"
       px={{ base: '6', md: '36' }}
     >
-      {/* 四列布局 */}
-      <Grid
-        templateColumns={{ base: '1fr', md: 'repeat(4, 1fr)' }}
-        gap={{ base: '12', md: '0' }}
+      {/* 三列 Flex 布局 */}
+      <Flex
+        direction={{ base: 'column', md: 'row' }}
+        gap={{ base: '8', md: '0' }}
         justifyContent="space-between"
         alignItems="start"
+        wrap="nowrap"
       >
         {/* 第一列：公司信息 */}
-        <GridItem>
+        <Flex
+          direction="column"
+          minW={{ md: '250px' }}
+        >
           <Text fontSize="24px" fontWeight="bold">
             {footerContent[locale].companyName}
           </Text>
           <Text fontSize="16px" mb={2}>
             {footerContent[locale].headquarters}
           </Text>
-          <Text fontSize="14px">{footerContent[locale].commercialRegister}</Text>
-          <Text fontSize="14px">{footerContent[locale].vatNumber}</Text>
-        </GridItem>
+        </Flex>
 
-        {/* 第二列：Support */}
-        <GridItem>
+        {/* 第二列：联系方式 */}
+        <Flex direction="column" minW={{ md: '200px' }}>
           <Text fontSize="24px" fontWeight="bold" mb={4}>
-            {footerContent[locale].supportTitle}
+            Contact Info
           </Text>
-          <Text fontSize="16px" mb={4}>
-            {footerContent[locale].supportText}
+          <Text fontSize="14px" mb={2}>
+            {footerContent[locale].phoneNumber}
           </Text>
-          <Link
-            color="teal.300"
-            fontSize="18px"
-            fontWeight="semibold"
-            _hover={{ color: 'teal.400' }}
-          >
-            {footerContent[locale].contactUs}
-          </Link>
-        </GridItem>
+          <Text fontSize="14px" mb={2}>
+            {footerContent[locale].faxNumber}
+          </Text>
+          <Text fontSize="14px" mb={2}>
+            {footerContent[locale].contact}
+          </Text>
+          <Text fontSize="14px" mb={2}>
+            {footerContent[locale].postal}
+          </Text>
+          <Text fontSize="14px">
+            {footerContent[locale].email}
+          </Text>
+        </Flex>
 
-
-        {/* 第四列：UFI Social */}
-        <GridItem>
+        {/* 第三列：UFI Social */}
+        <Flex direction="column" minW={{ md: '200px' }}>
           <Text fontSize="24px" fontWeight="bold" mb={4}>
             {footerContent[locale].socialTitle}
           </Text>
@@ -91,8 +96,8 @@ export const Footer = async ({ locale }: Footer) => {
             <SocialLink href="#" icon="/fb.svg" label="Facebook" />
             <SocialLink href="#" icon="/wechat.svg" label="WeChat" />
           </Flex>
-        </GridItem>
-      </Grid>
+        </Flex>
+      </Flex>
 
       {/* 版权信息 */}
       <Box textAlign="center" mt={8} fontSize="sm" color="gray.400">
