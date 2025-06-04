@@ -112,7 +112,7 @@ export default function ProductsPage() {
       {/* 内容区 */}
       <Grid templateColumns={{ base: "1fr", md: "200px 1fr" }} gap={6}>
         {/* 筛选侧边栏 */}
-        <Box bg="gray.50" p={4} borderRadius="md">
+        <Box bg="gray.50" p={4} borderRadius="xs">
           <Text fontWeight="bold" mb={3} fontSize="lg">
             {productsText.categories[lang]}
           </Text>
@@ -146,7 +146,7 @@ export default function ProductsPage() {
                       key={product.id} 
                       borderWidth="1px" 
                       p={4} 
-                      borderRadius="md"
+                      borderRadius="xs"
                       boxShadow="sm"
                       _hover={{ boxShadow: 'md' }}
                     >
@@ -158,7 +158,7 @@ export default function ProductsPage() {
                           width="100%"
                           height="100%"
                           objectFit="cover"
-                          borderRadius="md"
+                          borderRadius="xs"
                         />
                       </Box>
 

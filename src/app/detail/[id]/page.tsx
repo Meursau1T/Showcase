@@ -1,5 +1,6 @@
 import { Box, Flex, Text, Table, Heading } from '@chakra-ui/react';
-import { parseLang } from '@/lib/lang'; // 假设 parseLang 在 lib/lang.ts 中定义
+import { parseLang } from '@/utils';
+import { PageParam } from '@/type';
 
 // 标题多语言内容
 const titles = {
@@ -13,7 +14,7 @@ const titles = {
   },
 };
 
-export default async function DetailPage({ searchParams }: { searchParams: Record<string, string> }) {
+export default async function DetailPage({ searchParams }: PageParam) {
   const lang = await parseLang(searchParams);
 
   // MOCK 数据
@@ -41,8 +42,7 @@ export default async function DetailPage({ searchParams }: { searchParams: Recor
             <Box
               w="full"
               h="full"
-              bg="gray.200"
-              borderRadius="md"
+              borderRadius="xs"
               overflow="hidden"
               boxShadow="md"
             >
