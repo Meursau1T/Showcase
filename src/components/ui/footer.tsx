@@ -70,33 +70,20 @@ export const Footer = async ({ locale }: Footer) => {
           <Text fontSize="24px" fontWeight="bold" mb={4}>
             Contact Info
           </Text>
-          <Text fontSize="14px" mb={2}>
-            {footerContent[locale].phoneNumber}
-          </Text>
-          <Text fontSize="14px" mb={2}>
-            {footerContent[locale].faxNumber}
-          </Text>
-          <Text fontSize="14px" mb={2}>
-            {footerContent[locale].contact}
-          </Text>
-          <Text fontSize="14px" mb={2}>
-            {footerContent[locale].postal}
-          </Text>
-          <Text fontSize="14px">
-            {footerContent[locale].email}
-          </Text>
-        </Flex>
-
-        {/* 第三列：UFI Social */}
-        <Flex direction="column" minW={{ md: '200px' }}>
-          <Text fontSize="24px" fontWeight="bold" mb={4}>
-            {footerContent[locale].socialTitle}
-          </Text>
-          <Flex direction="column" gap={4}>
-            <SocialLink href="#" icon="/fb.svg" label="Facebook" />
-            <SocialLink href="#" icon="/wechat.svg" label="WeChat" />
+          <Flex direction="row" justifyContent="space-between">
+            <Flex direction="column" gap={2} flex="1">
+              <Text fontSize="14px">{footerContent[locale].phoneNumber}</Text>
+              <Text fontSize="14px">{footerContent[locale].faxNumber}</Text>
+              <Text fontSize="14px">{footerContent[locale].contact}</Text>
+            </Flex>
+            <Flex direction="column" gap={2} flex="1">
+              <Text fontSize="14px">{footerContent[locale].postal}</Text>
+              <Text fontSize="14px">{footerContent[locale].email}</Text>
+              <Text fontSize="14px">{footerContent[locale].wechat}</Text>
+            </Flex>
           </Flex>
         </Flex>
+
       </Flex>
 
       {/* 版权信息 */}
@@ -116,6 +103,7 @@ const footerContent = {
     contact: 'Contact: Mr. Song',
     postal: 'Postal Code: 523466',
     email: 'Email: song761214@163.com',
+    wechat: 'WeChat: example_wechat_id',
     socialTitle: 'Social',
     copyright: (year: number) => `© ${year} Dongguan Yuming Filter Products Co., Ltd. All rights reserved.`,
   },
@@ -127,6 +115,7 @@ const footerContent = {
     contact: '联系人: 宋先生',
     postal: '邮编: 523466',
     email: '邮箱: song761214@163.com',
+    wechat: '微信: example_wechat_id',
     socialTitle: '社交平台',
     copyright: (year: number) => `版权所有 © ${year} 东莞市钰铭滤清器制品有限公司`,
   },
