@@ -47,18 +47,22 @@ export default function DetailPage() {
 
             {/* 表格 */}
             <Box overflowX="auto">
-              <Table variant="simple" size="md" borderColor="gray.300">
-                <Tbody>
+              <Table.Root size="md">
+                <Table.Header>
+                  <Table.Row>
+                    <Table.ColumnHeader fontWeight="bold">名称</Table.ColumnHeader>
+                    <Table.ColumnHeader>值</Table.ColumnHeader>
+                  </Table.Row>
+                </Table.Header>
+                <Table.Body>
                   {data.table.map((item, index) => (
-                    <Tr key={index}>
-                      <Th borderColor="gray.300" fontWeight="bold" width="120px">
-                        {item.title}
-                      </Th>
-                      <Td borderColor="gray.300">{item.value}</Td>
-                    </Tr>
+                    <Table.Row key={index}>
+                      <Table.Cell>{item.title}</Table.Cell>
+                      <Table.Cell>{item.value}</Table.Cell>
+                    </Table.Row>
                   ))}
-                </Tbody>
-              </Table>
+                </Table.Body>
+              </Table.Root>
             </Box>
           </Box>
         </Flex>
