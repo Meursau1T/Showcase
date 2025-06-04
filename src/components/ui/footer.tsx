@@ -53,23 +53,9 @@ export const Footer = async ({ locale }: Footer) => {
       >
         {/* 第一列：公司信息 */}
         <GridItem>
-          <Flex align="center" mb={4}>
-            <Box
-              w="40px"
-              h="40px"
-              bg="white"
-              mr={5}
-              display="flex"
-              alignItems="center"
-              justifyContent="center"
-            >
-              {/* 品牌图标 */}
-              <Image src="/path-to-ufi-logo.png" alt="UFI Logo" boxSize="30px" />
-            </Box>
-            <Text fontSize="24px" fontWeight="bold">
-              {footerContent[locale].companyName}
-            </Text>
-          </Flex>
+          <Text fontSize="24px" fontWeight="bold">
+            {footerContent[locale].companyName}
+          </Text>
           <Text fontSize="16px" mb={2}>
             {footerContent[locale].headquarters}
           </Text>
