@@ -3,7 +3,7 @@ import { Box, Flex, Text, Table, Thead, Tbody, Tr, Th, Td } from '@chakra-ui/rea
 export default function DetailPage() {
   // MOCK 数据
   const data = {
-    img: 'https://via.placeholder.com/400x600',
+    img: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png',
     text: '这是一段关于产品的详细介绍文本。你可以在这里写产品的功能、特点、优势等内容。',
     table: [
       { title: '品牌', value: '钰铭' },
