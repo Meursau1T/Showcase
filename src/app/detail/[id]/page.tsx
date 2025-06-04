@@ -1,6 +1,21 @@
-import { Box, Flex, Text, Table } from '@chakra-ui/react';
+import { Box, Flex, Text, Table, Heading } from '@chakra-ui/react';
+import { parseLang } from '@/lib/lang'; // 假设 parseLang 在 lib/lang.ts 中定义
 
-export default function DetailPage() {
+// 标题多语言内容
+const titles = {
+  zh: {
+    description: '产品描述',
+    specifications: '产品参数',
+  },
+  en: {
+    description: 'Product Description',
+    specifications: 'Specifications',
+  },
+};
+
+export default async function DetailPage({ searchParams }: { searchParams: Record<string, string> }) {
+  const lang = await parseLang(searchParams);
+
   // MOCK 数据
   const data = {
     img: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png',
@@ -16,8 +31,9 @@ export default function DetailPage() {
   };
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-center p-12 font-[family-name:var(--font-geist-sans)]">
-      <Box w="full" maxW="1200px" mx="auto">
+    <main className="flex flex-col w-full p-8 md:p-12 pt-8 md:pt-12 font-[family-name:var(--font-geist-sans)]">
+      {/* 页面内容顶部间距 */}
+      <Box mt="8" maxW="1200px" mx="auto" w="full">
         {/* 左右布局 */}
         <Flex direction={{ base: 'column', md: 'row' }} gap="12" alignItems="start">
           {/* 左侧图片区域 */}
@@ -40,10 +56,18 @@ export default function DetailPage() {
 
           {/* 右侧商品描述区域 */}
           <Box w="full" flex="1" display="flex" flexDirection="column" gap="6">
-            {/* 文本描述 */}
+            {/* 文本描述标题 */}
+            <Heading as="h2" size="lg" fontWeight="bold">
+              {titles[lang].description}
+            </Heading>
             <Text fontSize="lg" color="gray.700" lineHeight="1.8">
               {data.text}
             </Text>
+
+            {/* 表格标题 */}
+            <Heading as="h3" size="md" fontWeight="bold" mt="6">
+              {titles[lang].specifications}
+            </Heading>
 
             {/* 表格 */}
             <Box overflowX="auto">
