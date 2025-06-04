@@ -106,11 +106,11 @@ const footerContent = {
   en: {
     companyName: 'Dongguan Yuming Filter Products Co., Ltd.',
     headquarters: 'Address: Building M, Xiaqiao Industrial Park, Dongcheng District, Dongguan City, Guangdong Province',
-    commercialRegister: 'Phone: 0769-82208192 82208193',
-    vatNumber: 'Fax: 0769-82208190',
-    supportTitle: 'Support',
-    supportText: 'For any information on the new catalog or our products, please contact UFI customer service.',
-    contactUs: 'Contact us',
+    phoneNumber: 'Phone: 0769-82208192 82208193',
+    faxNumber: 'Fax: 0769-82208190',
+    contact: 'Contact: Mr. Song',
+    postal: 'Postal Code: 523466',
+    email: 'Email: song761214@163.com',
     socialTitle: 'Social',
     copyright: (year: number) => `© ${year} Dongguan Yuming Filter Products Co., Ltd. All rights reserved.`,
   },
@@ -120,8 +120,8 @@ const footerContent = {
     phoneNumber: '电话: 0769-82208192 82208193',
     faxNumber: '传真: 0769-82208190',
     contact: '联系人: 宋先生',
-    postal: '邮编: 523466'
-    email: '邮箱: song761214@163.com'
+    postal: '邮编: 523466',
+    email: '邮箱: song761214@163.com',
     socialTitle: '社交平台',
     copyright: (year: number) => `版权所有 © ${year} 东莞市钰铭滤清器制品有限公司`,
   },
