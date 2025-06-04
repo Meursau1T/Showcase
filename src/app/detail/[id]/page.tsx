@@ -36,9 +36,9 @@ export default async function DetailPage({ searchParams }: PageParam) {
       {/* 页面内容顶部间距 */}
       <Box mt="8" maxW="1200px" mx="auto" w="full">
         {/* 左右布局 */}
-        <Flex direction={{ base: 'column', md: 'row' }} gap="12" alignItems="start">
-          {/* 左侧图片区域 */}
-          <Box w={{ base: 'full', md: '400px' }} h="full" flexShrink={0}>
+        <Flex direction={{ base: 'column', md: 'row' }} gap="12" alignItems="start" w="full">
+          {/* 左侧图片区域，占据剩余空间 */}
+          <Box flex="1" minW="0" h="full">
             <Box
               w="full"
               h="full"
@@ -54,8 +54,8 @@ export default async function DetailPage({ searchParams }: PageParam) {
             </Box>
           </Box>
 
-          {/* 右侧商品描述区域 */}
-          <Box w="full" flex="1" display="flex" flexDirection="column" gap="6">
+          {/* 右侧商品描述区域，固定宽度 630px */}
+          <Box w="630px" display="flex" flexDirection="column" gap="6">
             {/* 文本描述标题 */}
             <Heading as="h2" size="lg" fontWeight="bold">
               {titles[lang].description}
