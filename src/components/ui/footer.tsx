@@ -95,29 +95,6 @@ export const Footer = async ({ locale }: Footer) => {
           </Link>
         </GridItem>
 
-        {/* 第三列：Online Catalog */}
-        <GridItem>
-          <Text fontSize="24px" fontWeight="bold" mb={4}>
-            {footerContent[locale].catalogTitle}
-          </Text>
-          <Grid templateColumns="repeat(2, 1fr)" gapY={3} gapX={6}>
-            <Link href="#" color="gray.300" fontSize="16px">
-              {footerContent[locale].oilFilters}
-            </Link>
-            <Link href="#" color="gray.300" fontSize="16px">
-              {footerContent[locale].fuelFilters}
-            </Link>
-            <Link href="#" color="gray.300" fontSize="16px">
-              {footerContent[locale].airFilters}
-            </Link>
-            <Link href="#" color="gray.300" fontSize="16px">
-              {footerContent[locale].cabinFilters}
-            </Link>
-            <Link href="#" color="gray.300" fontSize="16px">
-              {footerContent[locale].otherFilters}
-            </Link>
-          </Grid>
-        </GridItem>
 
         {/* 第四列：UFI Social */}
         <GridItem>
@@ -148,30 +125,18 @@ const footerContent = {
     supportTitle: 'Support',
     supportText: 'For any information on the new catalog or our products, please contact UFI customer service.',
     contactUs: 'Contact us',
-    catalogTitle: 'Online Catalog',
-    oilFilters: 'Oil Filters',
-    fuelFilters: 'Fuel Filters',
-    airFilters: 'Air Filters',
-    cabinFilters: 'Cabin Filters',
-    otherFilters: 'Other Filters',
-    socialTitle: 'UFI Social',
+    socialTitle: 'Social',
     copyright: (year: number) => `© ${year} UFI Aftermarket. All rights reserved.`,
   },
   zh: {
-    companyName: 'UFI 售后市场',
-    headquarters: '总部：意大利波河畔蒙特贝罗（MN）欧罗巴街 26 号',
-    commercialRegister: '商业注册号：MN 215768',
-    vatNumber: '增值税号：00221810237',
+    companyName: '东莞市钰铭滤清器制品有限公司',
+    headquarters: '地址: 广东省东莞市东城区下桥工业园M栋',
+    commercialRegister: '电话: 0769-82208192 82208193',
+    vatNumber: '传真: 0769-82208190',
     supportTitle: '支持',
     supportText: '如需了解新产品目录或我们的产品信息，请联系 UFI 客户服务。',
     contactUs: '联系我们',
-    catalogTitle: '在线产品目录',
-    oilFilters: '机油滤清器',
-    fuelFilters: '燃油滤清器',
-    airFilters: '空气滤清器',
-    cabinFilters: '空调滤清器',
-    otherFilters: '其他滤清器',
-    socialTitle: 'UFI 社交平台',
-    copyright: (year: number) => `© ${year} UFI 售后市场。保留所有权利。`,
+    socialTitle: '社交平台',
+    copyright: (year: number) => `版权所有 © ${year} 东莞市钰铭滤清器制品有限公司`,
   },
 };
