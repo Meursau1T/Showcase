@@ -34,11 +34,11 @@ export default async function DetailPage({ searchParams }: PageParam) {
   return (
     <main className="flex flex-col w-full p-8 md:p-12 pt-8 md:pt-12 font-[family-name:var(--font-geist-sans)]">
       {/* 页面内容顶部间距 */}
-      <Box mt="8" maxW="1200px" mx="auto" w="full">
+      <Box mt="8" w="full">
         {/* 左右布局 */}
         <Flex direction={{ base: 'column', md: 'row' }} gap="12" alignItems="start" w="full">
           {/* 左侧图片区域，占据剩余空间 */}
-          <Box flex="1" minW="0" h="full">
+          <Box flex="1" minW="400px" h="full">
             <Box
               w="full"
               h="full"
