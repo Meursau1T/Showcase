@@ -46,8 +46,8 @@ export const Footer = async ({ locale }: Footer) => {
     >
       {/* 三列 Flex 布局 */}
       <Flex
+        className="gap-[8px]"
         direction={{ base: 'column', md: 'row' }}
-        gap={{ base: '8', md: '0' }}
         justifyContent="space-between"
         alignItems="start"
         wrap="nowrap"
@@ -70,13 +70,13 @@ export const Footer = async ({ locale }: Footer) => {
           <Text fontSize="24px" fontWeight="bold" mb={4}>
             Contact Info
           </Text>
-          <Flex direction="row" justifyContent="space-between">
-            <Flex direction="column" gap={2} flex="1">
+          <Flex className="gap-[8px]" direction="row" justifyContent="space-between">
+            <Flex className="min-w-[150px]" direction="column" gap={2} flex="1">
               <Text fontSize="14px">{footerContent[locale].phoneNumber}</Text>
               <Text fontSize="14px">{footerContent[locale].faxNumber}</Text>
               <Text fontSize="14px">{footerContent[locale].contact}</Text>
             </Flex>
-            <Flex direction="column" gap={2} flex="1">
+            <Flex className="min-w-[270px]" direction="column" gap={2} flex="1">
               <Text fontSize="14px">{footerContent[locale].postal}</Text>
               <Text fontSize="14px">{footerContent[locale].email}</Text>
               <Text fontSize="14px">{footerContent[locale].wechat}</Text>
@@ -98,7 +98,7 @@ const footerContent = {
   en: {
     companyName: 'Dongguan Yuming Filter Products Co., Ltd.',
     headquarters: 'Address: Building M, Xiaqiao Industrial Park, Dongcheng District, Dongguan City, Guangdong Province',
-    phoneNumber: 'Phone: 0769-82208192 82208193',
+    phoneNumber: 'Phone: 0769-82208192',
     faxNumber: 'Fax: 0769-82208190',
     contact: 'Contact: Mr. Song',
     postal: 'Postal Code: 523466',
@@ -110,7 +110,7 @@ const footerContent = {
   zh: {
     companyName: '东莞市钰铭滤清器制品有限公司',
     headquarters: '地址: 广东省东莞市东城区下桥工业园M栋',
-    phoneNumber: '电话: 0769-82208192 82208193',
+    phoneNumber: '电话: 0769-82208192',
     faxNumber: '传真: 0769-82208190',
     contact: '联系人: 宋先生',
     postal: '邮编: 523466',
