@@ -38,6 +38,7 @@ const products = [
 export default async function Home({ searchParams }: PageParam) {
   const locale = await parseLang(searchParams);
   const bannerStorage = await prisma.main_page.findFirst();
+  const categoryStorage = await prisma.category.findMany();
   
   return (
     <Box as="main" className="flex min-h-screen flex-col">
