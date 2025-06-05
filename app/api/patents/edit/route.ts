@@ -1,0 +1,34 @@
+import { NextRequest } from 'next/server';
+import { prisma } from '@/utils';
+
+export async function POST(request: NextRequest) {
+  try {
+    const body = await request.json();
+    const { id, data } = body;
+
+    if (!data) {
+      return new Response(JSON.stringify({ error: 'Missing data' }), {
+        status: 400,
+      });
+    }
+
+    const result = await prisma.patent.upsert({
+      where: { id: id ? Number(id) : -1 },
+      update: { data },
+      create: {
+        data,
+        title: typeof data.title === 'string' ? data.title : 'Untitled Patent',
+      },
+    });
+
+    return new Response(JSON.stringify({ data: result }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
+  } catch (error) {
+    console.error('Error editing patent:', error);
+    return new Response(JSON.stringify({ error: 'Failed to edit patent' }), {
+      status: 500,
+    });
+  }
+}
