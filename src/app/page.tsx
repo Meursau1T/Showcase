@@ -1,5 +1,5 @@
 import type { PageParam } from '@/type';
-import { parseLang } from '@/utils';
+import { parseLang, prisma } from '@/utils';
 import { Flex, Heading, Box, Image, Card } from '@chakra-ui/react';
 
 const products = [
@@ -37,6 +37,7 @@ const products = [
 
 export default async function Home({ searchParams }: PageParam) {
   const locale = await parseLang(searchParams);
+  const bannerStorage = await prisma.main_page.findFirst();
   
   return (
     <Box as="main" className="flex min-h-screen flex-col">
@@ -49,7 +50,7 @@ export default async function Home({ searchParams }: PageParam) {
         alignItems="center" 
         justifyContent="center"
       >
-        <Image src="/test_banner.jpg" alt="Banner" maxH="100%" w="100vw"/>
+        <Image src={bannerStorage?.banner || '/test_banner.jpg'} alt="Banner" maxH="100%" w="100vw"/>
       </Box>
 
       {/* 产品区域 */}
