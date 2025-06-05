@@ -51,7 +51,7 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({
   return (
     <Box className="flex flex-col w-full">
       {/* 背景图片区域 */}
-      <Box 
+      {backgroundImage && <Box 
         w="full" 
         h="300px" 
         bg="gray.100" 
@@ -60,7 +60,7 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({
         justifyContent="center"
       >
         <Image src={backgroundImage} alt="Banner" maxH="100%" w="100vw" objectFit="cover"/>
-      </Box>
+      </Box>}
       
       {/* 内容区域 */}
       {contentElement}

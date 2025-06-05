@@ -28,3 +28,29 @@ model category {
   types    Json
   types_en Json
 }
+
+model culture {
+  id       Int       @id @default(autoincrement())
+  data    Json
+}
+
+model brand {
+  id       Int       @id @default(autoincrement())
+  data    Json
+}
+
+model profile {
+  id       Int       @id @default(autoincrement())
+  data    Json
+}
+
+model structure {
+  id       Int       @id @default(autoincrement())
+  data    Json
+}
+
+model patents {
+  id       Int       @id @default(autoincrement())
+  data    Json
+}
+
