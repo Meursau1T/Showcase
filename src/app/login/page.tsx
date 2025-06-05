@@ -1,3 +1,5 @@
+'use client'
+
 import { Box, Flex, Input, Button, Text, FormErrorMessage } from '@chakra-ui/react';
 import { PageParam } from '@/type';
 import { parseLang } from '@/utils';
