@@ -12,13 +12,10 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    const result = await prisma.patent.upsert({
+    const result = await prisma.patents.upsert({
       where: { id: id ? Number(id) : -1 },
       update: { data },
-      create: {
-        data,
-        title: typeof data.title === 'string' ? data.title : 'Untitled Patent',
-      },
+      create: { data },
     });
 
     return new Response(JSON.stringify({ data: result }), {

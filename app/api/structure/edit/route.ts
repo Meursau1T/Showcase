@@ -15,10 +15,7 @@ export async function POST(request: NextRequest) {
     const result = await prisma.structure.upsert({
       where: { id: id ? Number(id) : -1 },
       update: { data },
-      create: {
-        data,
-        title: typeof data.title === 'string' ? data.title : 'Untitled Structure',
-      },
+      create: { data },
     });
 
     return new Response(JSON.stringify({ data: result }), {

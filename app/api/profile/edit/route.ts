@@ -15,10 +15,7 @@ export async function POST(request: NextRequest) {
     const result = await prisma.profile.upsert({
       where: { id: id ? Number(id) : -1 },
       update: { data },
-      create: {
-        data,
-        name: typeof data.name === 'string' ? data.name : 'Untitled Profile',
-      },
+      create: { data },
     });
 
     return new Response(JSON.stringify({ data: result }), {

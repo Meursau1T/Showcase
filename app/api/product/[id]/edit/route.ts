@@ -1,11 +1,11 @@
 import { NextRequest } from 'next/server';
 import { prisma } from '@/utils';
 
-export async function POST(request: NextRequest, { params }: { params: { id: string } }) {
+export async function POST(request: NextRequest, { params }: { params: { name: string } }) {
   try {
     const body = await request.json();
     const { data } = body;
-    const id = params.id;
+    const { name } = params;
 
     if (!data) {
       return new Response(JSON.stringify({ error: 'Missing data' }), {
@@ -13,14 +13,15 @@ export async function POST(request: NextRequest, { params }: { params: { id: str
       });
     }
 
-    const result = await prisma.product.upsert({
-      where: { id: Number(id) },
-      update: { data },
-      create: {
-        id: Number(id),
-        data,
-      },
-    });
+    const result = 'TODO';
+    // const result = await prisma.product.upsert({
+    //   where: { name },
+    //   update: { data },
+    //   create: {
+    //     id: Number(id),
+    //     data,
+    //   },
+    // });
 
     return new Response(JSON.stringify({ data: result }), {
       status: 200,
