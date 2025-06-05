@@ -36,34 +36,6 @@ const products = [
   }
 ];
 
-const news = [
-  {
-    id: 1,
-    title: { zh: '新闻标题1', en: 'News Title 1' },
-    path: '/news/1'
-  },
-  {
-    id: 2, 
-    title: { zh: '新闻标题2', en: 'News Title 2' },
-    path: '/news/2'
-  },
-  {
-    id: 3,
-    title: { zh: '新闻标题3', en: 'News Title 3' },
-    path: '/news/3'
-  },
-  {
-    id: 4,
-    title: { zh: '新闻标题4', en: 'News Title 4' },
-    path: '/news/4'
-  },
-  {
-    id: 5,
-    title: { zh: '新闻标题5', en: 'News Title 5' },
-    path: '/news/5'
-  }
-];
-
 export default async function Home({ searchParams }: PageParam) {
   const locale = await parseLang(searchParams);
   
