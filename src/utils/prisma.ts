@@ -29,12 +29,12 @@ function containsAllKeys(obj1: Record<string, any>, obj2: Record<string, any>): 
   return true;
 }
 
-const parseJsonValue = <T,>(data: JsonValue | undefined, defaultVal: T): T => {
+const parseJsonValue = <T extends Record<string, any>>(data: JsonValue | undefined, defaultVal: T): T => {
   if (!data || typeof data === 'string' || typeof data === 'number' || typeof data === 'boolean') {
     return defaultVal;
   }
 
-  if (typeof defaultVal === 'object' && defaultVal && !containsAllKeys(data, defaultVal)) {
+  if (typeof defaultVal === 'object' && defaultVal !== null && !containsAllKeys(data, defaultVal)) {
     return defaultVal;
   }
 
