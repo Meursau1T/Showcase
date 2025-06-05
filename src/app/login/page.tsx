@@ -1,29 +1,27 @@
 'use client'
 
-import { Box, Flex, Input, Button, Text, FormErrorMessage } from '@chakra-ui/react';
-import { PageParam } from '@/type';
-import { parseLang } from '@/utils';
 import { useState } from 'react';
+import { Box, Flex, Input, Button, Text } from '@chakra-ui/react';
+import { getLang } from '@/utils';
 
-export default async function LoginPage({ searchParams }: PageParam) {
-  const lang = await parseLang(searchParams);
-
-  const t = {
-    en: {
-      title: 'Login',
-      usernamePlaceholder: 'Username',
-      passwordPlaceholder: 'Password',
-      submitButton: 'Login',
-      error: 'Invalid credentials',
-    },
-    zh: {
-      title: '登录',
-      usernamePlaceholder: '用户名',
-      passwordPlaceholder: '密码',
-      submitButton: '登录',
-      error: '用户名或密码错误',
-    },
-  }[lang];
+const textMap = {
+  en: {
+    title: 'Login',
+    usernamePlaceholder: 'Username',
+    passwordPlaceholder: 'Password',
+    submitButton: 'Login',
+    error: 'Invalid credentials',
+  },
+  zh: {
+    title: '登录',
+    usernamePlaceholder: '用户名',
+    passwordPlaceholder: '密码',
+    submitButton: '登录',
+    error: '用户名或密码错误',
+  },
+};
+export default function LoginPage() {
+  const lang = getLang();
 
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -60,35 +58,33 @@ export default async function LoginPage({ searchParams }: PageParam) {
     <Flex h="100vh" justifyContent="center" alignItems="center" bg="gray.100">
       <Box bg="white" p={6} borderRadius="md" shadow="md" w="400px">
         <Text fontSize="xl" fontWeight="bold" mb={4} textAlign="center">
-          {t.title}
+          {textMap[lang].title}
         </Text>
         <form onSubmit={handleSubmit}>
           <Flex direction="column" gap={3}>
             <Input
-              placeholder={t.usernamePlaceholder}
+              placeholder={textMap[lang].usernamePlaceholder}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
             <Input
-              placeholder={t.passwordPlaceholder}
+              placeholder={textMap[lang].passwordPlaceholder}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
             />
             {error && (
-              <FormErrorMessage>
-                <Text color="red.500" fontSize="sm">{error || t.error}</Text>
-              </FormErrorMessage>
+              <Text color="red.500" fontSize="sm">{error || textMap[lang].error}</Text>
             )}
             <Button
               colorScheme="blue"
               mt={2}
               type="submit"
-              isLoading={isLoading}
+              loading={isLoading}
             >
-              {t.submitButton}
+              {textMap[lang].submitButton}
             </Button>
           </Flex>
         </form>
