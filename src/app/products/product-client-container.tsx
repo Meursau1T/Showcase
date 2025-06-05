@@ -119,17 +119,17 @@ export function ProductsClientContainer({ types, types_en, lang }: Props) {
           <Text fontWeight="bold" mb={3} fontSize="lg">
             {productsText.categories[lang]}
           </Text>
-          {productsText.filterOptions.map((option) => (
+          {(lang === 'zh' ? types : types_en).map((option) => (
             <Checkbox.Root
               variant={'solid'}
-              key={option.key}
-              checked={filters.includes(option.key)}
-              onChange={() => toggleFilter(option.key)}
+              key={option}
+              checked={filters.includes(option)}
+              onChange={() => toggleFilter(option)}
               className="mr-[12px]"
             >
               <Checkbox.HiddenInput />
               <Checkbox.Control />
-              <Checkbox.Label>{option[lang]}</Checkbox.Label>
+              <Checkbox.Label>{option}</Checkbox.Label>
             </Checkbox.Root>
           ))}
         </Box>
