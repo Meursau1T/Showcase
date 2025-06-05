@@ -4,7 +4,7 @@ import ReactMarkdown from 'react-markdown';
 import remarkGfm from 'remark-gfm';
 
 interface CommonDetailProps {
-  backgroundImage: string; // 背景图片URL
+  backgroundImage?: string; // 背景图片URL
   textContent?: string;    // 可选文本内容
   imageContent?: string;   // 可选图片内容URL
 }
