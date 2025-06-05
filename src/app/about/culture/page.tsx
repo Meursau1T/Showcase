@@ -10,11 +10,20 @@ interface CultureContent {
   imageContent?: string;
 }
 
-const parseContent = (data: JsonValue, default): Record<string, CultureContent> => {
+const parseContent = <T,>(data: JsonValue, defaultVal: T): T => {
   if (!data || typeof data === 'string' || typeof data === 'number' || typeof data === 'boolean') {
-    return default;
+    return defaultVal;
   }
-  if (Object.hasOwn(data, 'backgroundImage') && )
+
+  if (
+    typeof data === 'object' &&
+    !('textContent' in data) &&
+    !('imageContent' in data)
+  ) {
+    return defaultVal;
+  }
+
+  return data as T;
 }
 
 export default async function AboutCulturePage({ searchParams }: PageParam) {
