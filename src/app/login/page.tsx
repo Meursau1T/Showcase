@@ -8,6 +8,23 @@ import { useState } from 'react';
 export default async function LoginPage({ searchParams }: PageParam) {
   const lang = await parseLang(searchParams);
 
+  const t = {
+    en: {
+      title: 'Login',
+      usernamePlaceholder: 'Username',
+      passwordPlaceholder: 'Password',
+      submitButton: 'Login',
+      error: 'Invalid credentials',
+    },
+    zh: {
+      title: '登录',
+      usernamePlaceholder: '用户名',
+      passwordPlaceholder: '密码',
+      submitButton: '登录',
+      error: '用户名或密码错误',
+    },
+  }[lang];
+
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -43,18 +60,18 @@ export default async function LoginPage({ searchParams }: PageParam) {
     <Flex h="100vh" justifyContent="center" alignItems="center" bg="gray.100">
       <Box bg="white" p={6} borderRadius="md" shadow="md" w="400px">
         <Text fontSize="xl" fontWeight="bold" mb={4} textAlign="center">
-          登录
+          {t.title}
         </Text>
         <form onSubmit={handleSubmit}>
           <Flex direction="column" gap={3}>
             <Input
-              placeholder="用户名"
+              placeholder={t.usernamePlaceholder}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
             <Input
-              placeholder="密码"
+              placeholder={t.passwordPlaceholder}
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -62,7 +79,7 @@ export default async function LoginPage({ searchParams }: PageParam) {
             />
             {error && (
               <FormErrorMessage>
-                <Text color="red.500" fontSize="sm">{error}</Text>
+                <Text color="red.500" fontSize="sm">{error || t.error}</Text>
               </FormErrorMessage>
             )}
             <Button
@@ -71,7 +88,7 @@ export default async function LoginPage({ searchParams }: PageParam) {
               type="submit"
               isLoading={isLoading}
             >
-              登录
+              {t.submitButton}
             </Button>
           </Flex>
         </form>
