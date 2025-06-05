@@ -19,9 +19,8 @@ model main_page {
 }
 
 model product {
-  id    Int      @id @default(autoincrement())
+  name String @id
   type String
-  name String
 }
 
 model category {
