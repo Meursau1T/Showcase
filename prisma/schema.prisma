@@ -54,3 +54,8 @@ model patents {
   data    Json
 }
 
+model user {
+  name String @id
+  password String
+}
+
