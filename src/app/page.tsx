@@ -1,7 +1,6 @@
 import type { PageParam } from '@/type';
 import { parseLang } from '@/utils';
-import { Flex, Heading, Box, Image, Text, Card } from '@chakra-ui/react';
-import Link from 'next/link';
+import { Flex, Heading, Box, Image, Card } from '@chakra-ui/react';
 
 const products = [
   {
