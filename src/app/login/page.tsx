@@ -1,6 +1,9 @@
 import { Box, Flex, Input, Button, Text } from '@chakra-ui/react';
+import { PageParam } from '@/type';
+import { parseLang } from '@/utils';
 
-export default function LoginPage() {
+export default async function LoginPage({ searchParams }: PageParam) {
+  const lang = await parseLang(searchParams);
   return (
     <Flex h="100vh" justifyContent="center" alignItems="center" bg="gray.100">
       <Box bg="white" p={6} borderRadius="md" shadow="md" w="400px">
