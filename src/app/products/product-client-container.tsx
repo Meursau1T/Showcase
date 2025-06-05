@@ -10,6 +10,7 @@ type Props = {
 }
 
 export function ProductsClientContainer({ types, types_en, lang }: Props) {
+  const filterOptions = lang === 'zh' ? types : types_en;
   // 创建搜索选项集合
   const searchOptionsCollection = createListCollection({
     items: [
@@ -37,7 +38,7 @@ export function ProductsClientContainer({ types, types_en, lang }: Props) {
     id: i + 1,
     name: `Product ${i + 1}`,
     oem: `OEM-${String(i+1).padStart(4, '0')}`,
-    category: productsText.filterOptions[i % 5].key,
+    category: filterOptions[i % 5],
     imgUrl: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png'
   }));
 
@@ -119,7 +120,7 @@ export function ProductsClientContainer({ types, types_en, lang }: Props) {
           <Text fontWeight="bold" mb={3} fontSize="lg">
             {productsText.categories[lang]}
           </Text>
-          {(lang === 'zh' ? types : types_en).map((option) => (
+          {filterOptions.map((option) => (
             <Checkbox.Root
               variant={'solid'}
               key={option}
@@ -141,8 +142,8 @@ export function ProductsClientContainer({ types, types_en, lang }: Props) {
             <>
               <Grid templateColumns="repeat(auto-fill, minmax(250px, 1fr))" gap={4}>
                 {paginatedProducts.map(product => {
-                  const categoryText = productsText.filterOptions
-                    .find(opt => opt.key === product.category)?.[lang] || '';
+                  const categoryText = filterOptions
+                    .find(opt => opt === product.category) || '';
                   
                   return (
                     <Box 
