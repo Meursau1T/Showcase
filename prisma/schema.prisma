@@ -20,7 +20,8 @@ model main_page {
 
 model product {
   id    Int      @id @default(autoincrement())
-  types String[]
+  type String
+  name String
 }
 
 model category {
