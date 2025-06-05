@@ -25,6 +25,5 @@ model product {
 
 model category {
   id       Int       @id @default(autoincrement())
-  types    String[]
-  products product[]
+  types    Json
 }
