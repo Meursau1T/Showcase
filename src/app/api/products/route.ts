@@ -3,6 +3,7 @@ import { prisma } from '@/utils';
 
 /**
  * 处理 GET 请求：获取 culture 表中的所有数据
+ * 解析方式：await fetch('/api/products').then(res => res.json());
  */
 export async function GET(request: NextRequest) {
   try {
