@@ -63,6 +63,11 @@ const navItems = ({ langCb }: { langCb: Function }) => [
         onClick: () => langCb('en')
       },
     ],
+  },
+  {
+    name: { zh: '管理', en: 'Control' },
+    path: '/control',
+    auth: true
   }
 ];
 
@@ -178,16 +183,18 @@ export function Header(props: HeaderProps) {
           justify="flex-end" 
           align="center"
         >
-          {navItems({ langCb: setLocale}).map((item) => (
-            <UnionMenuItem
-              key={item.name[locale]}
-              {...{
-                item,
-                locale,
-                activeColor,
-                pathname,
-              }}
-            />))}
+          {navItems({ langCb: setLocale})
+            .filter(item => props.isLogin || !item.auth)
+            .map((item) => (
+              <UnionMenuItem
+                key={item.name[locale]}
+                {...{
+                  item,
+                  locale,
+                  activeColor,
+                  pathname,
+                }}
+              />))}
         </Flex>
       </Flex>
     </Box>
