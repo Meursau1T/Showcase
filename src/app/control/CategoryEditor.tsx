@@ -9,8 +9,8 @@ interface Props {
 }
 
 export default function CategoryEditor(props: Props) {
-  const [types, setTypes] = useState('')
-  const [typesEn, setTypesEn] = useState('')
+  const [types, setTypes] = useState(props.data?.types || [])
+  const [typesEn, setTypesEn] = useState(props.data?.types_en || [])
 
   const handleSubmit = async () => {
     const res = await fetch('/api/category/edit', {
