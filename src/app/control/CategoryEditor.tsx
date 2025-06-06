@@ -30,11 +30,33 @@ export default function CategoryEditor(props: Props) {
       <Flex direction="column" gap={4}>
         <Flex direction="column" gap={2}>
           <Text fontWeight="bold">中文分类</Text>
-          <Input value={types} onChange={(e) => setTypes(e.target.value)} placeholder="中文分类" />
+          <Input
+            value={Array.isArray(types) ? types.join(', ') : ''}
+            onChange={(e) => {
+              const input = e.target.value;
+              const parsed = input
+                .split(',')
+                .map((item) => item.trim())
+                .filter((item) => item.length > 0);
+              setTypes(parsed);
+            }}
+            placeholder="用逗号分隔的中文分类"
+          />
         </Flex>
         <Flex direction="column" gap={2}>
           <Text fontWeight="bold">英文分类</Text>
-          <Input value={typesEn} onChange={(e) => setTypesEn(e.target.value)} placeholder="英文分类" />
+          <Input
+            value={Array.isArray(typesEn) ? typesEn.join(', ') : ''}
+            onChange={(e) => {
+              const input = e.target.value;
+              const parsed = input
+                .split(',')
+                .map((item) => item.trim())
+                .filter((item) => item.length > 0);
+              setTypesEn(parsed);
+            }}
+            placeholder="用逗号分隔的英文分类"
+          />
         </Flex>
         <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
       </Flex>
