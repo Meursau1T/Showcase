@@ -28,11 +28,88 @@ export default function CultureEditor(props: Props) {
     <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
       <Heading size="2xl" mb={4}>文化页编辑</Heading>
       <Flex direction="column" gap={4}>
-        <Flex direction="column" gap={2}>
-          <Text fontWeight="bold">文化内容</Text>
-          <Textarea value={zhData} onChange={(e) => setZhData(e.target.value)} placeholder="输入文化内容" />
-          <Text fontWeight="bold">文化内容 英文版</Text>
-          <Textarea value={enData} onChange={(e) => setEnData(e.target.value)} placeholder="输入文化内容" />
+        <Flex direction="column" gap={4}>
+          {/* 中文内容 */}
+          <Flex direction="column" gap={2}>
+            <Text fontWeight="bold">中文 - 背景图片</Text>
+            <Input
+              value={zhData?.backgroundImage || ''}
+              onChange={(e) =>
+                setZhData({
+                  ...zhData,
+                  backgroundImage: e.target.value,
+                })
+              }
+              placeholder="背景图片地址"
+            />
+          </Flex>
+          <Flex direction="column" gap={2}>
+            <Text fontWeight="bold">中文 - 文案内容</Text>
+            <Textarea
+              value={zhData?.textContent || ''}
+              onChange={(e) =>
+                setZhData({
+                  ...zhData,
+                  textContent: e.target.value,
+                })
+              }
+              placeholder="输入中文文案"
+            />
+          </Flex>
+          <Flex direction="column" gap={2}>
+            <Text fontWeight="bold">中文 - 图片内容</Text>
+            <Input
+              value={zhData?.imageContent || ''}
+              onChange={(e) =>
+                setZhData({
+                  ...zhData,
+                  imageContent: e.target.value,
+                })
+              }
+              placeholder="图片地址"
+            />
+          </Flex>
+
+          {/* 英文内容 */}
+          <Flex direction="column" gap={2}>
+            <Text fontWeight="bold">英文 - 背景图片</Text>
+            <Input
+              value={enData?.backgroundImage || ''}
+              onChange={(e) =>
+                setEnData({
+                  ...enData,
+                  backgroundImage: e.target.value,
+                })
+              }
+              placeholder="背景图片地址"
+            />
+          </Flex>
+          <Flex direction="column" gap={2}>
+            <Text fontWeight="bold">英文 - 文案内容</Text>
+            <Textarea
+              value={enData?.textContent || ''}
+              onChange={(e) =>
+                setEnData({
+                  ...enData,
+                  textContent: e.target.value,
+                })
+              }
+              placeholder="输入英文文案"
+            />
+          </Flex>
+          <Flex direction="column" gap={2}>
+            <Text fontWeight="bold">英文 - 图片内容</Text>
+            <Input
+              value={enData?.imageContent || ''}
+              onChange={(e) =>
+                setEnData({
+                  ...enData,
+                  imageContent: e.target.value,
+                })
+              }
+              placeholder="图片地址"
+            />
+          </Flex>
         </Flex>
         <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
       </Flex>
