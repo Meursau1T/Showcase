@@ -1,5 +1,5 @@
 import { PageParam } from '@/type';
-import { ProductsClientContainer } from './product-client-container';
+import { ProductsClientContainer } from './index';
 import { parseLang, prisma } from '@/utils';
 
 // 获取产品类型数据
