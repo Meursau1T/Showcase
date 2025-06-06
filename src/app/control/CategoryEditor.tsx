@@ -16,16 +16,23 @@ export default function CategoryEditor(props: Props) {
     Array.isArray(props.data?.types_en) ? props.data.types_en.join(', ') : ''
   );
 
-  const handleSubmit = async () => {
-    const parsedZh = typesStr
-      .split(',')
-      .map((item) => item.trim())
-      .filter((item) => item);
+/**
+ * 将字符串按中英文逗号分隔并解析为去重后的字符串数组
+ * @param input 输入字符串
+ * @returns 解析后的字符串数组
+ */
+const parseCommaSeparatedString = (input: string): string[] => {
+  if (!input) return [];
 
-    const parsedEn = typesEnStr
-      .split(',')
-      .map((item) => item.trim())
-      .filter((item) => item);
+  return input
+    .split(/[,，]/) // 支持英文逗号和中文逗号
+    .map((item) => item.trim())
+    .filter((item) => item); // 去除空字符串
+};
+
+  const handleSubmit = async () => {
+    const parsedZh = parseCommaSeparatedString(typesStr);
+    const parsedEn = parseCommaSeparatedString(typesEnStr);
 
     const res = await fetch('/api/category/edit', {
       method: 'POST',
