@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Box, Heading, Stack, FormControl, FormLabel, Input, Button } from '@chakra-ui/react'
 
 export default function CategoryEditor() {
   const [types, setTypes] = useState('')

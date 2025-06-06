@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { Box, Heading, Stack, FormControl, FormLabel, Textarea, Button } from '@chakra-ui/react'
 
 export default function CultureEditor() {
   const [data, setData] = useState('')
