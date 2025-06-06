@@ -34,6 +34,11 @@ const parseCommaSeparatedString = (input: string): string[] => {
     const parsedZh = parseCommaSeparatedString(typesStr);
     const parsedEn = parseCommaSeparatedString(typesEnStr);
 
+    if (parsedZh.length !== parsedEn.length) {
+      alert('中英文分类数量不一致')
+      return;
+    }
+
     const res = await fetch('/api/category/edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
