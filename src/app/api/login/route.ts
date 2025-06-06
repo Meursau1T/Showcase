@@ -29,7 +29,6 @@ export async function GET(request: NextRequest) {
   // 设置登录状态
   session.isLoggedIn = true;
   session.user = {
-    id: user.id,
     name: user.name,
   };
 
