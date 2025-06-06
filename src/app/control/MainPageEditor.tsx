@@ -36,7 +36,14 @@ export default function MainPageEditor(props: Props) {
       <Flex direction="column" gap={4}>
         <Flex direction="column" gap={2}>
           <Text fontWeight="bold">Banner 地址</Text>
-          <Input value={banner} onChange={(e) => setBanner(e.target.value)} placeholder="输入 Banner 地址" />
+          <Input
+            value={banner}
+            onChange={(e) => {
+              setMessage(null);
+              setBanner(e.target.value);
+            }}
+            placeholder="输入 Banner 地址"
+          />
         </Flex>
         <Flex align="center" gap={3}>
           <Button colorScheme="blue" onClick={handleSubmit}>

@@ -43,12 +43,13 @@ export default function CultureEditor(props: Props) {
             <Text fontWeight="bold">中文 - 背景图片</Text>
             <Textarea
               value={zhData?.backgroundImage || ''}
-              onChange={(e) =>
+              onChange={(e) => {
+                setMessage(null);
                 setZhData({
                   ...zhData,
                   backgroundImage: e.target.value,
-                })
-              }
+                });
+              }}
               placeholder="背景图片地址"
             />
           </Flex>
@@ -56,12 +57,13 @@ export default function CultureEditor(props: Props) {
             <Text fontWeight="bold">中文 - 文案内容</Text>
             <Textarea
               value={zhData?.textContent || ''}
-              onChange={(e) =>
+              onChange={(e) => {
+                setMessage(null);
                 setZhData({
                   ...zhData,
                   textContent: e.target.value,
-                })
-              }
+                });
+              }}
               placeholder="输入中文文案"
             />
           </Flex>
@@ -69,12 +71,13 @@ export default function CultureEditor(props: Props) {
             <Text fontWeight="bold">中文 - 图片内容</Text>
             <Textarea
               value={zhData?.imageContent || ''}
-              onChange={(e) =>
+              onChange={(e) => {
+                setMessage(null);
                 setZhData({
                   ...zhData,
                   imageContent: e.target.value,
-                })
-              }
+                });
+              }}
               placeholder="图片地址"
             />
           </Flex>
@@ -84,12 +87,13 @@ export default function CultureEditor(props: Props) {
             <Text fontWeight="bold">英文 - 背景图片</Text>
             <Textarea
               value={enData?.backgroundImage || ''}
-              onChange={(e) =>
+              onChange={(e) => {
+                setMessage(null);
                 setEnData({
                   ...enData,
                   backgroundImage: e.target.value,
-                })
-              }
+                });
+              }}
               placeholder="背景图片地址"
             />
           </Flex>
@@ -97,12 +101,13 @@ export default function CultureEditor(props: Props) {
             <Text fontWeight="bold">英文 - 文案内容</Text>
             <Textarea
               value={enData?.textContent || ''}
-              onChange={(e) =>
+              onChange={(e) => {
+                setMessage(null);
                 setEnData({
                   ...enData,
                   textContent: e.target.value,
-                })
-              }
+                });
+              }}
               placeholder="输入英文文案"
             />
           </Flex>
@@ -110,12 +115,13 @@ export default function CultureEditor(props: Props) {
             <Text fontWeight="bold">英文 - 图片内容</Text>
             <Textarea
               value={enData?.imageContent || ''}
-              onChange={(e) =>
+              onChange={(e) => {
+                setMessage(null);
                 setEnData({
                   ...enData,
                   imageContent: e.target.value,
-                })
-              }
+                });
+              }}
               placeholder="图片地址"
             />
           </Flex>

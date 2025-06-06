@@ -66,7 +66,10 @@ export default function CategoryEditor(props: Props) {
           <Text fontWeight="bold">中文分类</Text>
           <Input
             value={typesStr}
-            onChange={(e) => setTypesStr(e.target.value)}
+            onChange={(e) => {
+              setMessage(null);
+              setTypesStr(e.target.value);
+            }}
             placeholder="用逗号分隔的中文分类"
           />
         </Flex>
@@ -74,7 +77,10 @@ export default function CategoryEditor(props: Props) {
           <Text fontWeight="bold">英文分类</Text>
           <Input
             value={typesEnStr}
-            onChange={(e) => setTypesEnStr(e.target.value)}
+            onChange={(e) => {
+              setMessage(null);
+              setTypesEnStr(e.target.value);
+            }}
             placeholder="用逗号分隔的英文分类"
           />
         </Flex>
