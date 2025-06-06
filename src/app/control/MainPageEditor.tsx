@@ -38,15 +38,16 @@ export default function MainPageEditor(props: Props) {
           <Text fontWeight="bold">Banner 地址</Text>
           <Input value={banner} onChange={(e) => setBanner(e.target.value)} placeholder="输入 Banner 地址" />
         </Flex>
-        {/* 提示信息 */}
-        {message && (
-          <Text color={isSuccess ? 'green.500' : 'red.500'}>
-            {message}
-          </Text>
-        )}
-        <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>
-          保存
-        </Button>
+        <Flex align="center" gap={3}>
+          <Button colorScheme="blue" onClick={handleSubmit}>
+            保存
+          </Button>
+          {message && (
+            <Text color={isSuccess ? 'green.500' : 'red.500'} fontSize="sm">
+              {message}
+            </Text>
+          )}
+        </Flex>
       </Flex>
     </Box>
   )
