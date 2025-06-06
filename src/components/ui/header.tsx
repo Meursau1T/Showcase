@@ -166,6 +166,7 @@ export function Header(props: HeaderProps) {
           <Box 
             position="relative" 
             maxW="56px"
+            minW="56px"
             flexShrink={0}
             marginLeft={"32px"}
           >

@@ -22,7 +22,7 @@ export default function ControlIndex({ cultureData, mainPageData, categoryData }
   ];
 
   return (
-    <Box p="72px">
+    <Box p="72px" minW="672px">
       <Flex direction="column" gap="8">
         <Heading size="4xl">控制面板</Heading>
         <Tabs.Root defaultValue="main" variant={'line'}>
