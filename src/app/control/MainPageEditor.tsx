@@ -10,6 +10,8 @@ interface Props {
 
 export default function MainPageEditor(props: Props) {
   const [banner, setBanner] = useState(props.data?.banner || '')
+  const [message, setMessage] = useState<string | null>(null)
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
 
   const handleSubmit = async () => {
     const res = await fetch('/api/main/edit', {
@@ -19,7 +21,12 @@ export default function MainPageEditor(props: Props) {
     })
 
     if (res.ok) {
-      alert('首页 Banner 更新成功')
+      setIsSuccess(true)
+      setMessage('首页 Banner 更新成功')
+    } else {
+      setIsSuccess(false)
+      const result = await res.json()
+      setMessage(result.error || '更新失败')
     }
   }
 
@@ -31,7 +38,15 @@ export default function MainPageEditor(props: Props) {
           <Text fontWeight="bold">Banner 地址</Text>
           <Input value={banner} onChange={(e) => setBanner(e.target.value)} placeholder="输入 Banner 地址" />
         </Flex>
-        <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
+        {/* 提示信息 */}
+        {message && (
+          <Text color={isSuccess ? 'green.500' : 'red.500'}>
+            {message}
+          </Text>
+        )}
+        <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>
+          保存
+        </Button>
       </Flex>
     </Box>
   )
