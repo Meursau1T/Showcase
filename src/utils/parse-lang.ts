@@ -8,8 +8,3 @@ export const parseLang = async (params: PageParam['searchParams']) => {
   const lang = (await params)['lang'] || 'en';
   return lang === 'zh' ? 'zh' : 'en';
 }
-
-export const getLang = () => {
-  const lang = (new URLSearchParams(location.search)).get('lang');
-  return lang === 'zh' ? 'zh' : 'en';
-}
