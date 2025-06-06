@@ -4,7 +4,7 @@ import { prisma } from '@/utils';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { id, data } = body;
+    const { data } = body;
 
     if (!data) {
       return new Response(JSON.stringify({ error: 'Missing data' }), {
@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
     }
 
     const result = await prisma.culture.upsert({
-      where: { id: id ? Number(id) : -1 },
+      where: { id: 1 },
       update: { data },
       create: { data },
     });

@@ -13,7 +13,7 @@ const defaultVal = { imageContent: '', backgroundImage: '', textContent: '' }
 export default function CultureEditor(props: Props) {
   const [enData, setEnData] = useState(props.data?.data.en || defaultVal)
   const [zhData, setZhData] = useState(props.data?.data.zh || defaultVal)
-  const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
   const [message, setMessage] = useState<string | null>(null)
 
   const handleSubmit = async () => {
