@@ -29,7 +29,7 @@ export default function CategoryEditor(props: Props) {
   const [typesEnStr, setTypesEnStr] = useState(
     Array.isArray(props.data?.types_en) ? props.data.types_en.join(', ') : ''
   );
-  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
 
   const handleSubmit = async () => {
