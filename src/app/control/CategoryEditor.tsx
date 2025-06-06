@@ -40,7 +40,7 @@ export default function CategoryEditor(props: Props) {
                 .filter((item) => item.length > 0);
               setTypes(parsed);
             }}
-            placeholder="用逗号分隔的中文分类"
+            placeholder="用英文版逗号分隔的中文分类"
           />
         </Flex>
         <Flex direction="column" gap={2}>
@@ -55,7 +55,7 @@ export default function CategoryEditor(props: Props) {
                 .filter((item) => item.length > 0);
               setTypesEn(parsed);
             }}
-            placeholder="用逗号分隔的英文分类"
+            placeholder="用英文版逗号分隔的英文分类"
           />
         </Flex>
         <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
