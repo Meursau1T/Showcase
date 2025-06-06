@@ -10,7 +10,7 @@ export default function ControlIndex() {
   return (
     <Box p="72px">
       <Flex direction="column" gap="8">
-        <Heading size="md">控制面板</Heading>
+        <Heading size="xl">控制面板</Heading>
         <MainPageEditor />
         <ProductEditor />
         <CategoryEditor />
