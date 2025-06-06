@@ -18,10 +18,15 @@ export default function MainPageEditor() {
   }
 
   return (
-    <div>
-      <h3>首页编辑 - Banner</h3>
-      <input value={banner} onChange={(e) => setBanner(e.target.value)} placeholder="输入 Banner 地址" />
-      <button onClick={handleSubmit}>保存</button>
-    </div>
+    <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
+      <Heading size="2xl" mb={4}>首页编辑 - Banner</Heading>
+      <Stack spacing={4}>
+        <FormControl>
+          <FormLabel fontWeight="bold">Banner 地址</FormLabel>
+          <Input value={banner} onChange={(e) => setBanner(e.target.value)} placeholder="输入 Banner 地址" />
+        </FormControl>
+        <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
+      </Stack>
+    </Box>
   )
 }

@@ -19,11 +19,19 @@ export default function CategoryEditor() {
   }
 
   return (
-    <div>
-      <h3>分类编辑</h3>
-      <input value={types} onChange={(e) => setTypes(e.target.value)} placeholder="中文分类" />
-      <input value={typesEn} onChange={(e) => setTypesEn(e.target.value)} placeholder="英文分类" />
-      <button onClick={handleSubmit}>保存</button>
-    </div>
+    <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
+      <Heading size="2xl" mb={4}>分类编辑</Heading>
+      <Stack spacing={4}>
+        <FormControl>
+          <FormLabel fontWeight="bold">中文分类</FormLabel>
+          <Input value={types} onChange={(e) => setTypes(e.target.value)} placeholder="中文分类" />
+        </FormControl>
+        <FormControl>
+          <FormLabel fontWeight="bold">英文分类</FormLabel>
+          <Input value={typesEn} onChange={(e) => setTypesEn(e.target.value)} placeholder="英文分类" />
+        </FormControl>
+        <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
+      </Stack>
+    </Box>
   )
 }
