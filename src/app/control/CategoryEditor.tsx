@@ -29,13 +29,16 @@ export default function CategoryEditor(props: Props) {
   const [typesEnStr, setTypesEnStr] = useState(
     Array.isArray(props.data?.types_en) ? props.data.types_en.join(', ') : ''
   );
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null);
+  const [message, setMessage] = useState<string | null>(null);
 
   const handleSubmit = async () => {
     const parsedZh = parseCommaSeparatedString(typesStr);
     const parsedEn = parseCommaSeparatedString(typesEnStr);
 
     if (parsedZh.length !== parsedEn.length) {
-      alert('中英文分类数量不一致')
+      setIsSuccess(false);
+      setMessage('中英文分类数量不一致');
       return;
     }
 
@@ -46,11 +49,14 @@ export default function CategoryEditor(props: Props) {
     });
 
     if (res.ok) {
-      alert('分类更新成功');
+      setIsSuccess(true);
+      setMessage('分类更新成功');
     } else {
-      alert('保存失败');
+      setIsSuccess(false);
+      const result = await res.json();
+      setMessage(result.error || '保存失败');
     }
-  }
+  };
 
   return (
     <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
@@ -72,7 +78,16 @@ export default function CategoryEditor(props: Props) {
             placeholder="用逗号分隔的英文分类"
           />
         </Flex>
-        <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
+        <Flex align="center" gap={3}>
+          <Button colorScheme="blue" onClick={handleSubmit}>
+            保存
+          </Button>
+          {message && (
+            <Text color={isSuccess ? 'green.500' : 'red.500'} fontSize="sm">
+              {message}
+            </Text>
+          )}
+        </Flex>
       </Flex>
     </Box>
   )
