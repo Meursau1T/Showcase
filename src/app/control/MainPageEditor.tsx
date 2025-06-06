@@ -21,13 +21,13 @@ export default function MainPageEditor() {
   return (
     <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
       <Heading size="2xl" mb={4}>首页编辑 - Banner</Heading>
-      <Stack spacing={4}>
-        <FormControl>
-          <FormLabel fontWeight="bold">Banner 地址</FormLabel>
+      <Flex direction="column" gap={4}>
+        <Flex direction="column" gap={2}>
+          <Text fontWeight="bold">Banner 地址</Text>
           <Input value={banner} onChange={(e) => setBanner(e.target.value)} placeholder="输入 Banner 地址" />
-        </FormControl>
+        </Flex>
         <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
-      </Stack>
+      </Flex>
     </Box>
   )
 }

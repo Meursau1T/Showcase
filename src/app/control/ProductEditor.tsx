@@ -22,25 +22,25 @@ export default function ProductEditor() {
   return (
     <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
       <Heading size="2xl" mb={4}>商品编辑（除ID外）</Heading>
-      <Stack spacing={4}>
-        <FormControl>
-          <FormLabel fontWeight="bold">商品 ID</FormLabel>
+      <Flex direction="column" gap={4}>
+        <Flex direction="column" gap={2}>
+          <Text fontWeight="bold">商品 ID</Text>
           <Input value={id} onChange={(e) => setId(e.target.value)} placeholder="商品 ID" />
-        </FormControl>
-        <FormControl>
-          <FormLabel fontWeight="bold">名称</FormLabel>
+        </Flex>
+        <Flex direction="column" gap={2}>
+          <Text fontWeight="bold">名称</Text>
           <Input value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} placeholder="名称" />
-        </FormControl>
-        <FormControl>
-          <FormLabel fontWeight="bold">价格</FormLabel>
+        </Flex>
+        <Flex direction="column" gap={2}>
+          <Text fontWeight="bold">价格</Text>
           <Input value={data.price} onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="价格" />
-        </FormControl>
-        <FormControl>
-          <FormLabel fontWeight="bold">描述</FormLabel>
+        </Flex>
+        <Flex direction="column" gap={2}>
+          <Text fontWeight="bold">描述</Text>
           <Input value={data.desc} onChange={(e) => setData({ ...data, desc: e.target.value })} placeholder="描述" />
-        </FormControl>
+        </Flex>
         <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
-      </Stack>
+      </Flex>
     </Box>
   )
 }

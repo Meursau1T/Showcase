@@ -21,13 +21,13 @@ export default function CultureEditor() {
   return (
     <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
       <Heading size="2xl" mb={4}>文化页编辑</Heading>
-      <Stack spacing={4}>
-        <FormControl>
-          <FormLabel fontWeight="bold">文化内容</FormLabel>
+      <Flex direction="column" gap={4}>
+        <Flex direction="column" gap={2}>
+          <Text fontWeight="bold">文化内容</Text>
           <Textarea value={data} onChange={(e) => setData(e.target.value)} placeholder="输入文化内容" />
-        </FormControl>
+        </Flex>
         <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
-      </Stack>
+      </Flex>
     </Box>
   )
 }

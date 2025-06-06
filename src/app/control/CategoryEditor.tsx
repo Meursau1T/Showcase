@@ -22,17 +22,17 @@ export default function CategoryEditor() {
   return (
     <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
       <Heading size="2xl" mb={4}>分类编辑</Heading>
-      <Stack spacing={4}>
-        <FormControl>
-          <FormLabel fontWeight="bold">中文分类</FormLabel>
+      <Flex direction="column" gap={4}>
+        <Flex direction="column" gap={2}>
+          <Text fontWeight="bold">中文分类</Text>
           <Input value={types} onChange={(e) => setTypes(e.target.value)} placeholder="中文分类" />
-        </FormControl>
-        <FormControl>
-          <FormLabel fontWeight="bold">英文分类</FormLabel>
+        </Flex>
+        <Flex direction="column" gap={2}>
+          <Text fontWeight="bold">英文分类</Text>
           <Input value={typesEn} onChange={(e) => setTypesEn(e.target.value)} placeholder="英文分类" />
-        </FormControl>
+        </Flex>
         <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
-      </Stack>
+      </Flex>
     </Box>
   )
 }
