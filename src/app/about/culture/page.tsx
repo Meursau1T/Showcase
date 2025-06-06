@@ -1,20 +1,6 @@
 import { CommonDetail } from '@/components/ui/common-detail';
 import { parseLang, prisma, parseJsonValue } from '@/utils';
-import type { PageParam } from '@/type';
-
-// 定义文化内容的数据结构
-interface CultureContent {
-  zh: {
-    backgroundImage?: string;
-    textContent?: string;
-    imageContent?: string;
-  },
-  en: {
-    backgroundImage?: string;
-    textContent?: string;
-    imageContent?: string;
-  }
-}
+import type { PageParam, CultureContent } from '@/type';
 
 const defaultVal: CultureContent = {
   zh: {

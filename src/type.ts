@@ -6,3 +6,29 @@ export type PageParam = {
 export type RootLayoutParam = Readonly<{
   children: React.ReactNode;
 }>
+
+export type CultureContent = {
+  zh: {
+    backgroundImage?: string;
+    textContent?: string;
+    imageContent?: string;
+  },
+  en: {
+    backgroundImage?: string;
+    textContent?: string;
+    imageContent?: string;
+  }
+}
+
+export type MainPrisma = {
+  banner: string;
+}
+
+export type CulturePrisma = {
+  data: CultureContent;
+}
+
+export type CategoryPrisma = {
+  types: string[];
+  types_en: string[];
+}
