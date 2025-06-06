@@ -2,8 +2,13 @@
 
 import { useState } from 'react'
 import { Box, Heading, Flex, Text, Input, Button } from '@chakra-ui/react'
+import { CategoryPrisma } from '@/type'
 
-export default function CategoryEditor() {
+interface Props {
+  data: CategoryPrisma | null;
+}
+
+export default function CategoryEditor(props: Props) {
   const [types, setTypes] = useState('')
   const [typesEn, setTypesEn] = useState('')
 

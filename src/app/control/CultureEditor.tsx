@@ -2,8 +2,13 @@
 
 import { useState } from 'react'
 import { Box, Heading, Flex, Text, Textarea, Button } from '@chakra-ui/react'
+import type { CulturePrisma } from '@/type';
 
-export default function CultureEditor() {
+interface Props {
+  data: CulturePrisma | null;
+}
+
+export default function CultureEditor(props: Props) {
   const [data, setData] = useState('')
 
   const handleSubmit = async () => {

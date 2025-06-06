@@ -15,10 +15,10 @@ interface Props {
 
 export default function ControlIndex({ cultureData, mainPageData, categoryData }: Props) {
   const tabList = [
-    { value: 'main', label: '首页编辑', component: <MainPageEditor /> },
+    { value: 'main', label: '首页编辑', component: <MainPageEditor data={mainPageData}/> },
     { value: 'product', label: '商品编辑', component: <ProductEditor /> },
-    { value: 'category', label: '分类编辑', component: <CategoryEditor /> },
-    { value: 'culture', label: '文化页编辑', component: <CultureEditor /> },
+    { value: 'category', label: '分类编辑', component: <CategoryEditor data={categoryData}/> },
+    { value: 'culture', label: '文化页编辑', component: <CultureEditor data={cultureData}/> },
   ];
 
   return (

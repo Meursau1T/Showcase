@@ -2,8 +2,13 @@
 
 import { useState } from 'react'
 import { Box, Heading, Flex, Text, Input, Button } from '@chakra-ui/react'
+import type { MainPrisma } from '@/type'
 
-export default function MainPageEditor() {
+interface Props {
+  data: MainPrisma | null;
+}
+
+export default function MainPageEditor(props: Props) {
   const [banner, setBanner] = useState('')
 
   const handleSubmit = async () => {
