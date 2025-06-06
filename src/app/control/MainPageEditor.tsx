@@ -11,7 +11,7 @@ interface Props {
 export default function MainPageEditor(props: Props) {
   const [banner, setBanner] = useState(props.data?.banner || '')
   const [message, setMessage] = useState<string | null>(null)
-  const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
+  const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
   const handleSubmit = async () => {
     const res = await fetch('/api/main/edit', {
