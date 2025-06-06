@@ -36,10 +36,8 @@ export default function LoginPage({ lang }: Props) {
     setIsLoading(true);
 
     try {
-      // 使用 crypto 或 bcrypt 等加密方式加密密码（此处为示例，使用 base64 编码模拟加密）
-      const hashedPassword = btoa(password); // 实际应使用安全哈希算法如 bcrypt.js 或与后端一致的加密方式
-
-      const response = await fetch(`/api/login?name=${encodeURIComponent(name)}&password=${encodeURIComponent(hashedPassword)}`);
+      // 前端明文后端加密存储，中间靠HTTPS解决安全性
+      const response = await fetch(`/api/login?name=${encodeURIComponent(name)}&password=${password}`);
       const result = await response.json();
 
       if (!response.ok) {
