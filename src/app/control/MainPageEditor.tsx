@@ -12,10 +12,10 @@ export default function MainPageEditor(props: Props) {
   const [banner, setBanner] = useState(props.data?.banner || '')
 
   const handleSubmit = async () => {
-    const res = await fetch('/api/main_page/edit', {
+    const res = await fetch('/api/main/edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ banner }),
+      body: JSON.stringify({ banner, current: props.data?.banner }),
     })
 
     if (res.ok) {

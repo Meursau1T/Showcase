@@ -1,10 +1,10 @@
 import { NextRequest } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { prisma } from "@/utils";
 
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { banner } = body;
+    const { banner, current } = body;
 
     if (!banner) {
       return new Response(JSON.stringify({ error: "Banner URL is required" }), {
@@ -14,9 +14,7 @@ export async function POST(request: NextRequest) {
 
     // 更新 main_page 表中的 banner 字段
     const updatedMainPage = await prisma.main_page.update({
-      where: {
-        id: 1, // 假设你只有一条记录，或根据实际逻辑修改
-      },
+      where: { banner: current },
       data: {
         banner,
       },
