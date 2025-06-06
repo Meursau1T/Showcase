@@ -6,6 +6,7 @@ import { Box } from '@chakra-ui/react';
 import { Provider } from "@/components/ui/provider"
 import "./globals.css";
 import { Header, Footer } from "@/components/ui/";
+import { getSession } from "@/utils";
 
 type Lang = 'en' | 'zh';
 
@@ -26,13 +27,16 @@ export const metadata: Metadata = {
 
 export default async function RootLayout({ children }: RootLayoutParam) {
   const locale = (await cookies()).get('lang')?.value || 'en';
+  const session = await getSession(cookies);
+  const isLogin = session.isLoggedIn || false;
+
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Provider>
-          <Header locale={locale as Lang} />
+          <Header locale={locale as Lang} isLogin={isLogin}/>
           <Box as="main" pt="60px" className="min-h-screen">
             {children}
           </Box>

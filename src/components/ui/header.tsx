@@ -14,6 +14,7 @@ import { useState } from 'react';
 
 type HeaderProps = {
   locale: 'zh' | 'en';
+  isLogin: boolean;
 }
 
 const isActivePath = (pathname: string, item: ReturnType<typeof navItems>[0]) => {
