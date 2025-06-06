@@ -7,38 +7,30 @@ import CategoryEditor from './CategoryEditor'
 import CultureEditor from './CultureEditor'
 
 export default function ControlIndex() {
-  const tabList = ['main', 'product', 'category', 'culture'];
+  const tabList = [
+    { value: 'main', label: '首页编辑', component: <MainPageEditor /> },
+    { value: 'product', label: '商品编辑', component: <ProductEditor /> },
+    { value: 'category', label: '分类编辑', component: <CategoryEditor /> },
+    { value: 'culture', label: '文化页编辑', component: <CultureEditor /> },
+  ];
+
   return (
     <Box p="72px">
       <Flex direction="column" gap="8">
         <Heading size="4xl">控制面板</Heading>
         <Tabs.Root defaultValue="main" variant={'line'}>
           <Tabs.List>
-            <Tabs.Trigger value="main">
-              首页编辑
-            </Tabs.Trigger>
-            <Tabs.Trigger value="product">
-              商品编辑
-            </Tabs.Trigger>
-            <Tabs.Trigger value="category">
-              分类编辑
-            </Tabs.Trigger>
-            <Tabs.Trigger value="culture">
-              文化页编辑
-            </Tabs.Trigger>
+            {tabList.map((tab) => (
+              <Tabs.Trigger key={tab.value} value={tab.value}>
+                {tab.label}
+              </Tabs.Trigger>
+            ))}
           </Tabs.List>
-          <Tabs.Content value="main">
-            <MainPageEditor />
-          </Tabs.Content>
-          <Tabs.Content value="product">
-            <ProductEditor />
-          </Tabs.Content>
-          <Tabs.Content value="category">
-            <CategoryEditor />
-          </Tabs.Content>
-          <Tabs.Content value="culture">
-            <CultureEditor />
-          </Tabs.Content>
+          {tabList.map((tab) => (
+            <Tabs.Content key={tab.value} value={tab.value}>
+              {tab.component}
+            </Tabs.Content>
+          ))}
         </Tabs.Root>
       </Flex>
     </Box>
