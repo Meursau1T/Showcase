@@ -8,14 +8,6 @@ interface Props {
   data: CategoryPrisma | null;
 }
 
-export default function CategoryEditor(props: Props) {
-  const [typesStr, setTypesStr] = useState(
-    Array.isArray(props.data?.types) ? props.data.types.join(', ') : ''
-  );
-  const [typesEnStr, setTypesEnStr] = useState(
-    Array.isArray(props.data?.types_en) ? props.data.types_en.join(', ') : ''
-  );
-
 /**
  * 将字符串按中英文逗号分隔并解析为去重后的字符串数组
  * @param input 输入字符串
@@ -29,6 +21,14 @@ const parseCommaSeparatedString = (input: string): string[] => {
     .map((item) => item.trim())
     .filter((item) => item); // 去除空字符串
 };
+
+export default function CategoryEditor(props: Props) {
+  const [typesStr, setTypesStr] = useState(
+    Array.isArray(props.data?.types) ? props.data.types.join(', ') : ''
+  );
+  const [typesEnStr, setTypesEnStr] = useState(
+    Array.isArray(props.data?.types_en) ? props.data.types_en.join(', ') : ''
+  );
 
   const handleSubmit = async () => {
     const parsedZh = parseCommaSeparatedString(typesStr);
