@@ -1,6 +1,6 @@
 'use client'
 
-import { Box, Flex, Heading, SimpleGrid, Tabs } from '@chakra-ui/react'
+import { Box, Flex, Heading, Tabs } from '@chakra-ui/react'
 import MainPageEditor from './MainPageEditor'
 import ProductEditor from './ProductEditor'
 import CategoryEditor from './CategoryEditor'
