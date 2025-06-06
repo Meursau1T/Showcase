@@ -13,6 +13,8 @@ const defaultVal = { imageContent: '', backgroundImage: '', textContent: '' }
 export default function CultureEditor(props: Props) {
   const [enData, setEnData] = useState(props.data?.data.en || defaultVal)
   const [zhData, setZhData] = useState(props.data?.data.zh || defaultVal)
+  const [isSuccess, setIsSuccess] = useState<boolean | null>(null)
+  const [message, setMessage] = useState<string | null>(null)
 
   const handleSubmit = async () => {
     const res = await fetch('/api/culture/edit', {
@@ -22,7 +24,12 @@ export default function CultureEditor(props: Props) {
     })
 
     if (res.ok) {
-      alert('文化页内容更新成功')
+      setIsSuccess(true)
+      setMessage('文化页内容更新成功')
+    } else {
+      setIsSuccess(false)
+      const result = await res.json()
+      setMessage(result.error || '更新失败')
     }
   }
 
@@ -113,7 +120,16 @@ export default function CultureEditor(props: Props) {
             />
           </Flex>
         </Flex>
-        <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
+        <Flex align="center" gap={3}>
+          <Button colorScheme="blue" onClick={handleSubmit}>
+            保存
+          </Button>
+          {message && (
+            <Text color={isSuccess ? 'green.500' : 'red.500'} fontSize="sm">
+              {message}
+            </Text>
+          )}
+        </Flex>
       </Flex>
     </Box>
   )
