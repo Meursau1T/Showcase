@@ -5,8 +5,15 @@ import MainPageEditor from './MainPageEditor'
 import ProductEditor from './ProductEditor'
 import CategoryEditor from './CategoryEditor'
 import CultureEditor from './CultureEditor'
+import type { CategoryPrisma, CulturePrisma, MainPrisma } from '@/type'
 
-export default function ControlIndex() {
+interface Props {
+  cultureData: CulturePrisma | null;
+  mainPageData: MainPrisma | null;
+  categoryData: CategoryPrisma | null;
+}
+
+export default function ControlIndex({ cultureData, mainPageData, categoryData }: Props) {
   const tabList = [
     { value: 'main', label: '首页编辑', component: <MainPageEditor /> },
     { value: 'product', label: '商品编辑', component: <ProductEditor /> },

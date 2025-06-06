@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from "next/navigation";
-import { getSession, prisma, parseJsonValue } from '@/utils';
+import { getSession, prisma } from '@/utils';
+import type { CulturePrisma, MainPrisma, CategoryPrisma } from '@/type';
 import Page from './index';
 
 /**
@@ -13,14 +14,14 @@ const getCultureData = async (): Promise<CulturePrisma | null> => {
   return {
     data: {
       zh: {
-        backgroundImage: data.zh_backgroundImage ?? undefined,
-        textContent: data.zh_textContent ?? undefined,
-        imageContent: data.zh_imageContent ?? undefined,
+        backgroundImage: (data.data as any).backgroundImage ?? undefined,
+        textContent: (data.data as any).zh_textContent ?? undefined,
+        imageContent: (data.data as any).zh_imageContent ?? undefined,
       },
       en: {
-        backgroundImage: data.en_backgroundImage ?? undefined,
-        textContent: data.en_textContent ?? undefined,
-        imageContent: data.en_imageContent ?? undefined,
+        backgroundImage: (data.data as any).en_backgroundImage ?? undefined,
+        textContent: (data.data as any).en_textContent ?? undefined,
+        imageContent: (data.data as any).en_imageContent ?? undefined,
       },
     },
   };
@@ -46,8 +47,8 @@ const getCategoryData = async (): Promise<CategoryPrisma | null> => {
   if (!data) return null;
 
   return {
-    types: data.types ? data.types.split(',') : [],
-    types_en: data.types_en ? data.types_en.split(',') : [],
+    types: data.types && Array.isArray(data.types) ? data.types as string[] : [],
+    types_en: data.types_en && Array.isArray(data.types_en) ? data.types_en as string[] : [],
   };
 };
 
