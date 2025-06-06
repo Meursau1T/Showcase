@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react';
+import bcrypt from 'bcryptjs';
 import { Box, Flex, Input, Button, Text } from '@chakra-ui/react';
 
 const textMap = {
@@ -24,6 +25,15 @@ type Props = {
   lang: 'zh' | 'en';
 }
 
+async function getHash(value: string) {
+  const encoder = new TextEncoder();
+  const data = encoder.encode(value);
+  const hashBuffer = await crypto.subtle.digest('SHA-256', data);
+  const hashArray = Array.from(new Uint8Array(hashBuffer));
+  const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+  return hashHex;
+}
+
 export default function LoginPage({ lang }: Props) {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
@@ -36,8 +46,8 @@ export default function LoginPage({ lang }: Props) {
     setIsLoading(true);
 
     try {
-      // 前端明文后端加密存储，中间靠HTTPS解决安全性
-      const response = await fetch(`/api/login?name=${encodeURIComponent(name)}&password=${password}`);
+      const hashedPassword = await getHash(password);
+      const response = await fetch(`/api/login?name=${encodeURIComponent(name)}&password=${hashedPassword}`);
       const result = await response.json();
 
       if (!response.ok) {
@@ -45,7 +55,7 @@ export default function LoginPage({ lang }: Props) {
       }
 
       // 登录成功，跳转或处理 token
-      window.location.href = '/'; // 或根据实际业务处理
+      window.location.href = '/control'; // 或根据实际业务处理
 
     } catch (err: any) {
       setError(err.message);
