@@ -9,13 +9,14 @@ interface Props {
 }
 
 export default function CultureEditor(props: Props) {
-  const [data, setData] = useState('')
+  const [enData, setEnData] = useState(props.data?.data.en)
+  const [zhData, setZhData] = useState(props.data?.data.zh)
 
   const handleSubmit = async () => {
     const res = await fetch('/api/culture/edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data }),
+      body: JSON.stringify({ data: { en: enData, zh: zhData } }),
     })
 
     if (res.ok) {
@@ -29,7 +30,9 @@ export default function CultureEditor(props: Props) {
       <Flex direction="column" gap={4}>
         <Flex direction="column" gap={2}>
           <Text fontWeight="bold">文化内容</Text>
-          <Textarea value={data} onChange={(e) => setData(e.target.value)} placeholder="输入文化内容" />
+          <Textarea value={zhData} onChange={(e) => setZhData(e.target.value)} placeholder="输入文化内容" />
+          <Text fontWeight="bold">文化内容 英文版</Text>
+          <Textarea value={enData} onChange={(e) => setEnData(e.target.value)} placeholder="输入文化内容" />
         </Flex>
         <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
       </Flex>

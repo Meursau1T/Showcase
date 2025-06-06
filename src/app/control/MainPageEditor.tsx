@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function MainPageEditor(props: Props) {
-  const [banner, setBanner] = useState('')
+  const [banner, setBanner] = useState(props.data?.banner || '')
 
   const handleSubmit = async () => {
     const res = await fetch('/api/main_page/edit', {
