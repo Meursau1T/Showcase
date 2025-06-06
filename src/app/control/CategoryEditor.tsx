@@ -9,18 +9,34 @@ interface Props {
 }
 
 export default function CategoryEditor(props: Props) {
-  const [types, setTypes] = useState(props.data?.types || [])
-  const [typesEn, setTypesEn] = useState(props.data?.types_en || [])
+  const [typesStr, setTypesStr] = useState(
+    Array.isArray(props.data?.types) ? props.data.types.join(', ') : ''
+  );
+  const [typesEnStr, setTypesEnStr] = useState(
+    Array.isArray(props.data?.types_en) ? props.data.types_en.join(', ') : ''
+  );
 
   const handleSubmit = async () => {
+    const parsedZh = typesStr
+      .split(',')
+      .map((item) => item.trim())
+      .filter((item) => item);
+
+    const parsedEn = typesEnStr
+      .split(',')
+      .map((item) => item.trim())
+      .filter((item) => item);
+
     const res = await fetch('/api/category/edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ types, types_en: typesEn }),
-    })
+      body: JSON.stringify({ types: parsedZh, types_en: parsedEn }),
+    });
 
     if (res.ok) {
-      alert('分类更新成功')
+      alert('分类更新成功');
+    } else {
+      alert('保存失败');
     }
   }
 
@@ -31,31 +47,17 @@ export default function CategoryEditor(props: Props) {
         <Flex direction="column" gap={2}>
           <Text fontWeight="bold">中文分类</Text>
           <Input
-            value={Array.isArray(types) ? types.join(', ') : ''}
-            onChange={(e) => {
-              const input = e.target.value;
-              const parsed = input
-                .split(',')
-                .map((item) => item.trim())
-                .filter((item) => item.length > 0);
-              setTypes(parsed);
-            }}
-            placeholder="用英文版逗号分隔的中文分类"
+            value={typesStr}
+            onChange={(e) => setTypesStr(e.target.value)}
+            placeholder="用逗号分隔的中文分类"
           />
         </Flex>
         <Flex direction="column" gap={2}>
           <Text fontWeight="bold">英文分类</Text>
           <Input
-            value={Array.isArray(typesEn) ? typesEn.join(', ') : ''}
-            onChange={(e) => {
-              const input = e.target.value;
-              const parsed = input
-                .split(',')
-                .map((item) => item.trim())
-                .filter((item) => item.length > 0);
-              setTypesEn(parsed);
-            }}
-            placeholder="用英文版逗号分隔的英文分类"
+            value={typesEnStr}
+            onChange={(e) => setTypesEnStr(e.target.value)}
+            placeholder="用逗号分隔的英文分类"
           />
         </Flex>
         <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
