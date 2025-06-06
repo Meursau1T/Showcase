@@ -8,9 +8,11 @@ interface Props {
   data: CulturePrisma | null;
 }
 
+const defaultVal = { imageContent: '', backgroundImage: '', textContent: '' }
+
 export default function CultureEditor(props: Props) {
-  const [enData, setEnData] = useState(props.data?.data.en)
-  const [zhData, setZhData] = useState(props.data?.data.zh)
+  const [enData, setEnData] = useState(props.data?.data.en || defaultVal)
+  const [zhData, setZhData] = useState(props.data?.data.zh || defaultVal)
 
   const handleSubmit = async () => {
     const res = await fetch('/api/culture/edit', {
@@ -32,7 +34,7 @@ export default function CultureEditor(props: Props) {
           {/* 中文内容 */}
           <Flex direction="column" gap={2}>
             <Text fontWeight="bold">中文 - 背景图片</Text>
-            <Input
+            <Textarea
               value={zhData?.backgroundImage || ''}
               onChange={(e) =>
                 setZhData({
@@ -58,7 +60,7 @@ export default function CultureEditor(props: Props) {
           </Flex>
           <Flex direction="column" gap={2}>
             <Text fontWeight="bold">中文 - 图片内容</Text>
-            <Input
+            <Textarea
               value={zhData?.imageContent || ''}
               onChange={(e) =>
                 setZhData({
@@ -73,7 +75,7 @@ export default function CultureEditor(props: Props) {
           {/* 英文内容 */}
           <Flex direction="column" gap={2}>
             <Text fontWeight="bold">英文 - 背景图片</Text>
-            <Input
+            <Textarea
               value={enData?.backgroundImage || ''}
               onChange={(e) =>
                 setEnData({
@@ -99,7 +101,7 @@ export default function CultureEditor(props: Props) {
           </Flex>
           <Flex direction="column" gap={2}>
             <Text fontWeight="bold">英文 - 图片内容</Text>
-            <Input
+            <Textarea
               value={enData?.imageContent || ''}
               onChange={(e) =>
                 setEnData({

@@ -14,14 +14,14 @@ const getCultureData = async (): Promise<CulturePrisma | null> => {
   return {
     data: {
       zh: {
-        backgroundImage: (data.data as any).backgroundImage ?? undefined,
-        textContent: (data.data as any).zh_textContent ?? undefined,
-        imageContent: (data.data as any).zh_imageContent ?? undefined,
+        backgroundImage: (data.data as any).zh.backgroundImage ?? undefined,
+        textContent: (data.data as any).zh.textContent ?? undefined,
+        imageContent: (data.data as any).zh.imageContent ?? undefined,
       },
       en: {
-        backgroundImage: (data.data as any).en_backgroundImage ?? undefined,
-        textContent: (data.data as any).en_textContent ?? undefined,
-        imageContent: (data.data as any).en_imageContent ?? undefined,
+        backgroundImage: (data.data as any).en.backgroundImage ?? undefined,
+        textContent: (data.data as any).en.textContent ?? undefined,
+        imageContent: (data.data as any).en.imageContent ?? undefined,
       },
     },
   };
