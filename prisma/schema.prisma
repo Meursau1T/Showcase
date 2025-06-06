@@ -19,38 +19,57 @@ model main_page {
 }
 
 model product {
-  name String @id
+  id   Int    @id
+  name String
   type String
+  hlw  String
+  /** 数组 */
+  manufacturer Json
+  /** 数组 */
+  oem_no Json
+  /** 数组 */
+  ref_no Json
+  /** 数组 */
+  machine_model Json
+  /** 数组 */
+  desc_app Json
 }
 
 model category {
   id       Int       @id @default(autoincrement())
+  /** 数组 */
   types    Json
+  /** 数组 */
   types_en Json
 }
 
 model culture {
   id       Int       @id @default(autoincrement())
+  /** 对象 */
   data    Json
 }
 
 model brand {
   id       Int       @id @default(autoincrement())
+  /** 对象 */
   data    Json
 }
 
 model profile {
   id       Int       @id @default(autoincrement())
+  /** 对象 */
   data    Json
 }
 
 model structure {
   id       Int       @id @default(autoincrement())
+  /** 对象 */
   data    Json
 }
 
 model patents {
   id       Int       @id @default(autoincrement())
+  /** 对象 */
   data    Json
 }
 
