@@ -1,9 +1,9 @@
 import { NextRequest } from "next/server";
-import { getIronSession } from "iron-session";
-import { sessionOptions } from "@/lib/sessionOptions";
+import { cookies } from 'next/headers';
+import { getSession } from "@/utils";
 
 export async function GET(request: NextRequest) {
-  const session = await getIronSession(request, request, sessionOptions);
+  const session = await getSession(cookies);
 
   if (!session.isLoggedIn) {
     return new Response(JSON.stringify({ isLoggedIn: false }), { status: 401 });

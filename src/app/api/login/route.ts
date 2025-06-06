@@ -1,7 +1,7 @@
 import { NextRequest } from "next/server";
 import { prisma } from "@/utils/prisma";
-import { getIronSession } from "iron-session";
-import { sessionOptions } from "@/lib/sessionOptions";
+import { cookies } from "next/headers";
+import { getSession } from "@/utils";
 
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
@@ -24,7 +24,7 @@ export async function GET(request: NextRequest) {
     });
   }
 
-  const session = await getIronSession(request, request, sessionOptions);
+  const session = await getSession(cookies);
 
   // 设置登录状态
   session.isLoggedIn = true;
