@@ -29,12 +29,17 @@ export default function ProductEditor({ data: serverData }: Props) {
         <Table.Root size={'sm'}>
           <Table.Header>
             <Table.Row>
-              <Table.ColumnHeader>Product</Table.ColumnHeader>
               <Table.ColumnHeader>YM.NO.</Table.ColumnHeader>
+              <Table.ColumnHeader>Type</Table.ColumnHeader>
+              <Table.ColumnHeader>HLW</Table.ColumnHeader>
+              <Table.ColumnHeader>Manufacture</Table.ColumnHeader>
               <Table.ColumnHeader>O.E.M. NO.</Table.ColumnHeader>
               <Table.ColumnHeader>REF.NO.</Table.ColumnHeader>
               <Table.ColumnHeader>MACHINE MODEL</Table.ColumnHeader>
-              <Table.ColumnHeader textAlign="end">CU.M3</Table.ColumnHeader>
+              <Table.ColumnHeader>CU.M3</Table.ColumnHeader>
+              <Table.ColumnHeader>Desc Application</Table.ColumnHeader>
+              <Table.ColumnHeader>Price</Table.ColumnHeader>
+              <Table.ColumnHeader>操作</Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
           <Table.Body>
