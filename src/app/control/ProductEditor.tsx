@@ -119,21 +119,28 @@ export default function ProductEditor({ data: serverData }: Props) {
             <Table.Cell>
               <Input
                 value={
-                  Array.isArray(newItem.ref_no?.no_list)
-                    ? newItem.ref_no.no_list.join(', ')
-                    : newItem.ref_no?.no_list || ''
+                  Array.isArray(newItem.ref_no)
+                    ? newItem.ref_no
+                        .map((ref) => `${ref.brand}:${ref.product_no}`)
+                    .join(',')
+                    : newItem.ref_no || ''
                 }
-                onChange={(e) =>
+                onChange={(e) => {
+                  const input = e.target.value;
+                  const parsed = input
+                    .split(',')
+                    .map((s) => s.trim())
+                    .filter((s) => s)
+                    .map((s) => {
+                      const [brand, product_no] = s.split(':').map((part) => part.trim());
+                      return { brand, product_no };
+                    });
                   setNewItem({
                     ...newItem,
-                    ref_no: {
-                      ...newItem.ref_no,
-                      no_list: e.target.value
-                        .split(',')
-                        .map((s) => s.trim()),
-                    },
-                  })
-                }
+                    ref_no: parsed,
+                  });
+                }}
+                placeholder="品牌:编号"
               />
             </Table.Cell>
             <Table.Cell>
@@ -206,9 +213,11 @@ export default function ProductEditor({ data: serverData }: Props) {
                   : item.oem_no}
               </Table.Cell>
               <Table.Cell>
-                {Array.isArray(item.ref_no?.no_list)
-                  ? item.ref_no.no_list.join(', ')
-                  : item.ref_no?.no_list}
+                {Array.isArray(item.ref_no)
+                  ? item.ref_no
+                      .map((ref) => `${ref.brand}:${ref.product_no}`)
+                      .join(', ')
+                  : ''}
               </Table.Cell>
               <Table.Cell>
                 {Array.isArray(item.machine_model)
