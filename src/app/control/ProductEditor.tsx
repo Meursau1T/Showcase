@@ -8,6 +8,17 @@ interface Props {
   data: ProductPrisma[] | null;
 }
 
+type StringValKey = keyof ProductPrisma & string;
+
+const textEdit = (item: Partial<ProductPrisma>, key: StringValKey, setItem: any) => (
+  <Input
+    value={item[key] || ''}
+    onChange={(e) =>
+      setItem({ ...item, name: e.target.value })
+    }
+  />
+)
+
 export default function ProductEditor({ data: serverData }: Props) {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [localData, setLocalData] = useState<Record<number, ProductPrisma>>({});
