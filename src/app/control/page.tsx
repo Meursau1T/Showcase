@@ -66,10 +66,7 @@ const getProductData = async (): Promise<ProductPrisma[] | null> => {
     hlw: item.hlw,
     manufacturer: Array.isArray(item.manufacturer) ? item.manufacturer : [],
     oem_no: Array.isArray(item.oem_no) ? item.oem_no : [],
-    ref_no: {
-      brandList:  Array.isArray(item.ref_no?.brandList) ? item.ref_no?.brandList : [],
-      no_list: Array.isArray(item.ref_no?.no_list) ? item.ref_no?.no_list : [],
-    },
+    ref_no: Array.isArray(item.ref_no) ? item.ref_no : [],
     machine_model: Array.isArray(item.machine_model) ? item.machine_model : [],
     desc_app: item.desc_app ?? '',
     price: item.price ?? '',
