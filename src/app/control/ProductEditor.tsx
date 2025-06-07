@@ -70,9 +70,9 @@ export default function ProductEditor({ data: serverData }: Props) {
   };
 
   return (
-    <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
+    <Box borderWidth="1px" borderRadius="md" p={4} bg="white" overflowX="auto" w="full">
       <Heading size="2xl" mb={4}>商品编辑</Heading>
-      <Table.Root size="sm">
+      <Table.Root size="sm" className="whitespace-nowrap overflow-x-auto max-w-full">
         <Table.Header>
           <Table.Row>
             <Table.ColumnHeader>YM.NO.</Table.ColumnHeader>
@@ -206,7 +206,7 @@ export default function ProductEditor({ data: serverData }: Props) {
               />
             </Table.Cell>
             <Table.Cell>
-              <Flex gap={2}>
+              <Flex gap={2} direction="column">
                 <Button variant="outline" size="sm" colorScheme="green" onClick={handleAdd}>
                   新增
                 </Button>
@@ -293,9 +293,11 @@ export default function ProductEditor({ data: serverData }: Props) {
                       }
                     />
                   ) : (
-                    Array.isArray(item.oem_no)
-                      ? item.oem_no.join(', ')
-                      : item.oem_no
+                    currentData.oem_no.map((item) => (
+                      <Table.Row key={item}>
+                        <Table.Cell>{item}</Table.Cell>
+                      </Table.Row>
+                    ))
                   )}
                 </Table.Cell>
                 <Table.Cell>
@@ -325,11 +327,12 @@ export default function ProductEditor({ data: serverData }: Props) {
                       }}
                     />
                   ) : (
-                    Array.isArray(item.ref_no)
-                      ? item.ref_no
-                          .map((ref) => `${ref.brand}:${ref.product_no}`)
-                          .join(', ')
-                      : ''
+                    item.ref_no.map(item => (
+                      <Table.Row key={item.product_no + item.brand}>
+                        <Table.Cell>{item.brand}</Table.Cell>
+                        <Table.Cell>{item.product_no}</Table.Cell>
+                      </Table.Row>
+                    ))
                   )}
                 </Table.Cell>
                 <Table.Cell>
@@ -349,9 +352,11 @@ export default function ProductEditor({ data: serverData }: Props) {
                       }
                     />
                   ) : (
-                    Array.isArray(item.machine_model)
-                      ? item.machine_model.join(', ')
-                      : item.machine_model
+                    item.machine_model.map(item => (
+                      <Table.Row key={item}>
+                        <Table.Cell>{item}</Table.Cell>
+                      </Table.Row>
+                    ))
                   )}
                 </Table.Cell>
                 <Table.Cell>
@@ -385,7 +390,7 @@ export default function ProductEditor({ data: serverData }: Props) {
                   )}
                 </Table.Cell>
                 <Table.Cell>
-                  <Flex gap={2}>
+                  <Flex gap={2} direction="column">
                     {isEditing ? (
                       <>
                         <Button
