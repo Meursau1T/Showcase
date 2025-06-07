@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Box, Heading, Flex, Text, Input, Button } from '@chakra-ui/react'
+import { Box, Heading, Table, Input, Button } from '@chakra-ui/react'
 import { ProductPrisma } from '@/type'
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 export default function ProductEditor({ data: serverData }: Props) {
-  const [data, setData] = useState({ name: '', price: '', desc: '' })
+  const [data, setData] = useState<ProductPrisma>();
 
   const handleSubmit = async () => {
     const res = await fetch('/api/product/edit', {
@@ -26,21 +26,24 @@ export default function ProductEditor({ data: serverData }: Props) {
   return (
     <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
       <Heading size="2xl" mb={4}>商品编辑</Heading>
-      <Flex direction="column" gap={4}>
-        <Flex direction="column" gap={2}>
-          <Text fontWeight="bold">名称</Text>
-          <Input value={data.name} onChange={(e) => setData({ ...data, name: e.target.value })} placeholder="名称" />
-        </Flex>
-        <Flex direction="column" gap={2}>
-          <Text fontWeight="bold">价格</Text>
-          <Input value={data.price} onChange={(e) => setData({ ...data, price: e.target.value })} placeholder="价格" />
-        </Flex>
-        <Flex direction="column" gap={2}>
-          <Text fontWeight="bold">描述</Text>
-          <Input value={data.desc} onChange={(e) => setData({ ...data, desc: e.target.value })} placeholder="描述" />
-        </Flex>
-        <Button colorScheme="blue" alignSelf="start" onClick={handleSubmit}>保存</Button>
-      </Flex>
+        <Table.Root size={'sm'}>
+          <Table.Header>
+            <Table.Row>
+              <Table.ColumnHeader>Product</Table.ColumnHeader>
+              <Table.ColumnHeader>Category</Table.ColumnHeader>
+              <Table.ColumnHeader textAlign="end">Price</Table.ColumnHeader>
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {/* {items.map((item) => ( */}
+            {/*   <Table.Row key={item.id}> */}
+            {/*     <Table.Cell>{item.name}</Table.Cell> */}
+            {/*     <Table.Cell>{item.category}</Table.Cell> */}
+            {/*     <Table.Cell textAlign="end">{item.price}</Table.Cell> */}
+            {/*   </Table.Row> */}
+            {/* ))} */}
+          </Table.Body>
+        </Table.Root>
     </Box>
   )
 }
