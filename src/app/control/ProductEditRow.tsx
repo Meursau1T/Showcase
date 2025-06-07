@@ -81,18 +81,32 @@ export const ProductEditRow = ({ item }: Props) => {
       </Table.Cell>
       <Table.Cell>
         {
-          item.ref_no.map(item => (
-            <Table.Row key={item.product_no + item.brand}>
+          localData.ref_no.map((ref, index) => (
+            <Table.Row key={ref.product_no + ref.brand}>
               <Table.Cell>
                 <Input
-                  value={item.brand}
-                  onChange={(e) => handleChange('ref_no', { brand: e.target.value, product_no: item.product_no })}
+                  value={ref.brand}
+                  onChange={(e) => {
+                    const updatedRefNo = [...localData.ref_no];
+                    updatedRefNo[index] = {
+                      ...updatedRefNo[index],
+                      brand: e.target.value,
+                    };
+                    handleChange('ref_no', updatedRefNo);
+                  }}
                 />
               </Table.Cell>
               <Table.Cell>
                 <Input
-                  value={item.product_no}
-                  onChange={(e) => handleChange('ref_no', { brand: item.brand, product_no: e.target.value })}
+                  value={ref.product_no}
+                  onChange={(e) => {
+                    const updatedRefNo = [...localData.ref_no];
+                    updatedRefNo[index] = {
+                      ...updatedRefNo[index],
+                      product_no: e.target.value,
+                    };
+                    handleChange('ref_no', updatedRefNo);
+                  }}
                 />
               </Table.Cell>
             </Table.Row>
