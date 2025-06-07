@@ -5,12 +5,13 @@ import MainPageEditor from './MainPageEditor'
 import ProductEditor from './ProductEditor'
 import CategoryEditor from './CategoryEditor'
 import CultureEditor from './CultureEditor'
-import type { CategoryPrisma, CulturePrisma, MainPrisma } from '@/type'
+import type { CategoryPrisma, CulturePrisma, MainPrisma, ProductPrisma } from '@/type'
 
 interface Props {
   cultureData: CulturePrisma | null;
   mainPageData: MainPrisma | null;
   categoryData: CategoryPrisma | null;
+  productData: ProductPrisma[] | null;
 }
 
 export default function ControlIndex({ cultureData, mainPageData, categoryData }: Props) {

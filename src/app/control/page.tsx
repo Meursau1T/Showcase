@@ -52,6 +52,51 @@ const getCategoryData = async (): Promise<CategoryPrisma | null> => {
   };
 };
 
+/**
+ * 获取商品数据并按 ProductPrisma 类型解析
+ */
+const getProductData = async (): Promise<ProductPrisma[] | null> => {
+  const data = await prisma.product.findMany();
+  if (!data || data.length === 0) return null;
+
+  return data.map((item) => ({
+    id: item.id,
+    name: item.name,
+    type: item.type,
+    hlw: item.hlw,
+    manufacturer: Array.isArray(item.manufacturer)
+      ? item.manufacturer
+      : item.manufacturer
+      ? String(item.manufacturer).split(',').map((s) => s.trim())
+      : [],
+    oem_no: Array.isArray(item.oem_no)
+      ? item.oem_no
+      : item.oem_no
+      ? String(item.oem_no).split(',').map((s) => s.trim())
+      : [],
+    ref_no: {
+      brandList: Array.isArray(item.ref_no?.brandList)
+        ? item.ref_no?.brandList
+        : item.ref_no?.brandList
+        ? String(item.ref_no?.brandList).split(',').map((s) => s.trim())
+        : [],
+      no_list: Array.isArray(item.ref_no?.no_list)
+        ? item.ref_no?.no_list
+        : item.ref_no?.no_list
+        ? String(item.ref_no?.no_list).split(',').map((s) => s.trim())
+        : [],
+    },
+    machine_model: Array.isArray(item.machine_model)
+      ? item.machine_model
+      : item.machine_model
+      ? String(item.machine_model).split(',').map((s) => s.trim())
+      : [],
+    desc_app: item.desc_app ?? undefined,
+    price: item.price ?? undefined,
+    cu_m3: item.cu_m3 ?? undefined,
+  }));
+};
+
 export default async function ControlPage() {
   const session = await getSession(cookies);
   if (!session.isLoggedIn) {
@@ -59,10 +104,11 @@ export default async function ControlPage() {
   }
 
   // 并行请求数据
-  const [cultureData, mainPageData, categoryData] = await Promise.all([
+  const [cultureData, mainPageData, categoryData, productData] = await Promise.all([
     getCultureData(),
     getMainPageData(),
     getCategoryData(),
+    getProductData(),
   ]);
 
   return (
@@ -70,6 +116,7 @@ export default async function ControlPage() {
       cultureData={cultureData}
       mainPageData={mainPageData}
       categoryData={categoryData}
+      productData={productData}
     />
   );
 }
