@@ -41,9 +41,9 @@ export type ProductPrisma = {
   manufacturer: string[];
   oem_no: string[];
   ref_no: {
-    brandList: string[],
-    no_list: string[],
-  };
+    brand: string,
+    product_no: string,
+  }[];
   machine_model: string[];
   desc_app?: string;
   price?: string;

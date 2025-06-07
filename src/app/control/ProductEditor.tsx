@@ -179,10 +179,10 @@ export default function ProductEditor({ data: serverData }: Props) {
             </Table.Cell>
             <Table.Cell>
               <Flex gap={2}>
-                <Button size="sm" colorScheme="green" onClick={handleAdd}>
+                <Button variant="outline" size="sm" colorScheme="green" onClick={handleAdd}>
                   新增
                 </Button>
-                <Button size="sm" colorScheme="blue">
+                <Button variant="outline" size="sm" colorScheme="blue">
                   编辑图片
                 </Button>
               </Flex>
@@ -220,14 +220,14 @@ export default function ProductEditor({ data: serverData }: Props) {
               <Table.Cell>{item.price}</Table.Cell>
               <Table.Cell>
                 <Flex gap={2}>
-                  <Button size="sm" colorScheme="blue">
+                  <Button size="sm" colorScheme="blue" variant="outline">
                     编辑
+                  </Button>
+                  <Button size="sm" colorScheme="teal" variant="outline">
+                    修改图片
                   </Button>
                   <Button size="sm" colorScheme="red">
                     删除
-                  </Button>
-                  <Button size="sm" colorScheme="teal">
-                    编辑图片
                   </Button>
                 </Flex>
               </Table.Cell>

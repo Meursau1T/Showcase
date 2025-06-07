@@ -77,6 +77,24 @@ const getProductData = async (): Promise<ProductPrisma[] | null> => {
   }));
 };
 
+// const insert = async (): Promise<ProductPrisma[] | null> => {
+//   const data = {
+//     name: 'YH-T943/7x',
+//     type: '欧美纸芯',
+//     hlw: '152x82x25/27',
+//     manufacturer: ['BMW—宝马'],
+//     oem_no: ['11 421 729 628', '11 421 731 634', '1 729 629', '1 729 857', '000 983 1602'],
+//     ref_no: {
+//       brandList:  [ 'WIX#', 'MANN#', 'CHAMP#:', 'FRAM#:', 'HENGST#:', 'KNECHT#:', 'HASTING#:', 'PUROLATOR#: ', 'AC#:'],
+//       no_list: [ '51144', 'H943/7x', 'P841', 'CH8157', 'E200H D22', 'OX103D', 'LF122', 'L37212', 'PF2251G'],
+//     },
+//     machine_model: Array.isArray(item.machine_model) ? item.machine_model : [],
+//     desc_app: item.desc_app ?? '',
+//     price: item.price ?? '',
+//     cu_m3: item.cu_m3 ?? '',
+//   }
+// };
+
 export default async function ControlPage() {
   const session = await getSession(cookies);
   if (!session.isLoggedIn) {
