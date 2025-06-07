@@ -2,8 +2,13 @@
 
 import { useState } from 'react'
 import { Box, Heading, Flex, Text, Input, Button } from '@chakra-ui/react'
+import { ProductPrisma } from '@/type'
 
-export default function ProductEditor() {
+interface Props {
+  data: ProductPrisma[] | null;
+}
+
+export default function ProductEditor({ data: serverData }: Props) {
   const [data, setData] = useState({ name: '', price: '', desc: '' })
 
   const handleSubmit = async () => {
