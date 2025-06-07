@@ -8,13 +8,19 @@ interface Props {
   data: ProductPrisma[] | null;
 }
 
-type StringValKey = keyof ProductPrisma & string;
+type StringValKey = Exclude<keyof ProductPrisma & string, 'oem_no' | 'manufacturer' | 'machine_model' | 'ref_no'>;
 
-const textEdit = (item: Partial<ProductPrisma>, key: StringValKey, setItem: any) => (
+type TextEditProps = {
+  item: Partial<ProductPrisma>;
+  key: StringValKey;
+  setItem: Function;
+}
+
+const TextEdit = ({ item, key, setItem }: TextEditProps) => (
   <Input
     value={item[key] || ''}
     onChange={(e) =>
-      setItem({ ...item, name: e.target.value })
+      setItem({ ...item, [key]: e.target.value })
     }
   />
 )
@@ -104,28 +110,13 @@ export default function ProductEditor({ data: serverData }: Props) {
             {/* 新增/编辑行 */}
             <Table.Row>
               <Table.Cell>
-                <Input
-                  value={newItem.name || ''}
-                  onChange={(e) =>
-                    setNewItem({ ...newItem, name: e.target.value })
-                  }
-                />
+                <TextEdit item={newItem} setItem={setNewItem} key={'name'} />
               </Table.Cell>
               <Table.Cell>
-                <Input
-                  value={newItem.type || ''}
-                  onChange={(e) =>
-                    setNewItem({ ...newItem, type: e.target.value })
-                  }
-                />
+                <TextEdit item={newItem} setItem={setNewItem} key={'type'} />
               </Table.Cell>
               <Table.Cell>
-                <Input
-                  value={newItem.hlw || ''}
-                  onChange={(e) =>
-                    setNewItem({ ...newItem, hlw: e.target.value })
-                  }
-                />
+                <TextEdit item={newItem} setItem={setNewItem} key={'hlw'} />
               </Table.Cell>
               <Table.Cell>
                 <Input
@@ -194,28 +185,13 @@ export default function ProductEditor({ data: serverData }: Props) {
                 />
               </Table.Cell>
               <Table.Cell>
-                <Input
-                  value={newItem.cu_m3 || ''}
-                  onChange={(e) =>
-                    setNewItem({ ...newItem, cu_m3: e.target.value })
-                  }
-                />
+                <TextEdit item={newItem} setItem={setNewItem} key={'cu_m3'} />
               </Table.Cell>
               <Table.Cell>
-                <Input
-                  value={newItem.desc_app || ''}
-                  onChange={(e) =>
-                    setNewItem({ ...newItem, desc_app: e.target.value })
-                  }
-                />
+                <TextEdit item={newItem} setItem={setNewItem} key={'desc_app'} />
               </Table.Cell>
               <Table.Cell>
-                <Input
-                  value={newItem.price || ''}
-                  onChange={(e) =>
-                    setNewItem({ ...newItem, price: e.target.value })
-                  }
-                />
+                <TextEdit item={newItem} setItem={setNewItem} key={'price'} />
               </Table.Cell>
               <Table.Cell>
                 <Flex gap={2} direction="column">
