@@ -9,43 +9,39 @@ interface Props {
 }
 
 export default function ProductEditor({ data: serverData }: Props) {
-  const [data, setData] = useState<ProductPrisma>();
-  const [newItem, setNewItem] = useState<Partial<ProductPrisma>>({
-    name: '',
-    type: '',
-    hlw: '',
-    manufacturer: [],
-    oem_no: [],
-    ref_no: { brandList: [], no_list: [] },
-    machine_model: [],
-    cu_m3: '',
-    desc_app: '',
-    price: '',
-  });
+  const [editingId, setEditingId] = useState<number | null>(null);
+  const [localData, setLocalData] = useState<Record<number, ProductPrisma>>({});
 
-  const handleSubmit = async () => {
+  const handleEdit = (item: ProductPrisma) => {
+    setEditingId(item.id);
+    setLocalData({
+      ...localData,
+      [item.id]: { ...item },
+    });
+  };
+
+  const handleSave = async (id: number) => {
+    const item = localData[id];
     const res = await fetch('/api/product/edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ data }),
-    })
-
-    if (res.ok) {
-      alert('商品信息更新成功')
-    }
-  };
-
-  const handleAdd = async () => {
-    const res = await fetch('/api/product/add', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newItem),
+      body: JSON.stringify(item),
     });
 
     if (res.ok) {
-      alert('商品新增成功');
-      // 可选：刷新页面或更新 serverData
+      setEditingId(null);
+      // 可选：刷新 serverData 或更新状态
     }
+  };
+
+  const handleChange = (id: number, field: keyof ProductPrisma, value: any) => {
+    setLocalData({
+      ...localData,
+      [id]: {
+        ...localData[id],
+        [field]: value,
+      },
+    });
   };
 
   return (
@@ -197,51 +193,214 @@ export default function ProductEditor({ data: serverData }: Props) {
           </Table.Row>
 
           {/* 数据行 */}
-          {serverData?.map((item) => (
-            <Table.Row key={item.id}>
-              <Table.Cell>{item.name}</Table.Cell>
-              <Table.Cell>{item.type}</Table.Cell>
-              <Table.Cell>{item.hlw}</Table.Cell>
-              <Table.Cell>
-                {Array.isArray(item.manufacturer)
-                  ? item.manufacturer.join(', ')
-                  : item.manufacturer}
-              </Table.Cell>
-              <Table.Cell>
-                {Array.isArray(item.oem_no)
-                  ? item.oem_no.join(', ')
-                  : item.oem_no}
-              </Table.Cell>
-              <Table.Cell>
-                {Array.isArray(item.ref_no)
-                  ? item.ref_no
-                      .map((ref) => `${ref.brand}:${ref.product_no}`)
-                      .join(', ')
-                  : ''}
-              </Table.Cell>
-              <Table.Cell>
-                {Array.isArray(item.machine_model)
-                  ? item.machine_model.join(', ')
-                  : item.machine_model}
-              </Table.Cell>
-              <Table.Cell>{item.cu_m3}</Table.Cell>
-              <Table.Cell>{item.desc_app}</Table.Cell>
-              <Table.Cell>{item.price}</Table.Cell>
-              <Table.Cell>
-                <Flex gap={2}>
-                  <Button size="sm" colorScheme="blue" variant="outline">
-                    编辑
-                  </Button>
-                  <Button size="sm" colorScheme="teal" variant="outline">
-                    修改图片
-                  </Button>
-                  <Button size="sm" colorScheme="red">
-                    删除
-                  </Button>
-                </Flex>
-              </Table.Cell>
-            </Table.Row>
-          ))}
+          {serverData?.map((item) => {
+            const isEditing = editingId === item.id;
+            const currentData = localData[item.id] || item;
+
+            return (
+              <Table.Row key={item.id}>
+                <Table.Cell>
+                  {isEditing ? (
+                    <Input
+                      value={currentData.name || ''}
+                      onChange={(e) => handleChange(item.id, 'name', e.target.value)}
+                    />
+                  ) : (
+                    item.name
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  {isEditing ? (
+                    <Input
+                      value={currentData.type || ''}
+                      onChange={(e) => handleChange(item.id, 'type', e.target.value)}
+                    />
+                  ) : (
+                    item.type
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  {isEditing ? (
+                    <Input
+                      value={currentData.hlw || ''}
+                      onChange={(e) => handleChange(item.id, 'hlw', e.target.value)}
+                    />
+                  ) : (
+                    item.hlw
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  {isEditing ? (
+                    <Input
+                      value={
+                        Array.isArray(currentData.manufacturer)
+                          ? currentData.manufacturer.join(', ')
+                          : currentData.manufacturer || ''
+                      }
+                      onChange={(e) =>
+                        handleChange(
+                          item.id,
+                          'manufacturer',
+                          e.target.value.split(',').map((s) => s.trim())
+                        )
+                      }
+                    />
+                  ) : (
+                    Array.isArray(item.manufacturer)
+                      ? item.manufacturer.join(', ')
+                      : item.manufacturer
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  {isEditing ? (
+                    <Input
+                      value={
+                        Array.isArray(currentData.oem_no)
+                          ? currentData.oem_no.join(', ')
+                          : currentData.oem_no || ''
+                      }
+                      onChange={(e) =>
+                        handleChange(
+                          item.id,
+                          'oem_no',
+                          e.target.value.split(',').map((s) => s.trim())
+                        )
+                      }
+                    />
+                  ) : (
+                    Array.isArray(item.oem_no)
+                      ? item.oem_no.join(', ')
+                      : item.oem_no
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  {isEditing ? (
+                    <Input
+                      value={
+                        Array.isArray(currentData.ref_no)
+                          ? currentData.ref_no
+                              .map((ref) => `${ref.brand}:${ref.product_no}`)
+                              .join(',')
+                          : ''
+                      }
+                      onChange={(e) => {
+                        const input = e.target.value;
+                        const parsed = input
+                          .split(',')
+                          .map((s) => s.trim())
+                          .filter((s) => s)
+                          .map((s) => {
+                            const [brand, product_no] = s
+                              .split(':')
+                              .map((part) => part.trim());
+                            return { brand, product_no };
+                          });
+
+                        handleChange(item.id, 'ref_no', parsed);
+                      }}
+                    />
+                  ) : (
+                    Array.isArray(item.ref_no)
+                      ? item.ref_no
+                          .map((ref) => `${ref.brand}:${ref.product_no}`)
+                          .join(', ')
+                      : ''
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  {isEditing ? (
+                    <Input
+                      value={
+                        Array.isArray(currentData.machine_model)
+                          ? currentData.machine_model.join(', ')
+                          : currentData.machine_model || ''
+                      }
+                      onChange={(e) =>
+                        handleChange(
+                          item.id,
+                          'machine_model',
+                          e.target.value.split(',').map((s) => s.trim())
+                        )
+                      }
+                    />
+                  ) : (
+                    Array.isArray(item.machine_model)
+                      ? item.machine_model.join(', ')
+                      : item.machine_model
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  {isEditing ? (
+                    <Input
+                      value={currentData.cu_m3 || ''}
+                      onChange={(e) => handleChange(item.id, 'cu_m3', e.target.value)}
+                    />
+                  ) : (
+                    item.cu_m3
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  {isEditing ? (
+                    <Input
+                      value={currentData.desc_app || ''}
+                      onChange={(e) => handleChange(item.id, 'desc_app', e.target.value)}
+                    />
+                  ) : (
+                    item.desc_app
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  {isEditing ? (
+                    <Input
+                      value={currentData.price || ''}
+                      onChange={(e) => handleChange(item.id, 'price', e.target.value)}
+                    />
+                  ) : (
+                    item.price
+                  )}
+                </Table.Cell>
+                <Table.Cell>
+                  <Flex gap={2}>
+                    {isEditing ? (
+                      <>
+                        <Button
+                          size="sm"
+                          colorScheme="green"
+                          onClick={() => handleSave(item.id)}
+                        >
+                          保存
+                        </Button>
+                        <Button
+                          size="sm"
+                          colorScheme="gray"
+                          onClick={() => setEditingId(null)}
+                        >
+                          取消
+                        </Button>
+                      </>
+                    ) : (
+                      <>
+                        <Button
+                          size="sm"
+                          colorScheme="blue"
+                          variant="outline"
+                          onClick={() => handleEdit(item)}
+                        >
+                          编辑
+                        </Button>
+                        <Button size="sm" colorScheme="teal" variant="outline">
+                          修改图片
+                        </Button>
+                        <Button size="sm" colorScheme="red">
+                          删除
+                        </Button>
+                      </>
+                    )}
+                  </Flex>
+                </Table.Cell>
+              </Table.Row>
+            );
+          })}
         </Table.Body>
       </Table.Root>
     </Box>
