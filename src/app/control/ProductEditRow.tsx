@@ -13,6 +13,7 @@ export const ProductEditRow = ({ item }: Props) => {
   const [localData, setLocalData] = useState<ProductPrisma>({...item});
 
   const handleChange = (field: keyof ProductPrisma, value: any) => {
+    console.log('dev wxf change', { ...localData, [field]: value});
     setLocalData({ ...localData, [field]: value});
   }
 
@@ -79,6 +80,24 @@ export const ProductEditRow = ({ item }: Props) => {
         />
       </Table.Cell>
       <Table.Cell>
+        {
+          item.ref_no.map(item => (
+            <Table.Row key={item.product_no + item.brand}>
+              <Table.Cell>
+                <Input
+                  value={item.brand}
+                  onChange={(e) => handleChange('ref_no', { brand: e.target.value, product_no: item.product_no })}
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <Input
+                  value={item.product_no}
+                  onChange={(e) => handleChange('ref_no', { brand: item.brand, product_no: e.target.value })}
+                />
+              </Table.Cell>
+            </Table.Row>
+          ))
+        }
         <Input
           value={
             Array.isArray(item.ref_no)
