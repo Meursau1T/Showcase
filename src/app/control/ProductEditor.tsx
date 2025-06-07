@@ -11,6 +11,18 @@ interface Props {
 export default function ProductEditor({ data: serverData }: Props) {
   const [editingId, setEditingId] = useState<number | null>(null);
   const [localData, setLocalData] = useState<Record<number, ProductPrisma>>({});
+  const [newItem, setNewItem] = useState<Partial<ProductPrisma>>({
+    name: '',
+    type: '',
+    hlw: '',
+    manufacturer: [],
+    oem_no: [],
+    ref_no: [],
+    machine_model: [],
+    cu_m3: '',
+    desc_app: '',
+    price: '',
+  });
 
   const handleEdit = (item: ProductPrisma) => {
     setEditingId(item.id);
@@ -31,6 +43,19 @@ export default function ProductEditor({ data: serverData }: Props) {
     if (res.ok) {
       setEditingId(null);
       // 可选：刷新 serverData 或更新状态
+    }
+  };
+
+  const handleAdd = async () => {
+    const res = await fetch('/api/product/add', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newItem),
+    });
+
+    if (res.ok) {
+      alert('商品新增成功');
+      // 可选：刷新页面或更新 serverData
     }
   };
 
