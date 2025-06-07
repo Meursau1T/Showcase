@@ -8,6 +8,19 @@ interface Props {
 }
 
 export default function ProductEditor({ data: serverData }: Props) {
+  const rowConf = [
+    'YM.NO.',
+    'Type',
+    'HLW',
+    'Manufacture',
+    'O.E.M. NO.',
+    'REF.NO.',
+    'MACHINE MODEL',
+    'CU.M3',
+    'Desc Application',
+    'Price',
+    '操作',
+  ]
 
   return (
     <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
@@ -16,17 +29,9 @@ export default function ProductEditor({ data: serverData }: Props) {
         <Table.Root size="sm" variant="outline" showColumnBorder className="whitespace-nowrap overflow-x-auto max-w-full">
           <Table.Header>
             <Table.Row>
-              <Table.ColumnHeader>YM.NO.</Table.ColumnHeader>
-              <Table.ColumnHeader>Type</Table.ColumnHeader>
-              <Table.ColumnHeader>HLW</Table.ColumnHeader>
-              <Table.ColumnHeader>Manufacture</Table.ColumnHeader>
-              <Table.ColumnHeader>O.E.M. NO.</Table.ColumnHeader>
-              <Table.ColumnHeader>REF.NO.</Table.ColumnHeader>
-              <Table.ColumnHeader>MACHINE MODEL</Table.ColumnHeader>
-              <Table.ColumnHeader>CU.M3</Table.ColumnHeader>
-              <Table.ColumnHeader>Desc Application</Table.ColumnHeader>
-              <Table.ColumnHeader>Price</Table.ColumnHeader>
-              <Table.ColumnHeader>操作</Table.ColumnHeader>
+              {rowConf.map(item => (
+                <Table.ColumnHeader>{item}</Table.ColumnHeader>
+              ))}
             </Table.Row>
           </Table.Header>
           <Table.Body>
