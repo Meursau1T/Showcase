@@ -43,13 +43,46 @@ export default function ProductEditor({ data: serverData }: Props) {
             </Table.Row>
           </Table.Header>
           <Table.Body>
-            {/* {items.map((item) => ( */}
-            {/*   <Table.Row key={item.id}> */}
-            {/*     <Table.Cell>{item.name}</Table.Cell> */}
-            {/*     <Table.Cell>{item.category}</Table.Cell> */}
-            {/*     <Table.Cell textAlign="end">{item.price}</Table.Cell> */}
-            {/*   </Table.Row> */}
-            {/* ))} */}
+            {serverData?.map((item) => (
+              <Table.Row key={item.id}>
+                <Table.Cell>{item.name}</Table.Cell>
+                <Table.Cell>{item.type}</Table.Cell>
+                <Table.Cell>{item.hlw}</Table.Cell>
+                <Table.Cell>
+                  {Array.isArray(item.manufacturer)
+                    ? item.manufacturer.join(', ')
+                    : item.manufacturer}
+                </Table.Cell>
+                <Table.Cell>
+                  {Array.isArray(item.oem_no)
+                    ? item.oem_no.join(', ')
+                    : item.oem_no}
+                </Table.Cell>
+                <Table.Cell>
+                  {Array.isArray(item.ref_no?.no_list)
+                    ? item.ref_no.no_list.join(', ')
+                    : item.ref_no?.no_list}
+                </Table.Cell>
+                <Table.Cell>
+                  {Array.isArray(item.machine_model)
+                    ? item.machine_model.join(', ')
+                    : item.machine_model}
+                </Table.Cell>
+                <Table.Cell>{item.cu_m3}</Table.Cell>
+                <Table.Cell>{item.desc_app}</Table.Cell>
+                <Table.Cell>{item.price}</Table.Cell>
+                <Table.Cell>
+                  <Flex gap={2}>
+                    <Button size="sm" colorScheme="blue">
+                      修改
+                    </Button>
+                    <Button size="sm" colorScheme="red">
+                      删除
+                    </Button>
+                  </Flex>
+                </Table.Cell>
+              </Table.Row>
+            ))}
           </Table.Body>
         </Table.Root>
     </Box>
