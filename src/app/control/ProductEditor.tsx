@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Box, Heading, Table, Input, Button } from '@chakra-ui/react'
+import { Box, Heading, Table, Input, Button, Flex } from '@chakra-ui/react'
 import { ProductPrisma } from '@/type'
 
 interface Props {
