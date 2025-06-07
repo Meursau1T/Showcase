@@ -98,30 +98,6 @@ export const ProductEditRow = ({ item }: Props) => {
             </Table.Row>
           ))
         }
-        <Input
-          value={
-            Array.isArray(item.ref_no)
-              ? item.ref_no
-                  .map((ref) => `${ref.brand}:${ref.product_no}`)
-                  .join(',')
-              : ''
-          }
-          onChange={(e) => {
-            const input = e.target.value;
-            const parsed = input
-              .split(',')
-              .map((s) => s.trim())
-              .filter((s) => s)
-              .map((s) => {
-                const [brand, product_no] = s
-                  .split(':')
-                  .map((part) => part.trim());
-                return { brand, product_no };
-              });
-
-            handleChange('ref_no', parsed);
-          }}
-        />
       </Table.Cell>
       <Table.Cell>
         <Input
