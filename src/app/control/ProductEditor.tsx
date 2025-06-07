@@ -30,8 +30,11 @@ export default function ProductEditor({ data: serverData }: Props) {
           <Table.Header>
             <Table.Row>
               <Table.ColumnHeader>Product</Table.ColumnHeader>
-              <Table.ColumnHeader>Category</Table.ColumnHeader>
-              <Table.ColumnHeader textAlign="end">Price</Table.ColumnHeader>
+              <Table.ColumnHeader>YM.NO.</Table.ColumnHeader>
+              <Table.ColumnHeader>O.E.M. NO.</Table.ColumnHeader>
+              <Table.ColumnHeader>REF.NO.</Table.ColumnHeader>
+              <Table.ColumnHeader>MACHINE MODEL</Table.ColumnHeader>
+              <Table.ColumnHeader textAlign="end">CU.M3</Table.ColumnHeader>
             </Table.Row>
           </Table.Header>
           <Table.Body>
