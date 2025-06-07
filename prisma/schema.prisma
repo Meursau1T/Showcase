@@ -19,20 +19,17 @@ model main_page {
 }
 
 model product {
-  id   Int    @id
+  id       Int       @id @default(autoincrement())
   name String
   type String
   hlw  String
-  /** 数组 */
   manufacturer Json
-  /** 数组 */
   oem_no Json
-  /** 数组 */
   ref_no Json
-  /** 数组 */
   machine_model Json
-  /** 数组 */
-  desc_app Json
+  desc_app String
+  price String
+  cu_m3 String
 }
 
 model category {
