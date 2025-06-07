@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from "next/navigation";
 import { getSession, prisma } from '@/utils';
-import type { CulturePrisma, MainPrisma, CategoryPrisma } from '@/type';
+import type { CulturePrisma, MainPrisma, CategoryPrisma, ProductPrisma } from '@/type';
 import Page from './index';
 
 /**
@@ -59,41 +59,21 @@ const getProductData = async (): Promise<ProductPrisma[] | null> => {
   const data = await prisma.product.findMany();
   if (!data || data.length === 0) return null;
 
-  return data.map((item) => ({
+  return (data as ProductPrisma[]).map((item) => ({
     id: item.id,
     name: item.name,
     type: item.type,
     hlw: item.hlw,
-    manufacturer: Array.isArray(item.manufacturer)
-      ? item.manufacturer
-      : item.manufacturer
-      ? String(item.manufacturer).split(',').map((s) => s.trim())
-      : [],
-    oem_no: Array.isArray(item.oem_no)
-      ? item.oem_no
-      : item.oem_no
-      ? String(item.oem_no).split(',').map((s) => s.trim())
-      : [],
+    manufacturer: Array.isArray(item.manufacturer) ? item.manufacturer : [],
+    oem_no: Array.isArray(item.oem_no) ? item.oem_no : [],
     ref_no: {
-      brandList: Array.isArray(item.ref_no?.brandList)
-        ? item.ref_no?.brandList
-        : item.ref_no?.brandList
-        ? String(item.ref_no?.brandList).split(',').map((s) => s.trim())
-        : [],
-      no_list: Array.isArray(item.ref_no?.no_list)
-        ? item.ref_no?.no_list
-        : item.ref_no?.no_list
-        ? String(item.ref_no?.no_list).split(',').map((s) => s.trim())
-        : [],
+      brandList:  Array.isArray(item.ref_no?.brandList) ? item.ref_no?.brandList : [],
+      no_list: Array.isArray(item.ref_no?.no_list) ? item.ref_no?.no_list : [],
     },
-    machine_model: Array.isArray(item.machine_model)
-      ? item.machine_model
-      : item.machine_model
-      ? String(item.machine_model).split(',').map((s) => s.trim())
-      : [],
-    desc_app: item.desc_app ?? undefined,
-    price: item.price ?? undefined,
-    cu_m3: item.cu_m3 ?? undefined,
+    machine_model: Array.isArray(item.machine_model) ? item.machine_model : [],
+    desc_app: item.desc_app ?? '',
+    price: item.price ?? '',
+    cu_m3: item.cu_m3 ?? '',
   }));
 };
 
