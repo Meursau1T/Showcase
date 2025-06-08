@@ -12,6 +12,8 @@ export const ProductEditRow = ({ item }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [localData, setLocalData] = useState<ProductPrisma>({...item});
 
+  console.log('dev wxf localData', localData);
+
   const handleChange = (field: keyof ProductPrisma, value: any) => {
     console.log('dev wxf change', { ...localData, [field]: value});
     setLocalData({ ...localData, [field]: value});
@@ -30,27 +32,31 @@ export const ProductEditRow = ({ item }: Props) => {
   };
 
   const editingEl = (
-    <Table.Row key={item.id}>
+    <Table.Row key={localData.id}>
       <Table.Cell>
         <Input
-          value={item.name || ''}
+          minW="100px"
+          value={localData.name || ''}
           onChange={(e) => handleChange('name', e.target.value)}
         />
       </Table.Cell>
       <Table.Cell>
         <Input
-          value={item.type || ''}
+          minW="100px"
+          value={localData.type || ''}
           onChange={(e) => handleChange('type', e.target.value)}
         />
       </Table.Cell>
       <Table.Cell>
         <Input
-          value={item.hlw || ''}
+          minW="100px"
+          value={localData.hlw || ''}
           onChange={(e) => handleChange('hlw', e.target.value)}
         />
       </Table.Cell>
       <Table.Cell>
         <Input
+          minW="100px"
           value={
             Array.isArray(item.manufacturer)
               ? item.manufacturer.join(', ')
@@ -66,6 +72,7 @@ export const ProductEditRow = ({ item }: Props) => {
       </Table.Cell>
       <Table.Cell>
         <Input
+          minW="100px"
           value={
             Array.isArray(item.oem_no)
               ? item.oem_no.join(', ')
@@ -85,6 +92,7 @@ export const ProductEditRow = ({ item }: Props) => {
             <Table.Row key={ref.product_no + ref.brand}>
               <Table.Cell>
                 <Input
+                  minW="100px"
                   value={ref.brand}
                   onChange={(e) => {
                     const updatedRefNo = [...localData.ref_no];
@@ -98,6 +106,7 @@ export const ProductEditRow = ({ item }: Props) => {
               </Table.Cell>
               <Table.Cell>
                 <Input
+                  minW="100px"
                   value={ref.product_no}
                   onChange={(e) => {
                     const updatedRefNo = [...localData.ref_no];
@@ -115,6 +124,7 @@ export const ProductEditRow = ({ item }: Props) => {
       </Table.Cell>
       <Table.Cell>
         <Input
+          minW="100px"
           value={
             Array.isArray(item.machine_model)
               ? item.machine_model.join(', ')
@@ -130,19 +140,22 @@ export const ProductEditRow = ({ item }: Props) => {
       </Table.Cell>
       <Table.Cell>
         <Input
-          value={item.cu_m3 || ''}
+          minW="100px"
+          value={localData.cu_m3 || ''}
           onChange={(e) => handleChange('cu_m3', e.target.value)}
         />
       </Table.Cell>
       <Table.Cell>
         <Input
-          value={item.desc_app || ''}
+          minW="100px"
+          value={localData.desc_app || ''}
           onChange={(e) => handleChange('desc_app', e.target.value)}
         />
       </Table.Cell>
       <Table.Cell>
         <Input
-          value={item.price || ''}
+          minW="100px"
+          value={localData.price || ''}
           onChange={(e) => handleChange('price', e.target.value)}
         />
       </Table.Cell>
@@ -170,13 +183,13 @@ export const ProductEditRow = ({ item }: Props) => {
   );
 
   const notEditingEl = (
-    <Table.Row key={item.id}>
-      <Table.Cell>{item.name}</Table.Cell>
-      <Table.Cell>{item.type}</Table.Cell>
-      <Table.Cell>{item.hlw}</Table.Cell>
+    <Table.Row key={localData.id}>
+      <Table.Cell>{localData.name}</Table.Cell>
+      <Table.Cell>{localData.type}</Table.Cell>
+      <Table.Cell>{localData.hlw}</Table.Cell>
       <Table.Cell>
         {
-          item.manufacturer.map((item) => (
+          localData.manufacturer.map((item) => (
             <Table.Row key={item}>
               <Table.Cell>{item}</Table.Cell>
             </Table.Row>
@@ -185,7 +198,7 @@ export const ProductEditRow = ({ item }: Props) => {
       </Table.Cell>
       <Table.Cell>
         {
-          item.oem_no.map((item) => (
+          localData.oem_no.map((item) => (
             <Table.Row key={item}>
               <Table.Cell>{item}</Table.Cell>
             </Table.Row>
@@ -194,7 +207,7 @@ export const ProductEditRow = ({ item }: Props) => {
       </Table.Cell>
       <Table.Cell>
         {
-          item.ref_no.map(item => (
+          localData.ref_no.map(item => (
             <Table.Row key={item.product_no + item.brand}>
               <Table.Cell>{item.brand}</Table.Cell>
               <Table.Cell>{item.product_no}</Table.Cell>
@@ -204,16 +217,16 @@ export const ProductEditRow = ({ item }: Props) => {
       </Table.Cell>
       <Table.Cell>
         {
-          item.machine_model.map(item => (
+          localData.machine_model.map(item => (
             <Table.Row key={item}>
               <Table.Cell>{item}</Table.Cell>
             </Table.Row>
           ))
         }
       </Table.Cell>
-      <Table.Cell>{item.cu_m3}</Table.Cell>
-      <Table.Cell>{item.desc_app}</Table.Cell>
-      <Table.Cell>{item.price}</Table.Cell>
+      <Table.Cell>{localData.cu_m3}</Table.Cell>
+      <Table.Cell>{localData.desc_app}</Table.Cell>
+      <Table.Cell>{localData.price}</Table.Cell>
       <Table.Cell>
         <Flex gap={2} direction="column">
           <>
