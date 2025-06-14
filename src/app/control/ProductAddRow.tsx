@@ -206,7 +206,7 @@ export const ProductAddRow = () => {
             </Dialog.Content>
           </Dialog.Positioner>
         </Portal>
-      </Popover.Root>
+      </Dialog.Root>
     </>
   )
 }
