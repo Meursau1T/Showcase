@@ -7,8 +7,7 @@ import {
   Portal,
   Input,
   Flex,
-  FormControl,
-  FormLabel,
+  Field,
 } from '@chakra-ui/react'
 import { ProductPrisma } from '@/type'
 
@@ -73,23 +72,23 @@ export const ProductAddRow = () => {
               <Popover.Arrow />
               <Popover.Body>
                 <Flex direction="column" gap={4}>
-                  <FormControl>
-                    <FormLabel>名称</FormLabel>
+                  <Field.Root>
+                    <Field.Label>名称</Field.Label>
                     <TextEdit item={newItem} setItem={setNewItem} key="name" />
-                  </FormControl>
+                  </Field.Root>
 
-                  <FormControl>
-                    <FormLabel>类型</FormLabel>
+                  <Field.Root>
+                    <Field.Label>类型</Field.Label>
                     <TextEdit item={newItem} setItem={setNewItem} key="type" />
-                  </FormControl>
+                  </Field.Root>
 
-                  <FormControl>
-                    <FormLabel>HLW</FormLabel>
+                  <Field.Root>
+                    <Field.Label>HLW</Field.Label>
                     <TextEdit item={newItem} setItem={setNewItem} key="hlw" />
-                  </FormControl>
+                  </Field.Root>
 
-                  <FormControl>
-                    <FormLabel>制造商</FormLabel>
+                  <Field.Root>
+                    <Field.Label>制造商</Field.Label>
                     <Input
                       className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       value={
@@ -104,10 +103,10 @@ export const ProductAddRow = () => {
                         })
                       }
                     />
-                  </FormControl>
+                  </Field.Root>
 
-                  <FormControl>
-                    <FormLabel>OEM编号</FormLabel>
+                  <Field.Root>
+                    <Field.Label>OEM编号</Field.Label>
                     <Input
                       className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       value={
@@ -122,10 +121,10 @@ export const ProductAddRow = () => {
                         })
                       }
                     />
-                  </FormControl>
+                  </Field.Root>
 
-                  <FormControl>
-                    <FormLabel>参考编号（品牌:编号）</FormLabel>
+                  <Field.Root>
+                    <Field.Label>参考编号（品牌:编号）</Field.Label>
                     <Input
                       className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       value={
@@ -152,10 +151,10 @@ export const ProductAddRow = () => {
                       }}
                       placeholder="品牌:编号"
                     />
-                  </FormControl>
+                  </Field.Root>
 
-                  <FormControl>
-                    <FormLabel>机型</FormLabel>
+                  <Field.Root>
+                    <Field.Label>机型</Field.Label>
                     <Input
                       className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       value={
@@ -170,22 +169,22 @@ export const ProductAddRow = () => {
                         })
                       }
                     />
-                  </FormControl>
+                  </Field.Root>
 
-                  <FormControl>
-                    <FormLabel>Cu M³</FormLabel>
+                  <Field.Root>
+                    <Field.Label>Cu M³</Field.Label>
                     <TextEdit item={newItem} setItem={setNewItem} key="cu_m3" />
-                  </FormControl>
+                  </Field.Root>
 
-                  <FormControl>
-                    <FormLabel>描述</FormLabel>
+                  <Field.Root>
+                    <Field.Label>描述</Field.Label>
                     <TextEdit item={newItem} setItem={setNewItem} key="desc_app" />
-                  </FormControl>
+                  </Field.Root>
 
-                  <FormControl>
-                    <FormLabel>价格</FormLabel>
+                  <Field.Root>
+                    <Field.Label>价格</Field.Label>
                     <TextEdit item={newItem} setItem={setNewItem} key="price" />
-                  </FormControl>
+                  </Field.Root>
 
                   <Button colorScheme="green" onClick={handleAdd}>
                     保存
