@@ -3,8 +3,9 @@
 import { useState } from 'react'
 import {
   Button,
-  Popover,
+  Dialog,
   Portal,
+  CloseButton,
   Input,
   Flex,
   Field,
@@ -59,18 +60,29 @@ export const ProductAddRow = () => {
 
   return (
     <>
-      <Popover.Root open={isOpen} onOpenChange={(e) => setIsOpen(e.open)}>
-        <Popover.Trigger asChild>
+      <Dialog.Root
+        open={isOpen}
+        onOpenChange={(e) => setIsOpen(e.open)}
+        placement="center"
+        motionPreset="slide-in-bottom"
+      >
+        <Dialog.Trigger asChild>
           <Button colorScheme="blue">添加商品</Button>
-        </Popover.Trigger>
+        </Dialog.Trigger>
         <Portal>
-          <Popover.Positioner>
-            <Popover.Content
+          <Dialog.Backdrop />
+          <Dialog.Positioner>
+            <Dialog.Content
               className="p-4 rounded-lg shadow-lg bg-white w-[400px]"
               style={{ width: 'fit-content' }}
             >
-              <Popover.Arrow />
-              <Popover.Body>
+              <Dialog.Header>
+                <Dialog.Title>添加商品</Dialog.Title>
+                <Dialog.CloseTrigger asChild>
+                  <CloseButton size="sm" />
+                </Dialog.CloseTrigger>
+              </Dialog.Header>
+              <Dialog.Body>
                 <Flex direction="column" gap={4}>
                   <Field.Root>
                     <Field.Label>名称</Field.Label>
@@ -190,9 +202,9 @@ export const ProductAddRow = () => {
                     保存
                   </Button>
                 </Flex>
-              </Popover.Body>
-            </Popover.Content>
-          </Popover.Positioner>
+              </Dialog.Body>
+            </Dialog.Content>
+          </Dialog.Positioner>
         </Portal>
       </Popover.Root>
     </>
