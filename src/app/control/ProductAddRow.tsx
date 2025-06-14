@@ -1,29 +1,39 @@
 'use client'
 
 import { useState } from 'react'
-import { Table, Input, Button, Flex } from '@chakra-ui/react'
+import {
+  Button,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalCloseButton,
+  ModalBody,
+  ModalFooter,
+  Input,
+  Flex,
+  FormControl,
+  FormLabel,
+} from '@chakra-ui/react'
 import { ProductPrisma } from '@/type'
-import { ProductEditRow } from './ProductEditRow';
 
-type StringValKey = Exclude<keyof ProductPrisma & string, 'oem_no' | 'manufacturer' | 'machine_model' | 'ref_no'>;
+type StringValKey = Exclude<keyof ProductPrisma & string, 'oem_no' | 'manufacturer' | 'machine_model' | 'ref_no'>
 
 type TextEditProps = {
-  item: Partial<ProductPrisma>;
-  key: StringValKey;
-  setItem: Function;
+  item: Partial<ProductPrisma>
+  key: StringValKey
+  setItem: Function
 }
 
 const TextEdit = ({ item, key, setItem }: TextEditProps) => (
   <Input
     value={item[key] || ''}
-    onChange={(e) =>
-      setItem({ ...item, [key]: e.target.value })
-    }
+    onChange={(e) => setItem({ ...item, [key]: e.target.value })}
   />
 )
 
-
 export const ProductAddRow = () => {
+  const [isOpen, setIsOpen] = useState(false)
   const [newItem, setNewItem] = useState<Partial<ProductPrisma>>({
     name: '',
     type: '',
@@ -35,117 +45,160 @@ export const ProductAddRow = () => {
     cu_m3: '',
     desc_app: '',
     price: '',
-  });
+  })
+
+  const onOpen = () => setIsOpen(true)
+  const onClose = () => setIsOpen(false)
 
   const handleAdd = async () => {
     const res = await fetch('/api/product/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newItem),
-    });
+    })
 
     if (res.ok) {
-      alert('商品新增成功');
-      // 可选：刷新页面或更新 serverData
+      alert('商品新增成功')
+      onClose()
     }
-  };
+  }
 
   return (
-    <Table.Row>
-      <Table.Cell>
-        <TextEdit item={newItem} setItem={setNewItem} key={'name'} />
-      </Table.Cell>
-      <Table.Cell>
-        <TextEdit item={newItem} setItem={setNewItem} key={'type'} />
-      </Table.Cell>
-      <Table.Cell>
-        <TextEdit item={newItem} setItem={setNewItem} key={'hlw'} />
-      </Table.Cell>
-      <Table.Cell>
-        <Input
-          value={Array.isArray(newItem.manufacturer) ? newItem.manufacturer.join(', ') : newItem.manufacturer || ''}
-          onChange={(e) =>
-            setNewItem({
-              ...newItem,
-              manufacturer: e.target.value.split(',').map((s) => s.trim()),
-            })
-          }
-        />
-      </Table.Cell>
-      <Table.Cell>
-        <Input
-          value={Array.isArray(newItem.oem_no) ? newItem.oem_no.join(', ') : newItem.oem_no || ''}
-          onChange={(e) =>
-            setNewItem({
-              ...newItem,
-              oem_no: e.target.value.split(',').map((s) => s.trim()),
-            })
-          }
-        />
-      </Table.Cell>
-      <Table.Cell>
-        <Input
-          value={
-            Array.isArray(newItem.ref_no)
-              ? newItem.ref_no
-                  .map((ref) => `${ref.brand}:${ref.product_no}`)
-              .join(',')
-              : newItem.ref_no || ''
-          }
-          onChange={(e) => {
-            const input = e.target.value;
-            const parsed = input
-              .split(',')
-              .map((s) => s.trim())
-              .filter((s) => s)
-              .map((s) => {
-                const [brand, product_no] = s.split(':').map((part) => part.trim());
-                return { brand, product_no };
-              });
-            setNewItem({
-              ...newItem,
-              ref_no: parsed,
-            });
-          }}
-          placeholder="品牌:编号"
-        />
-      </Table.Cell>
-      <Table.Cell>
-        <Input
-          value={
-            Array.isArray(newItem.machine_model)
-              ? newItem.machine_model.join(', ')
-              : newItem.machine_model || ''
-          }
-          onChange={(e) =>
-            setNewItem({
-              ...newItem,
-              machine_model: e.target.value
-                .split(',')
-                .map((s) => s.trim()),
-            })
-          }
-        />
-      </Table.Cell>
-      <Table.Cell>
-        <TextEdit item={newItem} setItem={setNewItem} key={'cu_m3'} />
-      </Table.Cell>
-      <Table.Cell>
-        <TextEdit item={newItem} setItem={setNewItem} key={'desc_app'} />
-      </Table.Cell>
-      <Table.Cell>
-        <TextEdit item={newItem} setItem={setNewItem} key={'price'} />
-      </Table.Cell>
-      <Table.Cell>
-        <Flex gap={2} direction="column">
-          <Button variant="outline" size="sm" colorScheme="green" onClick={handleAdd}>
-            新增
-          </Button>
-          <Button variant="outline" size="sm" colorScheme="blue">
-            编辑图片
-          </Button>
-        </Flex>
-      </Table.Cell>
-    </Table.Row>
+    <>
+      <Button colorScheme="blue" onClick={onOpen}>
+        添加商品
+      </Button>
+
+      <Modal isOpen={isOpen} onClose={onClose} size="xl">
+        <ModalOverlay />
+        <ModalContent className="p-4 rounded-lg shadow-lg bg-white">
+          <ModalHeader>新增商品</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Flex direction="column" gap={4}>
+              <FormControl>
+                <FormLabel>名称</FormLabel>
+                <TextEdit item={newItem} setItem={setNewItem} key="name" />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>类型</FormLabel>
+                <TextEdit item={newItem} setItem={setNewItem} key="type" />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>HLW</FormLabel>
+                <TextEdit item={newItem} setItem={setNewItem} key="hlw" />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>制造商</FormLabel>
+                <Input
+                  className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  value={
+                    Array.isArray(newItem.manufacturer)
+                      ? newItem.manufacturer.join(', ')
+                      : newItem.manufacturer || ''
+                  }
+                  onChange={(e) =>
+                    setNewItem({
+                      ...newItem,
+                      manufacturer: e.target.value.split(',').map((s) => s.trim()),
+                    })
+                  }
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>OEM编号</FormLabel>
+                <Input
+                  className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  value={
+                    Array.isArray(newItem.oem_no)
+                      ? newItem.oem_no.join(', ')
+                      : newItem.oem_no || ''
+                  }
+                  onChange={(e) =>
+                    setNewItem({
+                      ...newItem,
+                      oem_no: e.target.value.split(',').map((s) => s.trim()),
+                    })
+                  }
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>参考编号（品牌:编号）</FormLabel>
+                <Input
+                  className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  value={
+                    Array.isArray(newItem.ref_no)
+                      ? newItem.ref_no
+                          .map((ref) => `${ref.brand}:${ref.product_no}`)
+                          .join(',')
+                      : newItem.ref_no || ''
+                  }
+                  onChange={(e) => {
+                    const input = e.target.value
+                    const parsed = input
+                      .split(',')
+                      .map((s) => s.trim())
+                      .filter((s) => s)
+                      .map((s) => {
+                        const [brand, product_no] = s.split(':').map((part) => part.trim())
+                        return { brand, product_no }
+                      })
+                    setNewItem({
+                      ...newItem,
+                      ref_no: parsed,
+                    })
+                  }}
+                  placeholder="品牌:编号"
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>机型</FormLabel>
+                <Input
+                  className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
+                  value={
+                    Array.isArray(newItem.machine_model)
+                      ? newItem.machine_model.join(', ')
+                      : newItem.machine_model || ''
+                  }
+                  onChange={(e) =>
+                    setNewItem({
+                      ...newItem,
+                      machine_model: e.target.value.split(',').map((s) => s.trim()),
+                    })
+                  }
+                />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>Cu M³</FormLabel>
+                <TextEdit item={newItem} setItem={setNewItem} key="cu_m3" />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>描述</FormLabel>
+                <TextEdit item={newItem} setItem={setNewItem} key="desc_app" />
+              </FormControl>
+
+              <FormControl>
+                <FormLabel>价格</FormLabel>
+                <TextEdit item={newItem} setItem={setNewItem} key="price" />
+              </FormControl>
+            </Flex>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="green" onClick={handleAdd}>
+              保存
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </>
   )
 }
