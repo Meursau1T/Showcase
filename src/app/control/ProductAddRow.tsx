@@ -33,7 +33,7 @@ const TextEdit = ({ item, keyName: key, setItem }: TextEditProps) => (
 
 type TableInputProps = {
   keyName: TableValKey;
-  item: ProductPrisma;
+  item: Partial<ProductPrisma>
   setItem: Function;
   cols?: string[];
 }
@@ -59,7 +59,7 @@ const TableInput = ({ keyName, item, setItem, cols }: TableInputProps) => {
           ...item,
           [keyName]: [...currentList, val],
         })
-        setInputValue({})
+        setInputValue({} as typeof inputValue)
       }
     }
   }
@@ -80,7 +80,7 @@ const TableInput = ({ keyName, item, setItem, cols }: TableInputProps) => {
             <Flex w="full">
               {typeof val === 'object' ?
                 cols?.map(k => 
-                  <Table.Cell w="50%">{val[k]}</Table.Cell> 
+                  <Table.Cell w="50%">{val[k as keyof typeof val]}</Table.Cell> 
                 ) :
                 <Table.Cell>{val}</Table.Cell>
               }
@@ -99,13 +99,13 @@ const TableInput = ({ keyName, item, setItem, cols }: TableInputProps) => {
                 {cols.map(k => 
                   <Input
                     placeholder={k}
-                    value={inputValue?.[k] || ''}
-                    onChange={(e) => setInputValue({ ...inputValue, [k]: e.target.value })}
+                    value={inputValue?.[k as keyof typeof inputValue] || ''}
+                    onChange={(e) => setInputValue({ ...inputValue as ProductPrisma['ref_no'][0], [k]: e.target.value })}
                   />
                 )}
               </Flex> :
               <Input
-                value={inputValue}
+                value={inputValue as string}
                 onChange={(e) => setInputValue(e.target.value)}
               />
             }
