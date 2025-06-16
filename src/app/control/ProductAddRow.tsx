@@ -47,6 +47,59 @@ export const ProductAddRow = () => {
     price: '',
   })
 
+  const TableInput = () => {
+    const [inputValue, setInputValue] = useState('')
+    const currentList = newItem.oem_no || []
+
+    const handleAdd = () => {
+      const val = inputValue.trim()
+      if (val) {
+        setNewItem({
+          ...newItem,
+          oem_no: [...currentList, val],
+        })
+        setInputValue('')
+      }
+    }
+
+    const handleDelete = (index: number) => {
+      const updated = [...currentList]
+      updated.splice(index, 1)
+      setNewItem({ ...newItem, oem_no: updated })
+    }
+
+    return (
+      <Table.Root size="sm">
+        <Table.Body>
+          {currentList.map((oem, index) => (
+            <Table.Row key={index}>
+              <Table.Cell>{oem}</Table.Cell>
+              <Table.Cell textAlign="end">
+                <Button size="xs" colorScheme="red" onClick={() => handleDelete(index)}>
+                  删除
+                </Button>
+              </Table.Cell>
+            </Table.Row>
+          ))}
+          <Table.Row>
+            <Table.Cell>
+              <Input
+                placeholder="编号"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+            </Table.Cell>
+            <Table.Cell textAlign="end">
+              <Button size="xs" colorScheme="green" onClick={handleAdd}>
+                添加
+              </Button>
+            </Table.Cell>
+          </Table.Row>
+        </Table.Body>
+      </Table.Root>
+    )
+  }
+
   const onOpen = () => setIsOpen(true)
   const onClose = () => setIsOpen(false)
 
@@ -122,93 +175,12 @@ export const ProductAddRow = () => {
 
                   <Field.Root>
                     <Field.Label>O.E.M.NO</Field.Label>
-                    <Table.Root size="sm">
-                      <Table.Root size="sm">
-                        <Table.Header>
-                        </Table.Header>
-                        <Table.Body>
-                          {newItem.oem_no?.map((oem, index) => {
-                            const [productNo] = oem.split(':').map((s) => s.trim())
-                            return (
-                              <Table.Row key={index}>
-                                <Table.Cell>{productNo}</Table.Cell>
-                                <Table.Cell textAlign="end">
-                                  <Button size="xs" colorScheme="red" onClick={() => {
-                                    const updated = [...(newItem.oem_no || [])]
-                                    updated.splice(index, 1)
-                                    setNewItem({ ...newItem, oem_no: updated })
-                                  }}>
-                                    删除
-                                  </Button>
-                                </Table.Cell>
-                              </Table.Row>
-                            )
-                          })}
-                          <Table.Row>
-                            <Table.Cell>
-                              <Input
-                                id="product-oem-no-input"
-                                placeholder="编号"
-                                data-value=""
-                                onChange={(e) => {
-                                  const inputVal = e.target.value
-                                  e.target.setAttribute('data-value', inputVal)
-                                }}
-                              />
-                            </Table.Cell>
-                            <Table.Cell textAlign="end">
-                              <Button
-                                size="xs"
-                                colorScheme="green"
-                                onClick={() => {
-                                  const inputField = document.getElementById('product-oem-no-input')
-                                  const productNo = inputField?.getAttribute('data-value')?.trim()
-                                  if (productNo) {
-                                    setNewItem({
-                                      ...newItem,
-                                      oem_no: [...(newItem.oem_no || []), productNo],
-                                    })
-                                    inputField?.setAttribute('data-value', '')
-                                  }
-                                }}
-                              >
-                                添加
-                              </Button>
-                            </Table.Cell>
-                          </Table.Row>
-                        </Table.Body>
-                      </Table.Root>
-                    </Table.Root>
+                    <TableInput />
                   </Field.Root>
 
                   <Field.Root>
                     <Field.Label>REF.NO.</Field.Label>
-                    <Input
-                      className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      value={
-                        Array.isArray(newItem.ref_no)
-                          ? newItem.ref_no
-                              .map((ref) => `${ref.brand}:${ref.product_no}`)
-                              .join(',')
-                          : newItem.ref_no || ''
-                      }
-                      onChange={(e) => {
-                        const input = e.target.value
-                        const parsed = input
-                          .split(',')
-                          .map((s) => s.trim())
-                          .filter((s) => s)
-                          .map((s) => {
-                            const [brand, product_no] = s.split(':').map((part) => part.trim())
-                            return { brand, product_no }
-                          })
-                        setNewItem({
-                          ...newItem,
-                          ref_no: parsed,
-                        })
-                      }}
-                      placeholder="品牌:编号"
-                    />
+                    <TableInput />
                   </Field.Root>
 
                   <Field.Root>
