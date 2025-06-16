@@ -72,15 +72,19 @@ const TableInput = ({ keyName, item, setItem, cols }: TableInputProps) => {
 
   return (
     <Table.Root size="sm">
+      <Table.Header>
+      </Table.Header>
       <Table.Body>
         {currentList.map((val, index) => (
           <Table.Row key={index}>
-            {typeof val === 'object' ?
-              cols?.map(k => 
-                <Table.Cell>{val[k]}</Table.Cell> 
-              ) :
-              <Table.Cell>{val}</Table.Cell>
-            }
+            <Flex w="full">
+              {typeof val === 'object' ?
+                cols?.map(k => 
+                  <Table.Cell w="50%">{val[k]}</Table.Cell> 
+                ) :
+                <Table.Cell>{val}</Table.Cell>
+              }
+            </Flex>
             <Table.Cell textAlign="end">
               <Button size="xs" colorScheme="red" onClick={() => handleDelete(index)}>
                 删除
