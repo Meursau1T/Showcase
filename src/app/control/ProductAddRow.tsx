@@ -124,7 +124,7 @@ export const ProductAddRow = () => {
 
                   <Field.Root>
                     <Field.Label>OEM编号</Field.Label>
-                    <Table.Root size="sm" variant="simple">
+                    <Table.Root size="sm">
                       <Table.Header>
                         <Table.Row>
                           <Table.ColumnHeader>品牌</Table.ColumnHeader>
@@ -191,7 +191,7 @@ export const ProductAddRow = () => {
                                     oem_no: [...(newItem.oem_no || []), `${brand}:${productNo}`],
                                   })
                                   inputField?.setAttribute('data-value', '')
-                                  inputField?.previousElementSibling?.querySelector('input')?.value = ''
+                                  // inputField?.previousElementSibling?.querySelector('input')?.value = ''
                                 }
                               }}
                             >
