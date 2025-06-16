@@ -13,7 +13,8 @@ import {
 } from '@chakra-ui/react'
 import { ProductPrisma } from '@/type'
 
-type StringValKey = Exclude<keyof ProductPrisma & string, 'oem_no' | 'manufacturer' | 'machine_model' | 'ref_no'>
+type TableValKey = 'oem_no' | 'manufacturer' | 'machine_model' | 'ref_no';
+type StringValKey = Exclude<keyof ProductPrisma & string, TableValKey>
 
 type TextEditProps = {
   item: Partial<ProductPrisma>
@@ -25,12 +26,96 @@ const TextEdit = ({ item, keyName: key, setItem }: TextEditProps) => (
   <Input
     value={item[key] || ''}
     onChange={(e) => {
-      console.log('dev wxf key', key);
-      console.log('dev wxf set', { ...item, [key]: e.target.value });
       setItem({ ...item, [key]: e.target.value })
     }}
   />
 )
+
+type TableInputProps = {
+  keyName: TableValKey;
+  item: ProductPrisma;
+  setItem: Function;
+  cols?: string[];
+}
+
+const TableInput = ({ keyName, item, setItem, cols }: TableInputProps) => {
+  const [inputValue, setInputValue] = useState<ProductPrisma[TableValKey][0]>();
+  const currentList = item[keyName] || []
+  
+  const handleAdd = () => {
+    if (typeof inputValue === 'string') {
+      const val = inputValue.trim()
+      if (val) {
+        setItem({
+          ...item,
+          [keyName]: [...currentList, val],
+        })
+        setInputValue('')
+      }
+    } else {
+      const val = inputValue;
+      if (val) {
+        setItem({
+          ...item,
+          [keyName]: [...currentList, val],
+        })
+        setInputValue({})
+      }
+    }
+  }
+
+  const handleDelete = (index: number) => {
+    const updated = [...currentList]
+    updated.splice(index, 1)
+    setItem({ ...item, [keyName]: updated })
+  }
+
+  return (
+    <Table.Root size="sm">
+      <Table.Body>
+        {currentList.map((val, index) => (
+          <Table.Row key={index}>
+            {typeof val === 'object' ?
+              cols?.map(k => 
+                <Table.Cell>{val[k]}</Table.Cell> 
+              ) :
+              <Table.Cell>{val}</Table.Cell>
+            }
+            <Table.Cell textAlign="end">
+              <Button size="xs" colorScheme="red" onClick={() => handleDelete(index)}>
+                删除
+              </Button>
+            </Table.Cell>
+          </Table.Row>
+        ))}
+        <Table.Row>
+          <Table.Cell width="100%">
+            {cols && cols.length > 1 ?
+              <Flex gap="8">
+                {cols.map(k => 
+                  <Input
+                    placeholder={k}
+                    value={inputValue?.[k] || ''}
+                    onChange={(e) => setInputValue({ ...inputValue, [k]: e.target.value })}
+                  />
+                )}
+              </Flex> :
+              <Input
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+              />
+            }
+          </Table.Cell>
+          <Table.Cell textAlign="end">
+            <Button size="xs" colorScheme="green" onClick={handleAdd}>
+              添加
+            </Button>
+          </Table.Cell>
+        </Table.Row>
+      </Table.Body>
+    </Table.Root>
+  )
+}
 
 export const ProductAddRow = () => {
   const [isOpen, setIsOpen] = useState(false)
@@ -47,58 +132,6 @@ export const ProductAddRow = () => {
     price: '',
   })
 
-  const TableInput = () => {
-    const [inputValue, setInputValue] = useState('')
-    const currentList = newItem.oem_no || []
-
-    const handleAdd = () => {
-      const val = inputValue.trim()
-      if (val) {
-        setNewItem({
-          ...newItem,
-          oem_no: [...currentList, val],
-        })
-        setInputValue('')
-      }
-    }
-
-    const handleDelete = (index: number) => {
-      const updated = [...currentList]
-      updated.splice(index, 1)
-      setNewItem({ ...newItem, oem_no: updated })
-    }
-
-    return (
-      <Table.Root size="sm">
-        <Table.Body>
-          {currentList.map((oem, index) => (
-            <Table.Row key={index}>
-              <Table.Cell>{oem}</Table.Cell>
-              <Table.Cell textAlign="end">
-                <Button size="xs" colorScheme="red" onClick={() => handleDelete(index)}>
-                  删除
-                </Button>
-              </Table.Cell>
-            </Table.Row>
-          ))}
-          <Table.Row>
-            <Table.Cell>
-              <Input
-                placeholder="编号"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-              />
-            </Table.Cell>
-            <Table.Cell textAlign="end">
-              <Button size="xs" colorScheme="green" onClick={handleAdd}>
-                添加
-              </Button>
-            </Table.Cell>
-          </Table.Row>
-        </Table.Body>
-      </Table.Root>
-    )
-  }
 
   const onOpen = () => setIsOpen(true)
   const onClose = () => setIsOpen(false)
@@ -175,12 +208,12 @@ export const ProductAddRow = () => {
 
                   <Field.Root>
                     <Field.Label>O.E.M.NO</Field.Label>
-                    <TableInput />
+                    <TableInput keyName={'oem_no'} item={newItem} setItem={setNewItem} />
                   </Field.Root>
 
                   <Field.Root>
                     <Field.Label>REF.NO.</Field.Label>
-                    <TableInput />
+                    <TableInput keyName={'ref_no'} item={newItem} setItem={setNewItem} cols={['brand', 'id']}/>
                   </Field.Root>
 
                   <Field.Root>
