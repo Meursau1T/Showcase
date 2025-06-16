@@ -222,20 +222,7 @@ export const ProductAddRow = () => {
 
                   <Field.Root>
                     <Field.Label>Machine Model</Field.Label>
-                    <Input
-                      className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      value={
-                        Array.isArray(newItem.machine_model)
-                          ? newItem.machine_model.join(', ')
-                          : newItem.machine_model || ''
-                      }
-                      onChange={(e) =>
-                        setNewItem({
-                          ...newItem,
-                          machine_model: e.target.value.split(',').map((s) => s.trim()),
-                        })
-                      }
-                    />
+                    <TableInput keyName={'machine_model'} item={newItem} setItem={setNewItem} />
                   </Field.Root>
 
                   <Field.Root>
