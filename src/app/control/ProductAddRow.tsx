@@ -90,7 +90,7 @@ export const ProductAddRow = () => {
               <Dialog.Body>
                 <Flex direction="column" gap={4}>
                   <Field.Root>
-                    <Field.Label>名称</Field.Label>
+                    <Field.Label>YM.NO</Field.Label>
                     <TextEdit item={newItem} setItem={setNewItem} keyName="name" />
                   </Field.Root>
 
@@ -105,7 +105,7 @@ export const ProductAddRow = () => {
                   </Field.Root>
 
                   <Field.Root>
-                    <Field.Label>制造商</Field.Label>
+                    <Field.Label>Manufacture</Field.Label>
                     <Input
                       className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       value={
@@ -123,14 +123,10 @@ export const ProductAddRow = () => {
                   </Field.Root>
 
                   <Field.Root>
-                    <Field.Label>OEM编号</Field.Label>
+                    <Field.Label>O.E.M.NO</Field.Label>
                     <Table.Root size="sm">
                       <Table.Root size="sm">
                         <Table.Header>
-                          <Table.Row>
-                            <Table.ColumnHeader>编号</Table.ColumnHeader>
-                            <Table.ColumnHeader textAlign="end">操作</Table.ColumnHeader>
-                          </Table.Row>
                         </Table.Header>
                         <Table.Body>
                           {newItem.oem_no?.map((oem, index) => {
@@ -174,7 +170,7 @@ export const ProductAddRow = () => {
                                       ...newItem,
                                       oem_no: [...(newItem.oem_no || []), productNo],
                                     })
-                                    inputField.setAttribute('data-value', '')
+                                    inputField?.setAttribute('data-value', '')
                                   }
                                 }}
                               >
@@ -188,7 +184,7 @@ export const ProductAddRow = () => {
                   </Field.Root>
 
                   <Field.Root>
-                    <Field.Label>参考编号（品牌:编号）</Field.Label>
+                    <Field.Label>REF.NO.</Field.Label>
                     <Input
                       className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       value={
@@ -218,7 +214,7 @@ export const ProductAddRow = () => {
                   </Field.Root>
 
                   <Field.Root>
-                    <Field.Label>机型</Field.Label>
+                    <Field.Label>Machine Model</Field.Label>
                     <Input
                       className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
                       value={
@@ -236,17 +232,17 @@ export const ProductAddRow = () => {
                   </Field.Root>
 
                   <Field.Root>
-                    <Field.Label>Cu M³</Field.Label>
+                    <Field.Label>Cu.M3</Field.Label>
                     <TextEdit item={newItem} setItem={setNewItem} keyName="cu_m3" />
                   </Field.Root>
 
                   <Field.Root>
-                    <Field.Label>描述</Field.Label>
+                    <Field.Label>Description</Field.Label>
                     <TextEdit item={newItem} setItem={setNewItem} keyName="desc_app" />
                   </Field.Root>
 
                   <Field.Root>
-                    <Field.Label>价格</Field.Label>
+                    <Field.Label>Price</Field.Label>
                     <TextEdit item={newItem} setItem={setNewItem} keyName="price" />
                   </Field.Root>
 
