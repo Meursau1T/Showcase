@@ -16,14 +16,18 @@ type StringValKey = Exclude<keyof ProductPrisma & string, 'oem_no' | 'manufactur
 
 type TextEditProps = {
   item: Partial<ProductPrisma>
-  key: StringValKey
+  keyName: StringValKey
   setItem: Function
 }
 
-const TextEdit = ({ item, key, setItem }: TextEditProps) => (
+const TextEdit = ({ item, keyName: key, setItem }: TextEditProps) => (
   <Input
     value={item[key] || ''}
-    onChange={(e) => setItem({ ...item, [key]: e.target.value })}
+    onChange={(e) => {
+      console.log('dev wxf key', key);
+      console.log('dev wxf set', { ...item, [key]: e.target.value });
+      setItem({ ...item, [key]: e.target.value })
+    }}
   />
 )
 
@@ -86,17 +90,17 @@ export const ProductAddRow = () => {
                 <Flex direction="column" gap={4}>
                   <Field.Root>
                     <Field.Label>名称</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} key="name" />
+                    <TextEdit item={newItem} setItem={setNewItem} keyName="name" />
                   </Field.Root>
 
                   <Field.Root>
                     <Field.Label>类型</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} key="type" />
+                    <TextEdit item={newItem} setItem={setNewItem} keyName="type" />
                   </Field.Root>
 
                   <Field.Root>
                     <Field.Label>HLW</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} key="hlw" />
+                    <TextEdit item={newItem} setItem={setNewItem} keyName="hlw" />
                   </Field.Root>
 
                   <Field.Root>
@@ -185,17 +189,17 @@ export const ProductAddRow = () => {
 
                   <Field.Root>
                     <Field.Label>Cu M³</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} key="cu_m3" />
+                    <TextEdit item={newItem} setItem={setNewItem} keyName="cu_m3" />
                   </Field.Root>
 
                   <Field.Root>
                     <Field.Label>描述</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} key="desc_app" />
+                    <TextEdit item={newItem} setItem={setNewItem} keyName="desc_app" />
                   </Field.Root>
 
                   <Field.Root>
                     <Field.Label>价格</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} key="price" />
+                    <TextEdit item={newItem} setItem={setNewItem} keyName="price" />
                   </Field.Root>
 
                   <Button colorScheme="green" onClick={handleAdd}>
