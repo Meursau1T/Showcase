@@ -125,81 +125,65 @@ export const ProductAddRow = () => {
                   <Field.Root>
                     <Field.Label>OEM编号</Field.Label>
                     <Table.Root size="sm">
-                      <Table.Header>
-                        <Table.Row>
-                          <Table.ColumnHeader>品牌</Table.ColumnHeader>
-                          <Table.ColumnHeader>编号</Table.ColumnHeader>
-                          <Table.ColumnHeader textAlign="end">操作</Table.ColumnHeader>
-                        </Table.Row>
-                      </Table.Header>
-                      <Table.Body>
-                        {newItem.oem_no?.map((oem, index) => {
-                          const [brand, productNo] = oem.split(':').map((s) => s.trim())
-                          return (
-                            <Table.Row key={index}>
-                              <Table.Cell>{brand}</Table.Cell>
-                              <Table.Cell>{productNo}</Table.Cell>
-                              <Table.Cell textAlign="end">
-                                <Button size="xs" colorScheme="red" onClick={() => {
-                                  const updated = [...(newItem.oem_no || [])]
-                                  updated.splice(index, 1)
-                                  setNewItem({ ...newItem, oem_no: updated })
-                                }}>
-                                  删除
-                                </Button>
-                              </Table.Cell>
-                            </Table.Row>
-                          )
-                        })}
-                        <Table.Row>
-                          <Table.Cell>
-                            <Input
-                              placeholder="品牌"
-                              onChange={(e) => {
-                                const brand = e.target.value
-                                const inputField = document.getElementById('product-oem-no-input')
-                                if (inputField) {
-                                  const [prevBrand, prevNo] = inputField.getAttribute('data-value') || ''
-                                  inputField.setAttribute('data-value', `${brand}:${prevNo}`)
-                                }
-                              }}
-                            />
-                          </Table.Cell>
-                          <Table.Cell>
-                            <Input
-                              id="product-oem-no-input"
-                              placeholder="编号"
-                              data-value=""
-                              onChange={(e) => {
-                                const inputVal = e.target.value
-                                const [brand, prevNo] = (e.target.getAttribute('data-value') || '').split(':')
-                                e.target.setAttribute('data-value', `${brand || '品牌'}:${inputVal}`)
-                              }}
-                            />
-                          </Table.Cell>
-                          <Table.Cell textAlign="end">
-                            <Button
-                              size="xs"
-                              colorScheme="green"
-                              onClick={() => {
-                                const inputField = document.getElementById('product-oem-no-input')
-                                const value = inputField?.getAttribute('data-value') || ''
-                                const [brand, productNo] = value.split(':').map((s) => s.trim())
-                                if (brand && productNo) {
-                                  setNewItem({
-                                    ...newItem,
-                                    oem_no: [...(newItem.oem_no || []), `${brand}:${productNo}`],
-                                  })
-                                  inputField?.setAttribute('data-value', '')
-                                  // inputField?.previousElementSibling?.querySelector('input')?.value = ''
-                                }
-                              }}
-                            >
-                              添加
-                            </Button>
-                          </Table.Cell>
-                        </Table.Row>
-                      </Table.Body>
+                      <Table.Root size="sm">
+                        <Table.Header>
+                          <Table.Row>
+                            <Table.ColumnHeader>编号</Table.ColumnHeader>
+                            <Table.ColumnHeader textAlign="end">操作</Table.ColumnHeader>
+                          </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                          {newItem.oem_no?.map((oem, index) => {
+                            const [productNo] = oem.split(':').map((s) => s.trim())
+                            return (
+                              <Table.Row key={index}>
+                                <Table.Cell>{productNo}</Table.Cell>
+                                <Table.Cell textAlign="end">
+                                  <Button size="xs" colorScheme="red" onClick={() => {
+                                    const updated = [...(newItem.oem_no || [])]
+                                    updated.splice(index, 1)
+                                    setNewItem({ ...newItem, oem_no: updated })
+                                  }}>
+                                    删除
+                                  </Button>
+                                </Table.Cell>
+                              </Table.Row>
+                            )
+                          })}
+                          <Table.Row>
+                            <Table.Cell>
+                              <Input
+                                id="product-oem-no-input"
+                                placeholder="编号"
+                                data-value=""
+                                onChange={(e) => {
+                                  const inputVal = e.target.value
+                                  e.target.setAttribute('data-value', inputVal)
+                                }}
+                              />
+                            </Table.Cell>
+                            <Table.Cell textAlign="end">
+                              <Button
+                                size="xs"
+                                colorScheme="green"
+                                onClick={() => {
+                                  const inputField = document.getElementById('product-oem-no-input')
+                                  const productNo = inputField?.getAttribute('data-value')?.trim()
+                                  if (productNo) {
+                                    setNewItem({
+                                      ...newItem,
+                                      oem_no: [...(newItem.oem_no || []), productNo],
+                                    })
+                                    inputField.setAttribute('data-value', '')
+                                  }
+                                }}
+                              >
+                                添加
+                              </Button>
+                            </Table.Cell>
+                          </Table.Row>
+                        </Table.Body>
+                      </Table.Root>
                     </Table.Root>
                   </Field.Root>
 
