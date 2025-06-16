@@ -70,6 +70,7 @@ export const ProductAddRow = () => {
         onOpenChange={(e) => setIsOpen(e.open)}
         placement="center"
         motionPreset="slide-in-bottom"
+        size="cover"
       >
         <Dialog.Trigger asChild>
           <Button colorScheme="blue">添加商品</Button>
@@ -77,10 +78,7 @@ export const ProductAddRow = () => {
         <Portal>
           <Dialog.Backdrop />
           <Dialog.Positioner>
-            <Dialog.Content
-              className="p-4 rounded-lg shadow-lg bg-white w-[400px]"
-              style={{ width: 'fit-content' }}
-            >
+            <Dialog.Content className="p-4 rounded-lg shadow-lg bg-white w-[400px]">
               <Dialog.Header>
                 <Dialog.Title>添加商品</Dialog.Title>
                 <Dialog.CloseTrigger asChild>
