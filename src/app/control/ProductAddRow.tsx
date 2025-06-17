@@ -280,55 +280,12 @@ export const ProductAddRow = () => {
               </Dialog.Header>
               <Dialog.Body>
                 <Flex direction="column" gap={4}>
-                  <Field.Root>
-                    <Field.Label>YM.NO</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} keyName="name" />
-                  </Field.Root>
-
-                  <Field.Root>
-                    <Field.Label>类型</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} keyName="type" />
-                  </Field.Root>
-
-                  <Field.Root>
-                    <Field.Label>HLW</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} keyName="hlw" />
-                  </Field.Root>
-
-                  <Field.Root>
-                    <Field.Label>Manufacture</Field.Label>
-                    <TableInput keyName={'manufacturer'} item={newItem} setItem={setNewItem} />
-                  </Field.Root>
-
-                  <Field.Root>
-                    <Field.Label>O.E.M.NO</Field.Label>
-                    <TableInput keyName={'oem_no'} item={newItem} setItem={setNewItem} />
-                  </Field.Root>
-
-                  <Field.Root>
-                    <Field.Label>REF.NO.</Field.Label>
-                    <TableInput keyName={'ref_no'} item={newItem} setItem={setNewItem} />
-                  </Field.Root>
-
-                  <Field.Root>
-                    <Field.Label>Machine Model</Field.Label>
-                    <TableInput keyName={'machine_model'} item={newItem} setItem={setNewItem} />
-                  </Field.Root>
-
-                  <Field.Root>
-                    <Field.Label>Cu.M3</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} keyName="cu_m3" />
-                  </Field.Root>
-
-                  <Field.Root>
-                    <Field.Label>Description</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} keyName="desc_app" />
-                  </Field.Root>
-
-                  <Field.Root>
-                    <Field.Label>Price</Field.Label>
-                    <TextEdit item={newItem} setItem={setNewItem} keyName="price" />
-                  </Field.Root>
+                  {fieldsConfig.map((field) => (
+                    <Field.Root key={field.key}>
+                      <Field.Label>{field.label}</Field.Label>
+                      {field.component}
+                    </Field.Root>
+                  ))}
 
                   <Button colorScheme="green" onClick={handleAdd}>
                     保存
