@@ -60,6 +60,18 @@ const defaultTableValConf: { [K in TableValKey]: ProductPrisma[K][0] } = {
   manufacturer: ''
 };
 
+const defaultNewItem = {
+  name: '',
+  type: '',
+  hlw: '',
+  manufacturer: [],
+  oem_no: [],
+  ref_no: [],
+  machine_model: [],
+  cu_m3: '',
+  desc_app: '',
+  price: '',
+}
 
 /** 单行多输入框组件 */
 const multiInputLine = <T extends ProductPrisma[MultiInputKey][0]>(
@@ -202,18 +214,7 @@ const TableInput = <T extends TableValKey>({ keyName, item, setItem }: TableInpu
 
 export const ProductAddRow = () => {
   const [isOpen, setIsOpen] = useState(false)
-  const [newItem, setNewItem] = useState<Partial<ProductPrisma>>({
-    name: '',
-    type: '',
-    hlw: '',
-    manufacturer: [],
-    oem_no: [],
-    ref_no: [],
-    machine_model: [],
-    cu_m3: '',
-    desc_app: '',
-    price: '',
-  })
+  const [newItem, setNewItem] = useState<Partial<ProductPrisma>>(defaultNewItem)
 
   /** 基础文本输入框封装 */
   const TextEdit = useCallback(({ keyName: key }: TextEditProps) => (
