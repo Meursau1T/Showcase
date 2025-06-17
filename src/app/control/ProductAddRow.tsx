@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback } from 'react'
+import { useState, useCallback, ReactNode } from 'react'
 import {
   Button,
   Dialog,
@@ -14,7 +14,16 @@ import {
 import { ProductPrisma } from '@/type'
 
 type TableValKey = 'oem_no' | 'manufacturer' | 'machine_model' | 'ref_no';
+
+type MultiInputKey = 'ref_no';
+
 type StringValKey = Exclude<keyof ProductPrisma & string, TableValKey>
+
+type KeyNameConf = {
+  [K in MultiInputKey]?: {
+    renderInput: () => ReactNode
+  }
+}
 
 type TextEditProps = {
   item: Partial<ProductPrisma>
@@ -22,6 +31,38 @@ type TextEditProps = {
   setItem: Function
 }
 
+type TableInputProps<T extends TableValKey> = {
+  keyName: T;
+  item: Partial<ProductPrisma>
+  setItem: Function;
+}
+
+type DataDisplayProps<T extends TableValKey> = {
+  currentList: Partial<ProductPrisma>[T],
+  keyName: T,
+  renderButton: () => ReactNode
+}
+
+const isRefNoList = (keyName: keyof ProductPrisma, val: unknown): val is ProductPrisma['ref_no'] =>
+  keyName === 'ref_no'
+
+const isStringList = (keyName: keyof ProductPrisma, val: unknown): val is string[] =>
+  keyName === 'manufacturer' || keyName === 'oem_no' || keyName === 'machine_model'
+
+const isRefNoVal = (keyName: keyof ProductPrisma, val: unknown): val is ProductPrisma['ref_no'][0] =>
+  keyName === 'ref_no'
+
+const isStringVal = (keyName: keyof ProductPrisma, val: unknown): val is string =>
+  keyName === 'manufacturer' || keyName === 'oem_no' || keyName === 'machine_model'
+
+const defaultTableValConf: { [K in TableValKey]: ProductPrisma[K][0] } = {
+  ref_no: { brand: '', product_no: '' },
+  machine_model: '',
+  oem_no: '',
+  manufacturer: ''
+};
+
+/** 基础文本输入框封装 */
 const TextEdit = ({ item, keyName: key, setItem }: TextEditProps) => (
   <Input
     value={item[key] || ''}
@@ -31,26 +72,14 @@ const TextEdit = ({ item, keyName: key, setItem }: TextEditProps) => (
   />
 )
 
-type TableInputProps<T extends TableValKey> = {
-  keyName: T;
-  item: Partial<ProductPrisma>
-  setItem: Function;
-}
-
-type MultiInputKey = 'ref_no';
-
-// 在此处添加类型守卫函数
-function isRefNo(val: any): val is { brand: string; product_no: string } {
-  return val && typeof val.brand === 'string' && typeof val.product_no === 'string'
-}
-
+/** 单行多输入框组件 */
 const multiInputLine = <T extends ProductPrisma[MultiInputKey][0]>(
   value: T,
-  pattern: T,
+  keyName: MultiInputKey,
   setInputValue: Function
 ) => (
   <Flex gap="8">
-    {Object.keys(pattern).map(k => 
+    {Object.keys(defaultTableValConf[keyName]).map(k => 
       <Input
         placeholder={k}
         value={value[k as keyof T] as string || ''}
@@ -62,19 +91,50 @@ const multiInputLine = <T extends ProductPrisma[MultiInputKey][0]>(
   </Flex>
 )
 
+/**
+  * 表格类型展示组件
+  */
+const DataDisplay = <T extends TableValKey>({ keyName, currentList, renderButton }: DataDisplayProps<T>) => {
+  if (isRefNoList(keyName, currentList)) {
+    return currentList?.map((val, index) => (
+      <Table.Row key={index}>
+        <Flex w="full">
+          {(Object.keys(val) as (keyof typeof val)[])?.map(k => 
+            <Table.Cell w="50%">{val[k]}</Table.Cell> 
+          )}
+        </Flex>
+        {renderButton()}
+      </Table.Row>
+    ))
+  } else if (isStringList(keyName, currentList)) {
+    return currentList?.map((val, index) => (
+      <Table.Row key={index}>
+        <Flex w="full">
+          <Table.Cell>{val}</Table.Cell>
+        </Flex>
+        {renderButton()}
+      </Table.Row>
+    ))
+  }
+}
+
+/**
+  * 表格类型输入组件
+  */
 const TableInput = <T extends TableValKey>({ keyName, item, setItem }: TableInputProps<T>) => {
-  const [inputValue, setInputValue] = useState<ProductPrisma[T]>();
+  const [inputValue, setInputValue] = useState(defaultTableValConf[keyName as TableValKey] || '');
   const currentList = item[keyName] || []
 
-  const keyNameConf = [
-    {
-      keyName: 'ref_no',
-      render: () => isRefNo(inputValue) && multiInputLine(inputValue, { brand: '', product_no: '' }, setInputValue),
+  const multiInputKeyConf: KeyNameConf = {
+    ref_no: {
+      renderInput: () =>
+        typeof inputValue !== 'string' &&
+          multiInputLine(inputValue, 'ref_no', setInputValue),
     },
-  ]
+  }
   
   const handleAdd = () => {
-    if (!objectKeys.includes(keyName)) {
+    if (isStringVal(keyName, inputValue)) {
       const val = inputValue.trim()
       if (val) {
         setItem({
@@ -83,7 +143,7 @@ const TableInput = <T extends TableValKey>({ keyName, item, setItem }: TableInpu
         })
         setInputValue('')
       }
-    } else {
+    } else if (isRefNoVal(keyName, inputValue)){
       const val = inputValue;
       if (val) {
         setItem({
@@ -109,12 +169,19 @@ const TableInput = <T extends TableValKey>({ keyName, item, setItem }: TableInpu
         {currentList.map((val, index) => (
           <Table.Row key={index}>
             <Flex w="full">
-              {isRefNo(inputValue) ?
-                cols?.map(k => 
-                  <Table.Cell w="50%">{val[k as keyof typeof val]}</Table.Cell> 
-                ) :
-                <Table.Cell>{val}</Table.Cell>
-              }
+              <DataDisplay
+                currentList={currentList}
+                keyName={keyName}
+                renderButton={
+                  () => (
+                    <Table.Cell textAlign="end">
+                      <Button size="xs" colorScheme="red" onClick={() => handleDelete(index)}>
+                        删除
+                      </Button>
+                    </Table.Cell>
+                  )
+                }
+              />
             </Flex>
             <Table.Cell textAlign="end">
               <Button size="xs" colorScheme="red" onClick={() => handleDelete(index)}>
@@ -125,10 +192,8 @@ const TableInput = <T extends TableValKey>({ keyName, item, setItem }: TableInpu
         ))}
         <Table.Row>
           <Table.Cell width="100%">
-            {cols && cols.length > 1 ?
-              <Flex gap="8">
-                {multiInputLine(inputValue, {})}
-              </Flex> :
+            {keyName in multiInputKeyConf ?
+              <Flex gap="8">{multiInputKeyConf[keyName]?.renderInput()}</Flex> :
               <Input
                 value={inputValue as string}
                 onChange={(e) => setInputValue(e.target.value)}
@@ -219,20 +284,7 @@ export const ProductAddRow = () => {
 
                   <Field.Root>
                     <Field.Label>Manufacture</Field.Label>
-                    <Input
-                      className="border-gray-300 rounded-md focus:ring-blue-500 focus:border-blue-500"
-                      value={
-                        Array.isArray(newItem.manufacturer)
-                          ? newItem.manufacturer.join(', ')
-                          : newItem.manufacturer || ''
-                      }
-                      onChange={(e) =>
-                        setNewItem({
-                          ...newItem,
-                          manufacturer: e.target.value.split(',').map((s) => s.trim()),
-                        })
-                      }
-                    />
+                    <TableInput keyName={'manufacturer'} item={newItem} setItem={setNewItem} />
                   </Field.Root>
 
                   <Field.Root>
@@ -242,7 +294,7 @@ export const ProductAddRow = () => {
 
                   <Field.Root>
                     <Field.Label>REF.NO.</Field.Label>
-                    <TableInput keyName={'ref_no'} item={newItem} setItem={setNewItem} cols={['brand', 'id']}/>
+                    <TableInput keyName={'ref_no'} item={newItem} setItem={setNewItem} />
                   </Field.Root>
 
                   <Field.Root>
