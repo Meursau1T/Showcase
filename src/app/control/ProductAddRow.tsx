@@ -226,6 +226,19 @@ export const ProductAddRow = () => {
     price: '',
   })
 
+  const fieldsConfig = [
+    { key: 'name' as const, label: 'YM.NO', component: <TextEdit item={newItem} setItem={setNewItem} keyName="name" /> },
+    { key: 'type' as const, label: '类型', component: <TextEdit item={newItem} setItem={setNewItem} keyName="type" /> },
+    { key: 'hlw' as const, label: 'HLW', component: <TextEdit item={newItem} setItem={setNewItem} keyName="hlw" /> },
+    { key: 'manufacturer' as const, label: 'Manufacture', component: <TableInput keyName="manufacturer" item={newItem} setItem={setNewItem} /> },
+    { key: 'oem_no' as const, label: 'O.E.M.NO', component: <TableInput keyName="oem_no" item={newItem} setItem={setNewItem} /> },
+    { key: 'ref_no' as const, label: 'REF.NO.', component: <TableInput keyName="ref_no" item={newItem} setItem={setNewItem} /> },
+    { key: 'machine_model' as const, label: 'Machine Model', component: <TableInput keyName="machine_model" item={newItem} setItem={setNewItem} /> },
+    { key: 'cu_m3' as const, label: 'CU.M3', component: <TextEdit item={newItem} setItem={setNewItem} keyName="cu_m3" /> },
+    { key: 'desc_app' as const, label: 'Description', component: <TextEdit item={newItem} setItem={setNewItem} keyName="desc_app" /> },
+    { key: 'price' as const, label: 'Price', component: <TextEdit item={newItem} setItem={setNewItem} keyName="price" /> },
+  ] satisfies { key: keyof ProductPrisma, label: string, component: React.ReactNode }[]
+
 
   const onOpen = () => setIsOpen(true)
   const onClose = () => setIsOpen(false)
