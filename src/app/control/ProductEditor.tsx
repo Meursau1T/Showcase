@@ -1,7 +1,7 @@
 import { Box, Heading, Table, Flex } from '@chakra-ui/react'
 import { ProductPrisma } from '@/type'
 import { ProductEditRow } from './ProductEditRow';
-import { ProductAddRow } from './ProductAddRow';
+import { ProductAdd } from './ProductAdd';
 
 interface Props {
   data: ProductPrisma[] | null;
@@ -27,7 +27,7 @@ export default function ProductEditor({ data: serverData }: Props) {
       <Flex justifyContent={'space-between'}>
         <Heading size="2xl" mb={4}>商品编辑</Heading>
         {/* 新增 */}
-        <ProductAddRow />
+        <ProductAdd />
       </Flex>
       <Table.ScrollArea borderWidth="1px">
         <Table.Root size="sm" variant="outline" showColumnBorder className="whitespace-nowrap overflow-x-auto max-w-full">

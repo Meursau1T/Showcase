@@ -196,7 +196,11 @@ const TableInput = <T extends TableValKey>({ keyName, item, setItem }: TableInpu
   )
 }
 
-export const ProductAddRow = () => {
+type ProductEditModalProps = {
+  buttonText: string;
+}
+
+export const ProductEditModal = ({ buttonText }: ProductEditModalProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [newItem, setNewItem] = useState<Partial<ProductPrisma>>(defaultNewItem)
 
@@ -265,7 +269,7 @@ export const ProductAddRow = () => {
         size="cover"
       >
         <Dialog.Trigger asChild>
-          <Button colorScheme="blue">添加商品</Button>
+          <Button colorScheme="blue">{buttonText}</Button>
         </Dialog.Trigger>
         <Portal>
           <Dialog.Backdrop />
