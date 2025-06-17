@@ -255,14 +255,6 @@ export const ProductAddRow = () => {
     { key: 'price', label: 'Price', component: <TextEdit keyName="price" /> },
   ] satisfies { key: keyof ProductPrisma, label: string, component: React.ReactNode }[]
 
-
-  const onOpen = () => {
-    setIsOpen(true)
-    setNewItem(defaultNewItem)
-  }
-
-  const onClose = () => setIsOpen(false)
-
   const handleAdd = async () => {
     const res = await fetch('/api/product/add', {
       method: 'POST',
@@ -272,7 +264,7 @@ export const ProductAddRow = () => {
 
     if (res.ok) {
       alert('商品新增成功')
-      onClose()
+      setIsOpen(false)
     }
   }
 
@@ -280,7 +272,10 @@ export const ProductAddRow = () => {
     <>
       <Dialog.Root
         open={isOpen}
-        onOpenChange={(e) => setIsOpen(e.open)}
+        onOpenChange={(e) => {
+          setIsOpen(e.open)
+          setNewItem(defaultNewItem)
+        }}
         placement="center"
         motionPreset="slide-in-bottom"
         size="cover"
