@@ -38,7 +38,7 @@ type TableInputProps<T extends TableValKey> = {
 type DataDisplayProps<T extends TableValKey> = {
   currentList: Partial<ProductPrisma>[T],
   keyName: T,
-  renderButton: () => ReactNode
+  handleDelete: (idx: number) => void,
 }
 
 const isRefNoList = (keyName: keyof ProductPrisma, val: unknown): val is ProductPrisma['ref_no'] =>
@@ -79,7 +79,7 @@ const multiInputLine = <T extends ProductPrisma[MultiInputKey][0]>(
   keyName: MultiInputKey,
   setInputValue: Function
 ) => (
-  <Flex gap="8">
+  <Flex gap="8" w="full">
     {Object.keys(defaultTableValConf[keyName]).map(k => 
       <Input
         placeholder={k}
@@ -95,25 +95,32 @@ const multiInputLine = <T extends ProductPrisma[MultiInputKey][0]>(
 /**
   * 表格类型展示组件
   */
-const DataDisplay = <T extends TableValKey>({ keyName, currentList, renderButton }: DataDisplayProps<T>) => {
+const DataDisplay = <T extends TableValKey>({ keyName, currentList, handleDelete }: DataDisplayProps<T>) => {
+  const RemoveButton = ({ index }: { index: number }) => (
+    <Table.Cell textAlign="end">
+      <Button size="xs" colorScheme="red" onClick={() => handleDelete(index)}>
+        删除
+      </Button>
+    </Table.Cell>
+  )
   if (isRefNoList(keyName, currentList)) {
     return currentList?.map((val, index) => (
-      <Table.Row key={index}>
+      <Table.Row key={index} w="full">
         <Flex w="full">
           {(Object.keys(val) as (keyof typeof val)[])?.map(k => 
             <Table.Cell w="50%">{val[k]}</Table.Cell> 
           )}
         </Flex>
-        {renderButton()}
+        <RemoveButton index={index} />
       </Table.Row>
     ))
   } else if (isStringList(keyName, currentList)) {
     return currentList?.map((val, index) => (
-      <Table.Row key={index}>
+      <Table.Row key={index} w="full">
         <Flex w="full">
           <Table.Cell>{val}</Table.Cell>
         </Flex>
-        {renderButton()}
+        <RemoveButton index={index} />
       </Table.Row>
     ))
   }
@@ -167,34 +174,11 @@ const TableInput = <T extends TableValKey>({ keyName, item, setItem }: TableInpu
       <Table.Header>
       </Table.Header>
       <Table.Body>
-        {currentList.map((val, index) => (
-          <Table.Row key={index}>
-            <Flex w="full">
-              <DataDisplay
-                currentList={currentList}
-                keyName={keyName}
-                renderButton={
-                  () => (
-                    <Table.Cell textAlign="end">
-                      <Button size="xs" colorScheme="red" onClick={() => handleDelete(index)}>
-                        删除
-                      </Button>
-                    </Table.Cell>
-                  )
-                }
-              />
-            </Flex>
-            <Table.Cell textAlign="end">
-              <Button size="xs" colorScheme="red" onClick={() => handleDelete(index)}>
-                删除
-              </Button>
-            </Table.Cell>
-          </Table.Row>
-        ))}
+        <DataDisplay currentList={currentList} keyName={keyName} handleDelete={handleDelete} />
         <Table.Row>
           <Table.Cell width="100%">
             {keyName in multiInputKeyConf ?
-              <Flex gap="8">{multiInputKeyConf[keyName]?.renderInput()}</Flex> :
+              <Flex gap="8" w="full">{multiInputKeyConf[keyName]?.renderInput()}</Flex> :
               <Input
                 value={inputValue as string}
                 onChange={(e) => setInputValue(e.target.value)}
