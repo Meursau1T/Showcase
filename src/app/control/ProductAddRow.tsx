@@ -26,9 +26,7 @@ type KeyNameConf = {
 }
 
 type TextEditProps = {
-  item: Partial<ProductPrisma>
   keyName: StringValKey
-  setItem: Function
 }
 
 type TableInputProps<T extends TableValKey> = {
@@ -62,15 +60,6 @@ const defaultTableValConf: { [K in TableValKey]: ProductPrisma[K][0] } = {
   manufacturer: ''
 };
 
-/** 基础文本输入框封装 */
-const TextEdit = ({ item, keyName: key, setItem }: TextEditProps) => (
-  <Input
-    value={item[key] || ''}
-    onChange={(e) => {
-      setItem({ ...item, [key]: e.target.value })
-    }}
-  />
-)
 
 /** 单行多输入框组件 */
 const multiInputLine = <T extends ProductPrisma[MultiInputKey][0]>(
@@ -226,17 +215,43 @@ export const ProductAddRow = () => {
     price: '',
   })
 
+  /** 基础文本输入框封装 */
+  const TextEdit = useCallback(({ keyName: key }: TextEditProps) => (
+    <Input
+      value={newItem[key] || ''}
+      onChange={(e) => {
+        setNewItem({ ...newItem, [key]: e.target.value })
+      }}
+    />
+  ), [newItem, setNewItem])
+
   const fieldsConfig = [
-    { key: 'name' as const, label: 'YM.NO', component: <TextEdit item={newItem} setItem={setNewItem} keyName="name" /> },
-    { key: 'type' as const, label: '类型', component: <TextEdit item={newItem} setItem={setNewItem} keyName="type" /> },
-    { key: 'hlw' as const, label: 'HLW', component: <TextEdit item={newItem} setItem={setNewItem} keyName="hlw" /> },
-    { key: 'manufacturer' as const, label: 'Manufacture', component: <TableInput keyName="manufacturer" item={newItem} setItem={setNewItem} /> },
-    { key: 'oem_no' as const, label: 'O.E.M.NO', component: <TableInput keyName="oem_no" item={newItem} setItem={setNewItem} /> },
-    { key: 'ref_no' as const, label: 'REF.NO.', component: <TableInput keyName="ref_no" item={newItem} setItem={setNewItem} /> },
-    { key: 'machine_model' as const, label: 'Machine Model', component: <TableInput keyName="machine_model" item={newItem} setItem={setNewItem} /> },
-    { key: 'cu_m3' as const, label: 'CU.M3', component: <TextEdit item={newItem} setItem={setNewItem} keyName="cu_m3" /> },
-    { key: 'desc_app' as const, label: 'Description', component: <TextEdit item={newItem} setItem={setNewItem} keyName="desc_app" /> },
-    { key: 'price' as const, label: 'Price', component: <TextEdit item={newItem} setItem={setNewItem} keyName="price" /> },
+    { key: 'name', label: 'YM.NO', component: <TextEdit keyName="name" /> },
+    { key: 'type', label: '类型', component: <TextEdit keyName="type" /> },
+    { key: 'hlw', label: 'HLW', component: <TextEdit keyName="hlw" /> },
+    {
+      key: 'manufacturer',
+      label: 'Manufacture',
+      component: <TableInput keyName="manufacturer" setItem={setNewItem} item={newItem} />
+    },
+    {
+      key: 'oem_no',
+      label: 'O.E.M.NO',
+      component: <TableInput keyName="oem_no" setItem={setNewItem} item={newItem} />
+    },
+    {
+      key: 'ref_no',
+      label: 'REF.NO.',
+      component: <TableInput keyName="ref_no" setItem={setNewItem} item={newItem} />
+    },
+    {
+      key: 'machine_model',
+      label: 'Machine Model',
+      component: <TableInput keyName="machine_model" setItem={setNewItem} item={newItem} />
+    },
+    { key: 'cu_m3', label: 'CU.M3', component: <TextEdit keyName="cu_m3" /> },
+    { key: 'desc_app', label: 'Description', component: <TextEdit keyName="desc_app" /> },
+    { key: 'price', label: 'Price', component: <TextEdit keyName="price" /> },
   ] satisfies { key: keyof ProductPrisma, label: string, component: React.ReactNode }[]
 
 
