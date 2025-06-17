@@ -39,6 +39,11 @@ type TableInputProps<T extends TableValKey> = {
 
 type MultiInputKey = 'ref_no';
 
+// 在此处添加类型守卫函数
+function isRefNo(val: any): val is { brand: string; product_no: string } {
+  return val && typeof val.brand === 'string' && typeof val.product_no === 'string'
+}
+
 const multiInputLine = <T extends ProductPrisma[MultiInputKey][0]>(
   value: T,
   pattern: T,
