@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useCallback } from 'react'
 import {
   Button,
   Dialog,
@@ -31,19 +31,45 @@ const TextEdit = ({ item, keyName: key, setItem }: TextEditProps) => (
   />
 )
 
-type TableInputProps = {
-  keyName: TableValKey;
+type TableInputProps<T extends TableValKey> = {
+  keyName: T;
   item: Partial<ProductPrisma>
   setItem: Function;
-  cols?: string[];
 }
 
-const TableInput = ({ keyName, item, setItem, cols }: TableInputProps) => {
-  const [inputValue, setInputValue] = useState<ProductPrisma[TableValKey][0]>();
+type MultiInputKey = 'ref_no';
+
+const multiInputLine = <T extends ProductPrisma[MultiInputKey][0]>(
+  value: T,
+  pattern: T,
+  setInputValue: Function
+) => (
+  <Flex gap="8">
+    {Object.keys(pattern).map(k => 
+      <Input
+        placeholder={k}
+        value={value[k as keyof T] as string || ''}
+        onChange={e =>
+          setInputValue((val: any) => ({ ...(val || {}), [k]: e.target.value }))
+        }
+      />
+    )}
+  </Flex>
+)
+
+const TableInput = <T extends TableValKey>({ keyName, item, setItem }: TableInputProps<T>) => {
+  const [inputValue, setInputValue] = useState<ProductPrisma[T]>();
   const currentList = item[keyName] || []
+
+  const keyNameConf = [
+    {
+      keyName: 'ref_no',
+      render: () => isRefNo(inputValue) && multiInputLine(inputValue, { brand: '', product_no: '' }, setInputValue),
+    },
+  ]
   
   const handleAdd = () => {
-    if (typeof inputValue === 'string') {
+    if (!objectKeys.includes(keyName)) {
       const val = inputValue.trim()
       if (val) {
         setItem({
@@ -78,7 +104,7 @@ const TableInput = ({ keyName, item, setItem, cols }: TableInputProps) => {
         {currentList.map((val, index) => (
           <Table.Row key={index}>
             <Flex w="full">
-              {typeof val === 'object' ?
+              {isRefNo(inputValue) ?
                 cols?.map(k => 
                   <Table.Cell w="50%">{val[k as keyof typeof val]}</Table.Cell> 
                 ) :
@@ -96,13 +122,7 @@ const TableInput = ({ keyName, item, setItem, cols }: TableInputProps) => {
           <Table.Cell width="100%">
             {cols && cols.length > 1 ?
               <Flex gap="8">
-                {cols.map(k => 
-                  <Input
-                    placeholder={k}
-                    value={inputValue?.[k as keyof typeof inputValue] || ''}
-                    onChange={(e) => setInputValue({ ...inputValue as ProductPrisma['ref_no'][0], [k]: e.target.value })}
-                  />
-                )}
+                {multiInputLine(inputValue, {})}
               </Flex> :
               <Input
                 value={inputValue as string}
