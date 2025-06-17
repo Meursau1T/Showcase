@@ -60,19 +60,6 @@ const defaultTableValConf: { [K in TableValKey]: ProductPrisma[K][0] } = {
   manufacturer: ''
 };
 
-const defaultNewItem = {
-  name: '',
-  type: '',
-  hlw: '',
-  manufacturer: [],
-  oem_no: [],
-  ref_no: [],
-  machine_model: [],
-  cu_m3: '',
-  desc_app: '',
-  price: '',
-}
-
 /** 单行多输入框组件 */
 const multiInputLine = <T extends ProductPrisma[MultiInputKey][0]>(
   value: T,
@@ -198,11 +185,13 @@ const TableInput = <T extends TableValKey>({ keyName, item, setItem }: TableInpu
 
 type ProductEditModalProps = {
   buttonText: string;
+  defaultItem?: Partial<ProductPrisma>;
+  onAdd?: (item: Partial<ProductPrisma>) => Promise<void>;
 }
 
 export const ProductEditModal = ({ buttonText }: ProductEditModalProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [newItem, setNewItem] = useState<Partial<ProductPrisma>>(defaultNewItem)
+  const [item, setItem] = useState<Partial<ProductPrisma>>(defaultItem || defaultNewItem)
 
   /** 基础文本输入框封装 */
   const TextEdit = useCallback(({ keyName: key }: TextEditProps) => (
@@ -244,14 +233,8 @@ export const ProductEditModal = ({ buttonText }: ProductEditModalProps) => {
   ] satisfies { key: keyof ProductPrisma, label: string, component: React.ReactNode }[]
 
   const handleAdd = async () => {
-    const res = await fetch('/api/product/add', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newItem),
-    })
-
-    if (res.ok) {
-      alert('商品新增成功')
+    if (onAdd) {
+      await onAdd(item)
       setIsOpen(false)
     }
   }
@@ -262,7 +245,9 @@ export const ProductEditModal = ({ buttonText }: ProductEditModalProps) => {
         open={isOpen}
         onOpenChange={(e) => {
           setIsOpen(e.open)
-          setNewItem(defaultNewItem)
+          if (!e.open) {
+            setItem(defaultItem || defaultNewItem)
+          }
         }}
         placement="center"
         motionPreset="slide-in-bottom"
