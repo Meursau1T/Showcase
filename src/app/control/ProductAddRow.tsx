@@ -256,7 +256,11 @@ export const ProductAddRow = () => {
   ] satisfies { key: keyof ProductPrisma, label: string, component: React.ReactNode }[]
 
 
-  const onOpen = () => setIsOpen(true)
+  const onOpen = () => {
+    setIsOpen(true)
+    setNewItem(defaultNewItem)
+  }
+
   const onClose = () => setIsOpen(false)
 
   const handleAdd = async () => {
