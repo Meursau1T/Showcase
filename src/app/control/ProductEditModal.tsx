@@ -259,7 +259,7 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
         <Portal>
           <Dialog.Backdrop />
           <Dialog.Positioner>
-            <Dialog.Content className="p-4 rounded-lg shadow-lg bg-white w-[400px]">
+            <Dialog.Content className="p-4 rounded-lg shadow-lg bg-white w-[400px] overflow-scroll">
               <Dialog.Header>
                 <Dialog.Title>{buttonText}</Dialog.Title>
                 <Dialog.CloseTrigger asChild>
