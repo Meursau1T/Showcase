@@ -261,7 +261,7 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
           <Dialog.Positioner>
             <Dialog.Content className="p-4 rounded-lg shadow-lg bg-white w-[400px]">
               <Dialog.Header>
-                <Dialog.Title>添加商品</Dialog.Title>
+                <Dialog.Title>{buttonText}</Dialog.Title>
                 <Dialog.CloseTrigger asChild>
                   <CloseButton size="sm" />
                 </Dialog.CloseTrigger>
