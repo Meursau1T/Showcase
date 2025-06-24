@@ -1,6 +1,7 @@
 "use client";
 import { useState, useMemo } from 'react';
-import { Box, Flex, Input, Button, Checkbox, Grid, Text, Select, createListCollection, Image } from '@chakra-ui/react';
+import { Box, Flex, Input, Button, Checkbox, Grid, Text, Select, createListCollection, Image, Pagination, IconButton, ButtonGroup } from '@chakra-ui/react';
+import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import { productsText } from './products-lang';
 
 type Props = {
@@ -197,41 +198,44 @@ export function ProductsClientContainer({
 
               {/* 分页器 */}
               {totalPages > 1 && (
-                <Flex mt={8} justify="center" gap={2} flexWrap="wrap">
-                  <Button
-                    onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
-                    disabled={currentPage === 1}
-                    size="sm"
+                <Box mt={8} display="flex" justifyContent="center">
+                  <Pagination.Root
+                    count={totalPages}
+                    pageSize={itemsPerPage}
+                    page={currentPage}
+                    onPageChange={(e) => setCurrentPage(e.page)}
                   >
-                    &lt;
-                  </Button>
-                  
-                  {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
-                    const pageNum = Math.max(1, Math.min(
-                      totalPages - 4, 
-                      currentPage - 2
-                    )) + i;
-                    return pageNum <= totalPages ? (
-                      <Button
-                        key={pageNum}
-                        onClick={() => setCurrentPage(pageNum)}
-                        colorScheme={currentPage === pageNum ? 'blue' : 'gray'}
-                        variant={currentPage === pageNum ? 'solid' : 'outline'}
-                        size="sm"
-                      >
-                        {pageNum}
-                      </Button>
-                    ) : null;
-                  })}
-                  
-                  <Button
-                    onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
-                    disabled={currentPage === 1}
-                    size="sm"
-                  >
-                    &gt;
-                  </Button>
-                </Flex>
+                    <ButtonGroup variant="ghost" size="md">
+                      <Pagination.PrevTrigger asChild>
+                        <IconButton
+                          aria-label="Previous page"
+                          icon={<LuChevronLeft />}
+                          isDisabled={currentPage === 1}
+                        />
+                      </Pagination.PrevTrigger>
+                      
+                      <Pagination.Items
+                        render={(page) => (
+                          <IconButton
+                            variant={currentPage === page.value ? 'outline' : 'ghost'}
+                            onClick={() => setCurrentPage(page.value)}
+                            aria-label={`Page ${page.value}`}
+                          >
+                            {page.value}
+                          </IconButton>
+                        )}
+                      />
+                      
+                      <Pagination.NextTrigger asChild>
+                        <IconButton
+                          aria-label="Next page"
+                          icon={<LuChevronRight />}
+                          isDisabled={currentPage === totalPages}
+                        />
+                      </Pagination.NextTrigger>
+                    </ButtonGroup>
+                  </Pagination.Root>
+                </Box>
               )}
             </>
           ) : (
