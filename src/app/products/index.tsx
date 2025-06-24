@@ -207,11 +207,9 @@ export function ProductsClientContainer({
                   >
                     <ButtonGroup variant="ghost" size="md">
                       <Pagination.PrevTrigger asChild>
-                        <IconButton
-                          aria-label="Previous page"
-                          icon={<LuChevronLeft />}
-                          isDisabled={currentPage === 1}
-                        />
+                        <IconButton>
+                          <LuChevronLeft />
+                        </IconButton>
                       </Pagination.PrevTrigger>
                       
                       <Pagination.Items
@@ -227,11 +225,9 @@ export function ProductsClientContainer({
                       />
                       
                       <Pagination.NextTrigger asChild>
-                        <IconButton
-                          aria-label="Next page"
-                          icon={<LuChevronRight />}
-                          isDisabled={currentPage === totalPages}
-                        />
+                        <IconButton>
+                          <LuChevronRight />
+                        </IconButton>
                       </Pagination.NextTrigger>
                     </ButtonGroup>
                   </Pagination.Root>
