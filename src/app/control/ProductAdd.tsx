@@ -18,13 +18,11 @@ const defaultNewItem = {
 }
 
 export const ProductAdd = () => {
-  const [newItem, setNewItem] = useState<Partial<ProductPrisma>>(defaultNewItem)
-
-  const handleAdd = async () => {
+  const handleAdd = async (item: Partial<ProductPrisma>) => {
     const res = await fetch('/api/product/add', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(newItem),
+      body: JSON.stringify(item),
     })
 
     if (res.ok) {
@@ -35,6 +33,8 @@ export const ProductAdd = () => {
   return (
     <ProductEditModal
       buttonText={'添加商品'}
+      onSave={handleAdd}
+      defaultItem={defaultNewItem}
     />
   )
 }

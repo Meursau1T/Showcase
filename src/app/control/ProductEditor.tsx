@@ -1,3 +1,6 @@
+'use client';
+
+import { useState } from 'react';
 import { Box, Heading, Table, Flex, Pagination, IconButton, ButtonGroup } from '@chakra-ui/react'
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu'
 import { ProductPrisma } from '@/type'
@@ -55,37 +58,36 @@ export default function ProductEditor({ data: serverData }: Props) {
           </Table.Body>
         </Table.Root>
       </Table.ScrollArea>
-    </Box>
-
-    <Box mt={4} display="flex" justifyContent="center">
-      <Pagination.Root
-        count={totalPages}
-        pageSize={1}
-        defaultPage={currentPage}
-        onChange={(page) => setCurrentPage(page)}
-      >
-        <ButtonGroup variant="ghost" size="md">
-          <Pagination.PrevTrigger asChild>
-            <IconButton>
-              <LuChevronLeft />
-            </IconButton>
-          </Pagination.PrevTrigger>
-
-          <Pagination.Items
-            render={(page) => (
-              <IconButton variant={{ base: "ghost", _selected: "outline" }}>
-                {page.value}
+      <Box mt={4} display="flex" justifyContent="center">
+        <Pagination.Root
+          count={totalPages}
+          pageSize={1}
+          defaultPage={currentPage}
+          onChange={(page) => setCurrentPage(page)}
+        >
+          <ButtonGroup variant="ghost" size="md">
+            <Pagination.PrevTrigger asChild>
+              <IconButton>
+                <LuChevronLeft />
               </IconButton>
-            )}
-          />
+            </Pagination.PrevTrigger>
 
-          <Pagination.NextTrigger asChild>
-            <IconButton>
-              <LuChevronRight />
-            </IconButton>
-          </Pagination.NextTrigger>
-        </ButtonGroup>
-      </Pagination.Root>
+            <Pagination.Items
+              render={(page) => (
+                <IconButton variant={{ base: "ghost", _selected: "outline" }}>
+                  {page.value}
+                </IconButton>
+              )}
+            />
+
+            <Pagination.NextTrigger asChild>
+              <IconButton>
+                <LuChevronRight />
+              </IconButton>
+            </Pagination.NextTrigger>
+          </ButtonGroup>
+        </Pagination.Root>
+      </Box>
     </Box>
   );
 }

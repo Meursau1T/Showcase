@@ -185,23 +185,23 @@ const TableInput = <T extends TableValKey>({ keyName, item, setItem }: TableInpu
 
 type ProductEditModalProps = {
   buttonText: string;
-  defaultItem?: Partial<ProductPrisma>;
-  onAdd?: (item: Partial<ProductPrisma>) => Promise<void>;
+  defaultItem: Partial<ProductPrisma>;
+  onSave?: (item: Partial<ProductPrisma>) => Promise<void>;
 }
 
-export const ProductEditModal = ({ buttonText }: ProductEditModalProps) => {
+export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEditModalProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [item, setItem] = useState<Partial<ProductPrisma>>(defaultItem || defaultNewItem)
+  const [item, setItem] = useState<Partial<ProductPrisma>>(defaultItem)
 
   /** 基础文本输入框封装 */
   const TextEdit = useCallback(({ keyName: key }: TextEditProps) => (
     <Input
-      value={newItem[key] || ''}
+      value={item[key] || ''}
       onChange={(e) => {
-        setNewItem({ ...newItem, [key]: e.target.value })
+        setItem({ ...item, [key]: e.target.value })
       }}
     />
-  ), [newItem, setNewItem])
+  ), [item, setItem])
 
   const fieldsConfig = [
     { key: 'name', label: 'YM.NO', component: <TextEdit keyName="name" /> },
@@ -210,31 +210,31 @@ export const ProductEditModal = ({ buttonText }: ProductEditModalProps) => {
     {
       key: 'manufacturer',
       label: 'Manufacture',
-      component: <TableInput keyName="manufacturer" setItem={setNewItem} item={newItem} />
+      component: <TableInput keyName="manufacturer" setItem={setItem} item={item} />
     },
     {
       key: 'oem_no',
       label: 'O.E.M.NO',
-      component: <TableInput keyName="oem_no" setItem={setNewItem} item={newItem} />
+      component: <TableInput keyName="oem_no" setItem={setItem} item={item} />
     },
     {
       key: 'ref_no',
       label: 'REF.NO.',
-      component: <TableInput keyName="ref_no" setItem={setNewItem} item={newItem} />
+      component: <TableInput keyName="ref_no" setItem={setItem} item={item} />
     },
     {
       key: 'machine_model',
       label: 'Machine Model',
-      component: <TableInput keyName="machine_model" setItem={setNewItem} item={newItem} />
+      component: <TableInput keyName="machine_model" setItem={setItem} item={item} />
     },
     { key: 'cu_m3', label: 'CU.M3', component: <TextEdit keyName="cu_m3" /> },
     { key: 'desc_app', label: 'Description', component: <TextEdit keyName="desc_app" /> },
     { key: 'price', label: 'Price', component: <TextEdit keyName="price" /> },
   ] satisfies { key: keyof ProductPrisma, label: string, component: React.ReactNode }[]
 
-  const handleAdd = async () => {
-    if (onAdd) {
-      await onAdd(item)
+  const handleSave = async () => {
+    if (onSave) {
+      await onSave(item)
       setIsOpen(false)
     }
   }
@@ -246,7 +246,7 @@ export const ProductEditModal = ({ buttonText }: ProductEditModalProps) => {
         onOpenChange={(e) => {
           setIsOpen(e.open)
           if (!e.open) {
-            setItem(defaultItem || defaultNewItem)
+            setItem(defaultItem)
           }
         }}
         placement="center"
@@ -275,7 +275,7 @@ export const ProductEditModal = ({ buttonText }: ProductEditModalProps) => {
                     </Field.Root>
                   ))}
 
-                  <Button colorScheme="green" onClick={handleAdd}>
+                  <Button colorScheme="green" onClick={handleSave}>
                     保存
                   </Button>
                 </Flex>
