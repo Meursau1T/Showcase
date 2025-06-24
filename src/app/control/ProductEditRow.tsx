@@ -12,10 +12,7 @@ export const ProductEditRow = ({ item }: Props) => {
   const [isEditing, setIsEditing] = useState(false);
   const [localData, setLocalData] = useState<ProductPrisma>({...item});
 
-  console.log('dev wxf localData', localData);
-
   const handleChange = (field: keyof ProductPrisma, value: any) => {
-    console.log('dev wxf change', { ...localData, [field]: value});
     setLocalData({ ...localData, [field]: value});
   }
 

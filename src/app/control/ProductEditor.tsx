@@ -61,9 +61,9 @@ export default function ProductEditor({ data: serverData }: Props) {
       <Box mt={4} display="flex" justifyContent="center">
         <Pagination.Root
           count={totalPages}
-          pageSize={1}
-          defaultPage={currentPage}
-          onChange={(page) => setCurrentPage(page)}
+          pageSize={10}
+          page={currentPage}
+          onPageChange={(e) => setCurrentPage(e.page)}
         >
           <ButtonGroup variant="ghost" size="md">
             <Pagination.PrevTrigger asChild>
