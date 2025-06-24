@@ -7,9 +7,15 @@ type Props = {
   types: string[];
   types_en: string[];
   lang: 'zh' | 'en';
+  products: { id: number; name: string; type: string; oem_no: string[] }[]; // 简化类型
 }
 
-export function ProductsClientContainer({ types, types_en, lang }: Props) {
+export function ProductsClientContainer({ 
+  types, 
+  types_en, 
+  lang,
+  products 
+}: Props) {
   const filterOptions = lang === 'zh' ? types : types_en;
   // 创建搜索选项集合
   const searchOptionsCollection = createListCollection({
@@ -33,19 +39,30 @@ export function ProductsClientContainer({ types, types_en, lang }: Props) {
     setCurrentPage(1); // 重置到第一页
   };
 
-  // 模拟产品数据
-  const mockProducts = [...Array(50)].map((_, i) => ({
-    id: i + 1,
-    name: `Product ${i + 1}`,
-    oem: `OEM-${String(i+1).padStart(4, '0')}`,
-    category: filterOptions[i % 5],
-    imgUrl: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png'
-  }));
+  // 转换真实数据格式
+  const transformedProducts = useMemo(() => 
+    products.map(p => {
+      // 根据产品类型找到在types数组中的索引
+      const typeIndex = types.indexOf(p.type);
+      // 获取对应位置的英文类型（如果存在）
+      const englishType = typeIndex !== -1 && typeIndex < types_en.length 
+        ? types_en[typeIndex] 
+        : p.type; // 如果找不到对应的英文类型，使用中文类型作为后备
+      
+      return {
+        id: p.id,
+        name: p.name,
+        oem: p.oem_no?.[0] || '', // 使用第一个OEM号
+        category: lang === 'zh' ? p.type : englishType, // 根据语言选择类型
+        // 直接使用name字段作为图片名称，使用固定URL
+        imgUrl: `https://via.placeholder.com/150?text=${encodeURIComponent(p.name)}`
+      };
+    })
+  , [products, lang, types, types_en]);
 
-  // 分页逻辑
-  const itemsPerPage = 20;
+  // 修改过滤逻辑使用真实数据
   const filteredProducts = useMemo(() =>
-    mockProducts.filter(p => {
+    transformedProducts.filter(p => {
       const matchesFilter = filters.length === 0 || filters.includes(p.category);
       const matchesSearch = searchTerm === '' ||
         (searchType === 'name'

@@ -15,8 +15,25 @@ async function getProductTypes(): Promise<{ types: string[], types_en: string[] 
 
 export default async function ProductsPage({ searchParams }: PageParam) {
   const lang = await parseLang(searchParams);
-  const { types_en, types } = await getProductTypes(); // 获取产品类型数据
+  const { types_en, types } = await getProductTypes();
+  
+  // 获取真实产品数据（只获取必要字段）
+  const products = await prisma.product.findMany({
+    select: {
+      id: true,
+      name: true,
+      type: true,
+      oem_no: true
+    }
+  });
 
-  return <ProductsClientContainer types={types} types_en={types_en} lang={lang}/>;
+  return (
+    <ProductsClientContainer 
+      types={types} 
+      types_en={types_en} 
+      lang={lang}
+      products={products} // 传递真实数据
+    />
+  );
 }
 
