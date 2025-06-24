@@ -39,7 +39,8 @@ export function ProductsClientContainer({
     setCurrentPage(1); // 重置到第一页
   };
 
-  // 转换真实数据格式
+  const itemsPerPage = 20;
+
   const transformedProducts = useMemo(() => 
     products.map(p => {
       // 根据产品类型找到在types数组中的索引
@@ -55,12 +56,11 @@ export function ProductsClientContainer({
         oem: p.oem_no?.[0] || '', // 使用第一个OEM号
         category: lang === 'zh' ? p.type : englishType, // 根据语言选择类型
         // 直接使用name字段作为图片名称，使用固定URL
-        imgUrl: `https://via.placeholder.com/150?text=${encodeURIComponent(p.name)}`
+        imgUrl: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png'
       };
     })
   , [products, lang, types, types_en]);
 
-  // 修改过滤逻辑使用真实数据
   const filteredProducts = useMemo(() =>
     transformedProducts.filter(p => {
       const matchesFilter = filters.length === 0 || filters.includes(p.category);
@@ -70,7 +70,7 @@ export function ProductsClientContainer({
           : p.oem.toLowerCase().includes(searchTerm.toLowerCase()));
       return matchesFilter && matchesSearch;
     })
-  , [mockProducts, searchType]);
+  , [transformedProducts, searchType]);
   
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const paginatedProducts = filteredProducts.slice(
