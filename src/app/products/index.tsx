@@ -1,7 +1,7 @@
 "use client";
 import { useState, useMemo } from 'react';
-import Link from 'next/link';
-import { Box, Flex, Input, Button, Checkbox, Grid, Text, Select, createListCollection, Image, Pagination, IconButton, ButtonGroup } from '@chakra-ui/react';
+// import Link from 'next/link';
+import { Link, Box, Flex, Input, Button, Checkbox, Grid, Text, Select, createListCollection, Image, Pagination, IconButton, ButtonGroup } from '@chakra-ui/react';
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import { productsText } from './products-lang';
 
@@ -168,11 +168,12 @@ export function ProductsClientContainer({
                     <Link 
                       key={product.id}
                       href={`/detail/${product.id}?lang=${lang}`}
-                      passHref
-                      legacyBehavior
+                      target="_blank"
+                      textDecoration="none"
+                      rel="noopener noreferrer"
+                      focusRing="none"
                     >
                       <Box 
-                        as="a"
                         borderWidth="1px" 
                         p={4} 
                         borderRadius="xs"
@@ -182,25 +183,25 @@ export function ProductsClientContainer({
                           cursor: 'pointer'
                         }}
                       >
-                      {/* 展示图片 */}
-                      <Box mb={3} h="150px">
-                        <Image
-                          src={product.imgUrl}
-                          alt={product.name}
-                          width="100%"
-                          height="100%"
-                          objectFit="cover"
-                          borderRadius="xs"
-                        />
-                      </Box>
+                        {/* 展示图片 */}
+                        <Box mb={3} h="150px">
+                          <Image
+                            src={product.imgUrl}
+                            alt={product.name}
+                            width="100%"
+                            height="100%"
+                            objectFit="cover"
+                            borderRadius="xs"
+                          />
+                        </Box>
 
-                      <Text fontWeight="medium">{product.name}</Text>
-                      <Text fontSize="sm" color="gray.600" mt={1}>
-                        {lang === 'zh' ? 'OEM编码: ' : 'OEM: '}{product.oem}
-                      </Text>
-                      <Text fontSize="sm" color="blue.600" mt={2}>
-                        {categoryText}
-                      </Text>
+                        <Text fontWeight="medium">{product.name}</Text>
+                        <Text fontSize="sm" color="gray.600" mt={1}>
+                          {lang === 'zh' ? 'OEM编码: ' : 'OEM: '}{product.oem}
+                        </Text>
+                        <Text fontSize="sm" color="blue.600" mt={2}>
+                          {categoryText}
+                        </Text>
                       </Box>
                     </Link>
                   )
