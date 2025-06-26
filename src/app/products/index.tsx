@@ -1,5 +1,6 @@
 "use client";
 import { useState, useMemo } from 'react';
+import Link from 'next/link';
 import { Box, Flex, Input, Button, Checkbox, Grid, Text, Select, createListCollection, Image, Pagination, IconButton, ButtonGroup } from '@chakra-ui/react';
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu';
 import { productsText } from './products-lang';
@@ -164,14 +165,23 @@ export function ProductsClientContainer({
                     .find(opt => opt === product.category) || '';
                   
                   return (
-                    <Box 
-                      key={product.id} 
-                      borderWidth="1px" 
-                      p={4} 
-                      borderRadius="xs"
-                      boxShadow="sm"
-                      _hover={{ boxShadow: 'md' }}
+                    <Link 
+                      key={product.id}
+                      href={`/detail/${product.id}?lang=${lang}`}
+                      passHref
+                      legacyBehavior
                     >
+                      <Box 
+                        as="a"
+                        borderWidth="1px" 
+                        p={4} 
+                        borderRadius="xs"
+                        boxShadow="sm"
+                        _hover={{ 
+                          boxShadow: 'md',
+                          cursor: 'pointer'
+                        }}
+                      >
                       {/* 展示图片 */}
                       <Box mb={3} h="150px">
                         <Image
@@ -191,7 +201,8 @@ export function ProductsClientContainer({
                       <Text fontSize="sm" color="blue.600" mt={2}>
                         {categoryText}
                       </Text>
-                    </Box>
+                      </Box>
+                    </Link>
                   )
                 })}
               </Grid>
