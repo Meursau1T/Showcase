@@ -169,8 +169,6 @@ export function ProductsClientContainer({
                       key={product.id}
                       href={`/detail/${product.id}?lang=${lang}`}
                       passHref
-                      target="_blank"
-                      rel="noopener noreferrer"
                     >
                       <Box 
                         as="a"
