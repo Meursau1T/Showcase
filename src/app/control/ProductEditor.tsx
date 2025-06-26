@@ -16,7 +16,6 @@ export default function ProductEditor({ data: serverData }: Props) {
   const [currentPage, setCurrentPage] = useState(1)
 
   const filteredData = serverData || []
-  const totalPages = Math.ceil(filteredData.length / itemsPerPage)
   const currentData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
@@ -60,7 +59,7 @@ export default function ProductEditor({ data: serverData }: Props) {
       </Table.ScrollArea>
       <Box mt={4} display="flex" justifyContent="center">
         <Pagination.Root
-          count={totalPages}
+          count={filteredData.length}
           pageSize={10}
           page={currentPage}
           onPageChange={(e) => setCurrentPage(e.page)}

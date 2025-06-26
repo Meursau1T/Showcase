@@ -200,7 +200,7 @@ export function ProductsClientContainer({
               {totalPages > 1 && (
                 <Box mt={8} display="flex" justifyContent="center">
                   <Pagination.Root
-                    count={totalPages}
+                    count={filteredProducts.length}
                     pageSize={itemsPerPage}
                     page={currentPage}
                     onPageChange={(e) => setCurrentPage(e.page)}
