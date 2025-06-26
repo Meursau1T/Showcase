@@ -1,6 +1,8 @@
 import { Box, Flex, Text, Table, Heading } from '@chakra-ui/react';
 import { parseLang } from '@/utils';
 import { PageParam } from '@/type';
+import { prisma } from '@/utils/prisma';
+import { ProductPrisma } from '@/type';
 
 // 标题多语言内容
 const titles = {
@@ -14,21 +16,41 @@ const titles = {
   },
 };
 
-export default async function DetailPage({ searchParams }: PageParam) {
+export default async function DetailPage({ params, searchParams }: { params: { id: string }, searchParams: PageParam['searchParams'] }) {
   const lang = await parseLang(searchParams);
+  const id = Number(params.id);
 
-  // MOCK 数据
+  // 使用 Prisma 获取产品数据
+  const productData = await prisma.product.findUnique({
+    where: { id },
+  }) as ProductPrisma | null;
+
+  if (!productData) {
+    return (
+      <main className="flex flex-col w-full p-8 md:p-12 pt-8 md:pt-12 font-[family-name:var(--font-geist-sans)]">
+        <Box mt="8" w="full">
+          <Text fontSize="xl" textAlign="center">
+            {lang === 'zh' ? '产品未找到' : 'Product not found'}
+          </Text>
+        </Box>
+      </main>
+    );
+  }
+
+  // 构建表格数据
+  const tableData = [
+    { title: lang === 'zh' ? '品牌' : 'Brand', value: productData.manufacturer?.[0] || '' },
+    { title: lang === 'zh' ? '型号' : 'Model', value: productData.name },
+    { title: 'HLW', value: productData.hlw },
+    { title: lang === 'zh' ? '类型' : 'Type', value: productData.type },
+    // 添加更多字段...
+  ];
+
+  // 使用实际产品数据
   const data = {
     img: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png',
-    text: '这是一段关于产品的详细介绍文本。你可以在这里写产品的功能、特点、优势等内容。',
-    table: [
-      { title: '品牌', value: '钰铭' },
-      { title: '型号', value: 'YM-12345' },
-      { title: '材质', value: '不锈钢' },
-      { title: '重量', value: '1.2kg' },
-      { title: '适用车型', value: '大众 / 丰田 / 本田' },
-      { title: '保修期', value: '1年' },
-    ],
+    text: lang === 'zh' ? '产品描述文本...' : 'Product description text...',
+    table: tableData,
   };
 
   return (
