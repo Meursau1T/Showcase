@@ -169,7 +169,6 @@ export function ProductsClientContainer({
                       key={product.id}
                       href={`/detail/${product.id}?lang=${lang}`}
                       passHref
-                      legacyBehavior
                     >
                       <Box 
                         as="a"
