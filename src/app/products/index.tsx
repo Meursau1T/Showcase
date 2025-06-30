@@ -124,13 +124,13 @@ export function ProductsClientContainer({
           onKeyPress={(e) => e.key === 'Enter' && setCurrentPage(1)}
         />
         
-        <Button 
-          colorScheme="blue" 
-          px={6}
-          onClick={() => setCurrentPage(1)}
-        >
-          {productsText.searchButton[lang]}
-        </Button>
+        {/* <Button  */}
+        {/*   colorScheme="blue"  */}
+        {/*   px={6} */}
+        {/*   onClick={() => setCurrentPage(1)} */}
+        {/* > */}
+        {/*   {productsText.searchButton[lang]} */}
+        {/* </Button> */}
       </Flex>
 
       {/* 内容区 */}
