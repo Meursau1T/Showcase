@@ -71,6 +71,8 @@ const getProductData = async (): Promise<ProductPrisma[] | null> => {
     desc_app: item.desc_app ?? '',
     price: item.price ?? '',
     cu_m3: item.cu_m3 ?? '',
+    desc_zh: item.desc_zh ?? '',
+    desc_en: item.desc_en ?? '',
   }));
 };
 

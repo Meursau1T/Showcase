@@ -230,6 +230,8 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
     { key: 'cu_m3', label: 'CU.M3', component: <TextEdit keyName="cu_m3" /> },
     { key: 'desc_app', label: 'Description', component: <TextEdit keyName="desc_app" /> },
     { key: 'price', label: 'Price', component: <TextEdit keyName="price" /> },
+    { key: 'desc_zh', label: '中文描述', component: <TextEdit keyName="desc_zh" /> },
+    { key: 'desc_en', label: '英文描述', component: <TextEdit keyName="desc_en" /> },
   ] satisfies { key: keyof ProductPrisma, label: string, component: React.ReactNode }[]
 
   const handleSave = async () => {

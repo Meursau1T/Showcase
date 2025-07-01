@@ -31,6 +31,8 @@ export default function ProductEditor({ data: serverData }: Props) {
     'CU.M3',
     'Desc Application',
     'Price',
+    '中文描述',
+    '英文描述',
     '操作',
   ]
 

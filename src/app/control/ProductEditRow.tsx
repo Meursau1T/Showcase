@@ -62,6 +62,8 @@ export const ProductEditRow = ({ item }: Props) => {
       <Table.Cell>{item.cu_m3}</Table.Cell>
       <Table.Cell>{item.desc_app}</Table.Cell>
       <Table.Cell>{item.price}</Table.Cell>
+      <Table.Cell>{item.desc_zh}</Table.Cell>
+      <Table.Cell>{item.desc_en}</Table.Cell>
       <Table.Cell>
         <Flex gap={2} direction="column">
           <>
