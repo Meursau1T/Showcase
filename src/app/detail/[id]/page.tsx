@@ -56,9 +56,9 @@ export default async function DetailPage({ params, searchParams }: { params: { i
     { title: lang === 'zh' ? '型号' : 'Model', value: productData.name },
     { title: lang === 'zh' ? '长宽高' : 'HLW', value: productData.hlw },
     { title: lang === 'zh' ? '类型' : 'Type', value: lang === 'zh' ? productData.type : enType },
-    { title: lang === 'zh' ? 'OEM编号' : 'OEM No.', value: productData.oem_no?.join(', ') || '' },
-    { title: lang === 'zh' ? '参考编号' : 'Ref. No.', value: productData.ref_no.map(r => `${r.brand} ${r.product_no}`).join(', ') || '' },
-    { title: lang === 'zh' ? '适配机型' : 'Machine Model', value: productData.machine_model.join(', ') || '' },
+    { title: lang === 'zh' ? 'OEM编号' : 'OEM No.', value: productData.oem_no?.join('\n') || '' },
+    { title: lang === 'zh' ? '参考编号' : 'Ref. No.', value: productData.ref_no.map(r => `${r.brand} ${r.product_no}`).join('\n') || '' },
+    { title: lang === 'zh' ? '适配机型' : 'Machine Model', value: productData.machine_model.join('\n') || '' },
     { title: lang === 'zh' ? '描述/应用' : 'Description/Application', value: productData.desc_app || '' },
     { title: lang === 'zh' ? '价格' : 'Price', value: productData.price || '' },
     { title: lang === 'zh' ? '体积' : 'Volume (cu/m³)', value: productData.cu_m3 || '' },
@@ -115,14 +115,14 @@ export default async function DetailPage({ params, searchParams }: { params: { i
                 <Table.Header>
                   <Table.Row>
                     <Table.ColumnHeader fontWeight="bold">名称</Table.ColumnHeader>
-                    <Table.ColumnHeader>值</Table.ColumnHeader>
+                    <Table.ColumnHeader>内容</Table.ColumnHeader>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
                   {data.table.map((item, index) => (
                     <Table.Row key={index}>
                       <Table.Cell>{item.title}</Table.Cell>
-                      <Table.Cell>{item.value}</Table.Cell>
+                      <Table.Cell whiteSpace="break-spaces">{item.value}</Table.Cell>
                     </Table.Row>
                   ))}
                 </Table.Body>
