@@ -33,10 +33,10 @@ export default async function DetailPage({ params, searchParams }: { params: { i
   const typesEn = categoryData?.types_en || [];
 
   // 查找英文类型在 types_en 中的索引
-  const typeIndex = typesEn.indexOf(productData?.type || '');
+  const typeIndex = typesZh.indexOf(productData?.type || '');
 
   // 根据索引获取中文名称，若无对应则保留原值
-  const zhType = typeIndex !== -1 && typesZh[typeIndex] ? typesZh[typeIndex] : productData?.type || '';
+  const enType = typeIndex !== -1 && typesEn[typeIndex] ? typesEn[typeIndex] : productData?.type || '';
 
   if (!productData) {
     return (
@@ -55,7 +55,7 @@ export default async function DetailPage({ params, searchParams }: { params: { i
     { title: lang === 'zh' ? '品牌' : 'Brand', value: productData.manufacturer?.[0] || '' },
     { title: lang === 'zh' ? '型号' : 'Model', value: productData.name },
     { title: lang === 'zh' ? '长宽高' : 'HLW', value: productData.hlw },
-    { title: lang === 'zh' ? '类型' : 'Type', value: productData.type },
+    { title: lang === 'zh' ? '类型' : 'Type', value: lang === 'zh' ? productData.type : enType },
     // 添加更多字段...
   ];
 
@@ -117,11 +117,7 @@ export default async function DetailPage({ params, searchParams }: { params: { i
                   {data.table.map((item, index) => (
                     <Table.Row key={index}>
                       <Table.Cell>{item.title}</Table.Cell>
-                      <Table.Cell>
-                        {item.title === (lang === 'zh' ? '类型' : 'Type') 
-                          ? lang === 'zh' ? zhType : productData?.type 
-                          : item.value}
-                      </Table.Cell>
+                      <Table.Cell>{item.value}</Table.Cell>
                     </Table.Row>
                   ))}
                 </Table.Body>
