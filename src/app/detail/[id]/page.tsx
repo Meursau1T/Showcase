@@ -1,7 +1,7 @@
 import { Box, Flex, Text, Table, Heading } from '@chakra-ui/react';
 import { parseLang } from '@/utils';
 import { PageParam } from '@/type';
-import { prisma } from '@/utils/prisma';
+import { parseJsonValue, prisma } from '@/utils/prisma';
 import { ProductPrisma } from '@/type';
 
 // 标题多语言内容
@@ -29,8 +29,8 @@ export default async function DetailPage({ params, searchParams }: { params: { i
   const categoryData = await prisma.category.findFirst();
 
   // 提取中英文类型列表
-  const typesZh = categoryData?.types || [];
-  const typesEn = categoryData?.types_en || [];
+  const typesZh = parseJsonValue(categoryData?.types, ['']);
+  const typesEn = parseJsonValue(categoryData?.types_en, ['']);
 
   // 查找英文类型在 types_en 中的索引
   const typeIndex = typesZh.indexOf(productData?.type || '');
