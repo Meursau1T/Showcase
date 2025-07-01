@@ -30,6 +30,8 @@ model product {
   desc_app String
   price String
   cu_m3 String
+  desc_zh String
+  desc_en String
 }
 
 model category {

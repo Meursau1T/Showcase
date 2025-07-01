@@ -48,4 +48,6 @@ export type ProductPrisma = {
   desc_app?: string;
   price?: string;
   cu_m3?: string;
+  desc_zh?: string
+  desc_en?: string
 }
