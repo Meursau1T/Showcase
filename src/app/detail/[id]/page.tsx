@@ -56,7 +56,12 @@ export default async function DetailPage({ params, searchParams }: { params: { i
     { title: lang === 'zh' ? '型号' : 'Model', value: productData.name },
     { title: lang === 'zh' ? '长宽高' : 'HLW', value: productData.hlw },
     { title: lang === 'zh' ? '类型' : 'Type', value: lang === 'zh' ? productData.type : enType },
-    // 添加更多字段...
+    { title: lang === 'zh' ? 'OEM编号' : 'OEM No.', value: productData.oem_no?.join(', ') || '' },
+    { title: lang === 'zh' ? '参考编号' : 'Ref. No.', value: productData.ref_no.map(r => `${r.brand} ${r.product_no}`).join(', ') || '' },
+    { title: lang === 'zh' ? '适配机型' : 'Machine Model', value: productData.machine_model.join(', ') || '' },
+    { title: lang === 'zh' ? '描述/应用' : 'Description/Application', value: productData.desc_app || '' },
+    { title: lang === 'zh' ? '价格' : 'Price', value: productData.price || '' },
+    { title: lang === 'zh' ? '体积' : 'Volume (cu/m³)', value: productData.cu_m3 || '' },
   ];
 
   // 使用实际产品数据
