@@ -41,7 +41,7 @@ export default async function DetailPage({ params, searchParams }: { params: { i
   const tableData = [
     { title: lang === 'zh' ? '品牌' : 'Brand', value: productData.manufacturer?.[0] || '' },
     { title: lang === 'zh' ? '型号' : 'Model', value: productData.name },
-    { title: 'HLW', value: productData.hlw },
+    { title: lang === 'zh' ? '长宽高' : 'HLW', value: productData.hlw },
     { title: lang === 'zh' ? '类型' : 'Type', value: productData.type },
     // 添加更多字段...
   ];
