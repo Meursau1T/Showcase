@@ -50,7 +50,7 @@ export default async function DetailPage({ params, searchParams }: { params: { i
     );
   }
 
-  // 构建表格数据
+  // 构建表格数据并过滤空值
   const tableData = [
     { title: lang === 'zh' ? '品牌' : 'Brand', value: productData.manufacturer?.[0] || '' },
     { title: lang === 'zh' ? '型号' : 'Model', value: productData.name },
@@ -62,7 +62,7 @@ export default async function DetailPage({ params, searchParams }: { params: { i
     { title: lang === 'zh' ? '描述/应用' : 'Description/Application', value: productData.desc_app || '' },
     { title: lang === 'zh' ? '价格' : 'Price', value: productData.price || '' },
     { title: lang === 'zh' ? '体积' : 'Volume (cu/m³)', value: productData.cu_m3 || '' },
-  ];
+  ].filter(item => item.value); // 过滤掉 value 为空或空字符串的项
 
   // 使用实际产品数据
   const data = {
