@@ -25,6 +25,19 @@ export default async function DetailPage({ params, searchParams }: { params: { i
     where: { id },
   }) as ProductPrisma | null;
 
+  // 获取分类数据
+  const categoryData = await prisma.category.findFirst();
+
+  // 提取中英文类型列表
+  const typesZh = categoryData?.types || [];
+  const typesEn = categoryData?.types_en || [];
+
+  // 查找英文类型在 types_en 中的索引
+  const typeIndex = typesEn.indexOf(productData?.type || '');
+
+  // 根据索引获取中文名称，若无对应则保留原值
+  const zhType = typeIndex !== -1 && typesZh[typeIndex] ? typesZh[typeIndex] : productData?.type || '';
+
   if (!productData) {
     return (
       <main className="flex flex-col w-full p-8 md:p-12 pt-8 md:pt-12 font-[family-name:var(--font-geist-sans)]">
@@ -104,7 +117,11 @@ export default async function DetailPage({ params, searchParams }: { params: { i
                   {data.table.map((item, index) => (
                     <Table.Row key={index}>
                       <Table.Cell>{item.title}</Table.Cell>
-                      <Table.Cell>{item.value}</Table.Cell>
+                      <Table.Cell>
+                        {item.title === (lang === 'zh' ? '类型' : 'Type') 
+                          ? lang === 'zh' ? zhType : productData?.type 
+                          : item.value}
+                      </Table.Cell>
                     </Table.Row>
                   ))}
                 </Table.Body>
