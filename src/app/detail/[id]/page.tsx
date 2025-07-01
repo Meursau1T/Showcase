@@ -114,8 +114,8 @@ export default async function DetailPage({ params, searchParams }: { params: { i
               <Table.Root size="md">
                 <Table.Header>
                   <Table.Row>
-                    <Table.ColumnHeader fontWeight="bold">名称</Table.ColumnHeader>
-                    <Table.ColumnHeader>内容</Table.ColumnHeader>
+                    <Table.ColumnHeader fontWeight="bold">{lang === 'zh' ? '名称' : 'Name'}</Table.ColumnHeader>
+                    <Table.ColumnHeader>{lang === 'zh' ? '内容' : 'Value'}</Table.ColumnHeader>
                   </Table.Row>
                 </Table.Header>
                 <Table.Body>
