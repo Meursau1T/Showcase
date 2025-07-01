@@ -70,10 +70,9 @@ export function ProductsClientContainer({
         (searchType === 'name'
           ? p.name.toLowerCase().includes(searchTerm.toLowerCase())
           : p.oem.toLowerCase().includes(searchTerm.toLowerCase()));
-      matchesSearch && console.log('dev wxf match search', p)
       return matchesFilter && matchesSearch;
     })
-  , [transformedProducts, searchType, searchTerm]);
+  , [transformedProducts, searchType, searchTerm, filters]);
   
   const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
   const paginatedProducts = filteredProducts.slice(
