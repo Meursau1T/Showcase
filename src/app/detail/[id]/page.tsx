@@ -67,7 +67,7 @@ export default async function DetailPage({ params, searchParams }: { params: { i
   // 使用实际产品数据
   const data = {
     img: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png',
-    text: lang === 'zh' ? '产品描述文本...' : 'Product description text...',
+    text: lang === 'zh' ? productData.desc_zh : productData.desc_en,
     table: tableData,
   };
 
@@ -97,9 +97,11 @@ export default async function DetailPage({ params, searchParams }: { params: { i
           {/* 右侧商品描述区域，固定宽度 630px */}
           <Box w="630px" display="flex" flexDirection="column" gap="6">
             {/* 文本描述标题 */}
-            <Heading as="h2" size="lg" fontWeight="bold">
-              {titles[lang].description}
-            </Heading>
+            {data.text &&
+              <Heading as="h2" size="lg" fontWeight="bold">
+                {titles[lang].description}
+              </Heading>
+            }
             <Text fontSize="lg" color="gray.700" lineHeight="1.8">
               {data.text}
             </Text>
