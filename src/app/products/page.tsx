@@ -15,6 +15,7 @@ async function getProductTypes(): Promise<{ types: string[], types_en: string[] 
 
 export default async function ProductsPage({ searchParams }: PageParam) {
   const lang = await parseLang(searchParams);
+  const tab = (await searchParams)['tab'];
   const { types_en, types } = await getProductTypes();
   
   // 获取真实产品数据（只获取必要字段）
@@ -32,6 +33,7 @@ export default async function ProductsPage({ searchParams }: PageParam) {
       types={types} 
       types_en={types_en} 
       lang={lang}
+      tab={tab}
       products={products} // 传递真实数据
     />
   );

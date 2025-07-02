@@ -9,6 +9,7 @@ type Props = {
   types: string[];
   types_en: string[];
   lang: 'zh' | 'en';
+  tab: string;
   products: { id: number; name: string; type: string; oem_no: string[] }[]; // 简化类型
 }
 
@@ -16,6 +17,7 @@ export function ProductsClientContainer({
   types, 
   types_en, 
   lang,
+  tab,
   products 
 }: Props) {
   const filterOptions = lang === 'zh' ? types : types_en;
