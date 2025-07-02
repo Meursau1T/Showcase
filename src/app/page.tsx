@@ -1,6 +1,6 @@
 import type { PageParam } from '@/type';
 import { parseLang, prisma } from '@/utils';
-import { Flex, Heading, Box, Image, Card } from '@chakra-ui/react';
+import { Flex, Heading, Box, Image, Card, Link } from '@chakra-ui/react';
 
 const products = [
   {
@@ -61,13 +61,26 @@ export default async function Home({ searchParams }: PageParam) {
           className="w-full"
         >
           {products.map((product) => (
-            <Card.Root key={product.id} className="w-[200px]" overflow="hidden" variant="subtle" borderRadius="0">
-              <Image src={product.image} alt={product.title[locale]} h="120px" mx="auto" />
-              <Card.Body gap="2">
-                <Card.Title>{product.title[locale]}</Card.Title>
-                <Card.Description>{product.description[locale]}</Card.Description>
-              </Card.Body>
-            </Card.Root>
+            <Link 
+              key={product.id}
+              href={`/products?tab=${product.title.en.toLowerCase().replace(/\s+/g, '') }`}
+              textDecoration="none"
+              focusRing="none"
+            >
+              <Card.Root
+                key={product.id}
+                className="w-[200px]"
+                overflow="hidden"
+                variant="subtle"
+                borderRadius="0"
+              >
+                <Image src={product.image} alt={product.title[locale]} h="120px" mx="auto" />
+                <Card.Body gap="2">
+                  <Card.Title>{product.title[locale]}</Card.Title>
+                  <Card.Description>{product.description[locale]}</Card.Description>
+                </Card.Body>
+              </Card.Root>
+            </Link>
           ))}
         </Flex>
       </Box>
