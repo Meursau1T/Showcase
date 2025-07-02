@@ -4,35 +4,18 @@ import { prisma } from '@/utils';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { data } = body;
-    const { id } = data;
+    const { id } = body;
 
-    if (!data) {
-      return new Response(JSON.stringify({ error: 'Missing data' }), {
+    if (!id) {
+      return new Response(JSON.stringify({ error: 'Missing id' }), {
         status: 400,
       });
     }
-
-    let result;
-    if (id) {
-      result = await prisma.product.upsert({
-        where: { id: id },
-        update: {
-          ...data,
-        },
-        create: {
-          ...data,
-          id: Number(id),
-        },
-      });
-    } else {
-      result = await prisma.product.create({
-        data: {
-          ...data,
-        },
-      });
-    }
-
+    
+    const result = await prisma.product.delete({
+      where: { id: id ? Number(id) : -1 },
+    })
+  
     return new Response(JSON.stringify({ data: result }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },

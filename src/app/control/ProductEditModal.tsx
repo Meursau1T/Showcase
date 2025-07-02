@@ -27,6 +27,7 @@ type KeyNameConf = {
 
 type TextEditProps = {
   keyName: StringValKey
+  item: Partial<ProductPrisma>
 }
 
 type TableInputProps<T extends TableValKey> = {
@@ -194,19 +195,19 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
   const [item, setItem] = useState<Partial<ProductPrisma>>(defaultItem)
 
   /** 基础文本输入框封装 */
-  const TextEdit = useCallback(({ keyName: key }: TextEditProps) => (
+  const TextEdit = useCallback(({ keyName: key, item }: TextEditProps) => (
     <Input
       value={item[key] || ''}
       onChange={(e) => {
         setItem({ ...item, [key]: e.target.value })
       }}
     />
-  ), [item, setItem])
+  ), [setItem])
 
   const fieldsConfig = [
-    { key: 'name', label: 'YM.NO', component: <TextEdit keyName="name" /> },
-    { key: 'type', label: '类型', component: <TextEdit keyName="type" /> },
-    { key: 'hlw', label: 'HLW', component: <TextEdit keyName="hlw" /> },
+    { key: 'name', label: 'YM.NO', component: <TextEdit keyName="name" item={item} /> },
+    { key: 'type', label: '类型', component: <TextEdit keyName="type" item={item} /> },
+    { key: 'hlw', label: 'HLW', component: <TextEdit keyName="hlw" item={item} /> },
     {
       key: 'manufacturer',
       label: 'Manufacture',
@@ -227,11 +228,11 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
       label: 'Machine Model',
       component: <TableInput keyName="machine_model" setItem={setItem} item={item} />
     },
-    { key: 'cu_m3', label: 'CU.M3', component: <TextEdit keyName="cu_m3" /> },
-    { key: 'desc_app', label: 'Description', component: <TextEdit keyName="desc_app" /> },
-    { key: 'price', label: 'Price', component: <TextEdit keyName="price" /> },
-    { key: 'desc_zh', label: '中文描述', component: <TextEdit keyName="desc_zh" /> },
-    { key: 'desc_en', label: '英文描述', component: <TextEdit keyName="desc_en" /> },
+    { key: 'cu_m3', label: 'CU.M3', component: <TextEdit keyName="cu_m3" item={item} /> },
+    { key: 'desc_app', label: 'Description', component: <TextEdit keyName="desc_app" item={item} /> },
+    { key: 'price', label: 'Price', component: <TextEdit keyName="price" item={item} /> },
+    { key: 'desc_zh', label: '中文描述', component: <TextEdit keyName="desc_zh" item={item} /> },
+    { key: 'desc_en', label: '英文描述', component: <TextEdit keyName="desc_en" item={item} /> },
   ] satisfies { key: keyof ProductPrisma, label: string, component: React.ReactNode }[]
 
   const handleSave = async () => {

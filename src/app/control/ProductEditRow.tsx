@@ -9,12 +9,26 @@ interface Props {
 }
 
 export const ProductEditRow = ({ item }: Props) => {
-  const handleSave = async (item: ProductPrisma) => {
+  const handleSave = async (item: Partial<ProductPrisma>) => {
     const res = await fetch('/api/product/edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(item),
+      body: JSON.stringify({ data: item }),
     });
+    if (res.ok) {
+      alert('商品修改成功')
+    }
+  };
+
+  const handleDelete = async () => {
+    const res = await fetch('/api/product/delete', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: item.id }),
+    });
+    if (res.ok) {
+      alert('商品删除成功')
+    }
   };
 
   return (
@@ -67,8 +81,8 @@ export const ProductEditRow = ({ item }: Props) => {
       <Table.Cell>
         <Flex gap={2} direction="column">
           <>
-            <ProductEditModal defaultItem={item} buttonText={'编辑'} />
-            <Button size="sm" colorScheme="red">
+            <ProductEditModal defaultItem={item} buttonText={'编辑'} onSave={handleSave} />
+            <Button size="sm" colorScheme="red" onClick={handleDelete}>
               删除
             </Button>
           </>

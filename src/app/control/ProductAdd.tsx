@@ -19,10 +19,11 @@ const defaultNewItem = {
 
 export const ProductAdd = () => {
   const handleAdd = async (item: Partial<ProductPrisma>) => {
-    const res = await fetch('/api/product/add', {
+    console.log('dev curr', item);
+    const res = await fetch('/api/product/edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(item),
+      body: JSON.stringify({ data: item }),
     })
 
     if (res.ok) {
