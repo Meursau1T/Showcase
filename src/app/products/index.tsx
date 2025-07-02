@@ -21,6 +21,14 @@ export function ProductsClientContainer({
   products 
 }: Props) {
   const filterOptions = lang === 'zh' ? types : types_en;
+
+  // 获取默认筛选项
+  const getDefaultFilter = () => {
+    const index = types_en.findIndex(
+      (type) => type.toLowerCase().replace(/\s+/g, '') === tab.toLowerCase().replace(/\s+/g, '')
+    );
+    return index !== -1 ? [lang === 'zh' ? types[index] : types_en[index]] : [];
+  };
   // 创建搜索选项集合
   const searchOptionsCollection = createListCollection({
     items: [
@@ -30,7 +38,7 @@ export function ProductsClientContainer({
   });
   const [searchType, setSearchType] = useState<'name' | 'oem'>('name');
   const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState<string[]>([]);
+  const [filters, setFilters] = useState<string[]>(() => getDefaultFilter());
   const [currentPage, setCurrentPage] = useState(1);
   console.log('dev wxf filters', filters, tab);
 
