@@ -6,33 +6,27 @@ const products = [
   {
     id: 1,
     image: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png',
-    title: { zh: '产品1', en: 'Product 1' },
+    title: { zh: '欧美纸芯', en: 'Element Filter' },
     description: { zh: '产品1描述', en: 'Product 1 description' }
   },
   {
     id: 2,
     image: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png',
-    title: { zh: '产品2', en: 'Product 2' },
+    title: { zh: 'Air Filter', en: 'Air Filter' },
     description: { zh: '产品2描述', en: 'Product 2 description' }
   },
   {
     id: 3,
     image: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png',
-    title: { zh: '产品3', en: 'Product 3' },
+    title: { zh: '日系', en: 'Japan Filter' },
     description: { zh: '产品3描述', en: 'Product 3 description' }
   },
   {
     id: 4,
     image: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png',
-    title: { zh: '产品4', en: 'Product 4' },
+    title: { zh: '冷气', en: 'Cabin Filter' },
     description: { zh: '产品4描述', en: 'Product 4 description' }
   },
-  {
-    id: 5,
-    image: 'https://ufi-aftermarket.com/wp-content/uploads/sites/4/2023/03/UFI_AMZ_Store_2022_Gamma_Olio.png',
-    title: { zh: '产品5', en: 'Product 5' },
-    description: { zh: '产品5描述', en: 'Product 5 description' }
-  }
 ];
 
 export default async function Home({ searchParams }: PageParam) {
