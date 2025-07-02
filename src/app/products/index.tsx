@@ -40,7 +40,6 @@ export function ProductsClientContainer({
   const [searchTerm, setSearchTerm] = useState('');
   const [filters, setFilters] = useState<string[]>(() => getDefaultFilter());
   const [currentPage, setCurrentPage] = useState(1);
-  console.log('dev wxf filters', filters, tab);
 
   // 切换筛选器状态
   const toggleFilter = (filterKey: string) => {
