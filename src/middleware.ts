@@ -9,7 +9,7 @@ export function middleware(request: NextRequest) {
   const langCookie = request.cookies.get('lang')?.value;
   //
   // 优先使用URL参数，其次使用cookie，默认en
-  const lang = langParam || 'en';
+  const lang = langParam || langCookie || 'en';
   
   // 如果新lang参数与cookie不同，更新cookie
   const response = NextResponse.next();
