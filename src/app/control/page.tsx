@@ -1,7 +1,7 @@
 import { cookies } from 'next/headers';
 import { redirect } from "next/navigation";
 import { getSession, prisma } from '@/utils';
-import type { CulturePrisma, MainPrisma, CategoryPrisma, ProductPrisma } from '@/type';
+import type { CulturePrisma, MainPrisma, CategoryPrisma, ProductPrisma, PageParam } from '@/type';
 import Page from './index';
 
 /**
@@ -76,7 +76,8 @@ const getProductData = async (): Promise<ProductPrisma[] | null> => {
   }));
 };
 
-export default async function ControlPage() {
+export default async function ControlPage({ searchParams }: PageParam) {
+  const tab = (await searchParams)['tab']?.toString() || "";
   const session = await getSession(cookies);
   if (!session.isLoggedIn) {
     redirect('/')
@@ -96,6 +97,7 @@ export default async function ControlPage() {
       mainPageData={mainPageData}
       categoryData={categoryData}
       productData={productData}
+      tab={tab}
     />
   );
 }

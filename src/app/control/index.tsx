@@ -12,9 +12,10 @@ interface Props {
   mainPageData: MainPrisma | null;
   categoryData: CategoryPrisma | null;
   productData: ProductPrisma[] | null;
+  tab: string;
 }
 
-export default function ControlIndex({ cultureData, mainPageData, categoryData, productData }: Props) {
+export default function ControlIndex({ cultureData, mainPageData, categoryData, productData, tab }: Props) {
   const tabList = [
     { value: 'main', label: '首页编辑', component: <MainPageEditor data={mainPageData} /> },
     { value: 'product', label: '商品编辑', component: <ProductEditor data={productData} /> },
@@ -22,11 +23,18 @@ export default function ControlIndex({ cultureData, mainPageData, categoryData, 
     { value: 'culture', label: '文化页编辑', component: <CultureEditor data={cultureData} /> },
   ];
 
+  const getDefault = () => {
+    if (tabList.find(i => i.value === tab)) {
+      return tab;
+    }
+    return 'main';
+  }
+
   return (
     <Box p="72px" minW="672px">
       <Flex direction="column" gap="8">
         <Heading size="4xl">控制面板</Heading>
-        <Tabs.Root defaultValue="main" variant={'line'}>
+        <Tabs.Root defaultValue={getDefault()} variant={'line'}>
           <Tabs.List>
             {tabList.map((tab) => (
               <Tabs.Trigger key={tab.value} value={tab.value}>
