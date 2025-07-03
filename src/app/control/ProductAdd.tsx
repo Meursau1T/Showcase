@@ -3,7 +3,7 @@
 import { ProductEditModal } from "./ProductEditModal"
 import { ProductPrisma } from '@/type';
 
-const defaultNewItem = {
+const defaultNewItem: Partial<ProductPrisma> = {
   name: '',
   type: '',
   hlw: '',
@@ -14,6 +14,8 @@ const defaultNewItem = {
   cu_m3: '',
   desc_app: '',
   price: '',
+  desc_en: '',
+  desc_zh: '',
 }
 
 export const ProductAdd = () => {

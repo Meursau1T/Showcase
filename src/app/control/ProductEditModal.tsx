@@ -10,6 +10,8 @@ import {
   Flex,
   Field,
   Table,
+  Select,
+  createListCollection,
 } from '@chakra-ui/react'
 import { ProductPrisma } from '@/type'
 import { useControlContext } from './ControlContext'
@@ -195,7 +197,12 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
   const [isOpen, setIsOpen] = useState(false)
   const [item, setItem] = useState<Partial<ProductPrisma>>(defaultItem)
   const { categoryData } = useControlContext()
-  console.log('dev wxf categoryData', categoryData)
+  console.log('dev wxf defaultItem', defaultItem)
+  console.log('dev wxf curr', item)
+  const searchOptionsCollection = createListCollection({
+    items: categoryData?.types.map(i => ({ label: i, value: i })) || []
+  });
+
   /** 基础文本输入框封装 */
   const TextEdit = useCallback(({ keyName: key, item }: TextEditProps) => (
     <Input
@@ -206,9 +213,36 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
     />
   ), [setItem])
 
+  const SelectType = useCallback(() => (
+    <Select.Root
+      width="150px"
+      onValueChange={({ value }) => setItem({ ...item, type: value[0] })}
+      collection={searchOptionsCollection}
+    >
+      <Select.HiddenSelect />
+      <Select.Control>
+        <Select.Trigger>
+          <Select.ValueText />
+        </Select.Trigger>
+        <Select.IndicatorGroup>
+          <Select.Indicator />
+        </Select.IndicatorGroup>
+      </Select.Control>
+      <Select.Positioner>
+        <Select.Content>
+          {searchOptionsCollection.items.map((option) => (
+            <Select.Item key={option.value} item={option}>
+              {option.label}
+            </Select.Item>
+          ))}
+        </Select.Content>
+      </Select.Positioner>
+    </Select.Root>
+  ), [])
+
   const fieldsConfig = [
     { key: 'name', label: 'YM.NO', component: <TextEdit keyName="name" item={item} /> },
-    { key: 'type', label: '类型', component: <TextEdit keyName="type" item={item} /> },
+    { key: 'type', label: '类型', component: <SelectType />},
     { key: 'hlw', label: 'HLW', component: <TextEdit keyName="hlw" item={item} /> },
     {
       key: 'manufacturer',
@@ -240,6 +274,7 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
   const handleSave = async () => {
     if (onSave) {
       await onSave(item)
+      console.log('dev wxf item', item);
       setIsOpen(false)
     }
   }
