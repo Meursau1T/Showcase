@@ -17,6 +17,7 @@ export const ProductEditRow = ({ item }: Props) => {
     });
     if (res.ok) {
       alert('商品修改成功')
+      location.href = `${location.protocol}//${location.host}${location.pathname}?tab=product`
     }
   };
 
@@ -28,6 +29,7 @@ export const ProductEditRow = ({ item }: Props) => {
     });
     if (res.ok) {
       alert('商品删除成功')
+      location.href = `${location.protocol}//${location.host}${location.pathname}?tab=product`
     }
   };
 

@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react';
 import { ProductEditModal } from "./ProductEditModal"
 import { ProductPrisma } from '@/type';
 
@@ -19,7 +18,6 @@ const defaultNewItem = {
 
 export const ProductAdd = () => {
   const handleAdd = async (item: Partial<ProductPrisma>) => {
-    console.log('dev curr', item);
     const res = await fetch('/api/product/edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -28,6 +26,7 @@ export const ProductAdd = () => {
 
     if (res.ok) {
       alert('商品新增成功')
+      location.href = `${location.protocol}//${location.host}${location.pathname}?tab=product`
     }
   }
 
