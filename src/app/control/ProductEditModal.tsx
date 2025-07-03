@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, ReactNode } from 'react'
+import { useState, useCallback, ReactNode, useMemo } from 'react'
 import {
   Button,
   Dialog,
@@ -198,9 +198,9 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
   const [item, setItem] = useState<Partial<ProductPrisma>>(defaultItem)
   const { categoryData } = useControlContext()
 
-  const searchOptionsCollection = createListCollection({
+  const searchOptionsCollection = useMemo(() => createListCollection({
     items: categoryData?.types.map(i => ({ label: i, value: i })) || []
-  });
+  }), [categoryData]);
 
   /** 基础文本输入框封装 */
   const TextEdit = useCallback(({ keyName: key, item }: TextEditProps) => (
@@ -215,6 +215,7 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
   const SelectType = useCallback(() => (
     <Select.Root
       width="150px"
+      value={[item.type || '']}
       onValueChange={({ value }) => setItem({ ...item, type: value[0] })}
       collection={searchOptionsCollection}
     >
@@ -237,7 +238,7 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
         </Select.Content>
       </Select.Positioner>
     </Select.Root>
-  ), [])
+  ), [searchOptionsCollection, item])
 
   const fieldsConfig = [
     { key: 'name', label: 'YM.NO', component: <TextEdit keyName="name" item={item} /> },
