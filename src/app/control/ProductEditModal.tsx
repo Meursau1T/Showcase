@@ -12,6 +12,7 @@ import {
   Table,
 } from '@chakra-ui/react'
 import { ProductPrisma } from '@/type'
+import { useControlContext } from './ControlContext'
 
 type TableValKey = 'oem_no' | 'manufacturer' | 'machine_model' | 'ref_no';
 
@@ -193,7 +194,8 @@ type ProductEditModalProps = {
 export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEditModalProps) => {
   const [isOpen, setIsOpen] = useState(false)
   const [item, setItem] = useState<Partial<ProductPrisma>>(defaultItem)
-
+  const { categoryData } = useControlContext()
+  console.log('dev wxf categoryData', categoryData)
   /** 基础文本输入框封装 */
   const TextEdit = useCallback(({ keyName: key, item }: TextEditProps) => (
     <Input
