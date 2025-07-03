@@ -197,8 +197,7 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
   const [isOpen, setIsOpen] = useState(false)
   const [item, setItem] = useState<Partial<ProductPrisma>>(defaultItem)
   const { categoryData } = useControlContext()
-  console.log('dev wxf defaultItem', defaultItem)
-  console.log('dev wxf curr', item)
+
   const searchOptionsCollection = createListCollection({
     items: categoryData?.types.map(i => ({ label: i, value: i })) || []
   });
@@ -274,7 +273,6 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
   const handleSave = async () => {
     if (onSave) {
       await onSave(item)
-      console.log('dev wxf item', item);
       setIsOpen(false)
     }
   }
