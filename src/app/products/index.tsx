@@ -146,22 +146,24 @@ export function ProductsClientContainer({
       <Grid templateColumns={{ base: "1fr", md: "200px 1fr" }} gap={6}>
         {/* 筛选侧边栏 */}
         <Box bg="gray.50" p={4} borderRadius="xs">
-          <Text fontWeight="bold" mb={3} fontSize="lg">
-            {productsText.categories[lang]}
-          </Text>
-          {filterOptions.map((option) => (
-            <Checkbox.Root
-              variant={'solid'}
-              key={option}
-              checked={filters.includes(option)}
-              onChange={() => toggleFilter(option)}
-              className="mr-[12px]"
-            >
-              <Checkbox.HiddenInput />
-              <Checkbox.Control />
-              <Checkbox.Label>{option}</Checkbox.Label>
-            </Checkbox.Root>
-          ))}
+          <Flex flexDirection="column" gap="2">
+            <Text fontWeight="bold" fontSize="lg">
+              {productsText.categories[lang]}
+            </Text>
+            {filterOptions.map((option) => (
+              <Checkbox.Root
+                variant={'solid'}
+                key={option}
+                checked={filters.includes(option)}
+                onChange={() => toggleFilter(option)}
+                className="mr-[12px]"
+              >
+                <Checkbox.HiddenInput />
+                <Checkbox.Control />
+                <Checkbox.Label>{option}</Checkbox.Label>
+              </Checkbox.Root>
+            ))}
+          </Flex>
         </Box>
 
         {/* 产品展示区 */}
