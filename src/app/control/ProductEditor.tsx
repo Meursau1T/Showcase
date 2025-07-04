@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { Box, Heading, Table, Flex, Pagination, IconButton, ButtonGroup } from '@chakra-ui/react'
+import { Box, Heading, Table, Flex, Pagination, IconButton, ButtonGroup, Input } from '@chakra-ui/react'
 import { LuChevronLeft, LuChevronRight } from 'react-icons/lu'
 import { ProductPrisma } from '@/type'
 import { ProductEditRow } from './ProductEditRow';
@@ -14,8 +14,11 @@ interface Props {
 export default function ProductEditor({ data: serverData }: Props) {
   const itemsPerPage = 10
   const [currentPage, setCurrentPage] = useState(1)
+  const [searchTerm, setSearchTerm] = useState('')
 
-  const filteredData = serverData || []
+  const filteredData = (serverData || []).filter(item =>
+    item.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
   const currentData = filteredData.slice(
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
