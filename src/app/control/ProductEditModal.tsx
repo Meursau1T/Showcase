@@ -195,7 +195,7 @@ type ProductEditModalProps = {
 
 export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEditModalProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [item, setItem] = useState<Partial<ProductPrisma>>(defaultItem)
+  const [item, setItem] = useState<Partial<ProductPrisma>>({ ...defaultItem })
   const { categoryData } = useControlContext()
 
   const searchOptionsCollection = useMemo(() => createListCollection({
@@ -285,7 +285,7 @@ export const ProductEditModal = ({ buttonText, defaultItem, onSave }: ProductEdi
         onOpenChange={(e) => {
           setIsOpen(e.open)
           if (!e.open) {
-            setItem(defaultItem)
+            setItem({ ...defaultItem })
           }
         }}
         placement="center"
