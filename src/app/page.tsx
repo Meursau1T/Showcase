@@ -1,6 +1,7 @@
 import type { PageParam } from '@/type';
-import { parseLang, prisma } from '@/utils';
+import { prisma } from '@/utils';
 import { Flex, Heading, Box, Image, Card, Link } from '@chakra-ui/react';
+import { cookies } from 'next/headers';
 
 const products = [
   {
@@ -29,8 +30,8 @@ const products = [
   },
 ];
 
-export default async function Home({ searchParams }: PageParam) {
-  const locale = await parseLang(searchParams);
+export default async function Home() {
+  const locale = ((await cookies()).get('lang')?.value || 'en') as 'zh' | 'en';
   const bannerStorage = await prisma.main_page.findFirst();
   const categoryStorage = await prisma.category.findMany();
   

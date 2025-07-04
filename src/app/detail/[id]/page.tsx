@@ -1,8 +1,8 @@
 import { Box, Flex, Text, Table, Heading } from '@chakra-ui/react';
-import { parseLang } from '@/utils';
 import { PageParam } from '@/type';
 import { parseJsonValue, prisma } from '@/utils/prisma';
 import { ProductPrisma } from '@/type';
+import { cookies } from 'next/headers';
 
 // 标题多语言内容
 const titles = {
@@ -16,8 +16,8 @@ const titles = {
   },
 };
 
-export default async function DetailPage({ params, searchParams }: { params: { id: string }, searchParams: PageParam['searchParams'] }) {
-  const lang = await parseLang(searchParams);
+export default async function DetailPage({ params }: { params: { id: string }, searchParams: PageParam['searchParams'] }) {
+  const lang = (await cookies()).get('lang')?.value || 'en';
   const id = Number(params.id);
 
   // 使用 Prisma 获取产品数据

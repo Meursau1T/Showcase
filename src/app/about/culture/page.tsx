@@ -1,6 +1,7 @@
 import { CommonDetail } from '@/components/ui/common-detail';
-import { parseLang, prisma, parseJsonValue } from '@/utils';
+import { prisma, parseJsonValue } from '@/utils';
 import type { PageParam, CultureContent } from '@/type';
+import { cookies } from 'next/headers';
 
 const defaultVal: CultureContent = {
   zh: {
@@ -11,8 +12,8 @@ const defaultVal: CultureContent = {
   }
 };
 
-export default async function AboutCulturePage({ searchParams }: PageParam) {
-  const lang = await parseLang(searchParams);
+export default async function AboutCulturePage() {
+  const lang = (await cookies()).get('lang')?.value as 'zh' | 'en';
   const cultureData = await prisma.culture.findFirst();
   
   // 定义不同语言的文化内容

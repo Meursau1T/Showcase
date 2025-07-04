@@ -1,6 +1,7 @@
 import { PageParam } from '@/type';
 import { ProductsClientContainer } from './index';
-import { parseLang, prisma } from '@/utils';
+import { prisma } from '@/utils';
+import { cookies } from 'next/headers';
 
 // 获取产品类型数据
 async function getProductTypes(): Promise<{ types: string[], types_en: string[] }> {
@@ -14,7 +15,7 @@ async function getProductTypes(): Promise<{ types: string[], types_en: string[] 
 }
 
 export default async function ProductsPage({ searchParams }: PageParam) {
-  const lang = await parseLang(searchParams);
+  const lang = ((await cookies()).get('lang')?.value || 'en') as 'zh' | 'en';
   const tab = (await searchParams)['tab']?.toString() || "";
   const { types_en, types } = await getProductTypes();
   
