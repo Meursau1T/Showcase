@@ -41,8 +41,16 @@ export default function ProductEditor({ data: serverData }: Props) {
 
   return (
     <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
-      <Flex justifyContent={'space-between'}>
-        <Heading size="2xl" mb={4}>商品编辑</Heading>
+      <Flex justifyContent="space-between" alignItems="center" gap={4} mb={4} flexWrap="wrap">
+        <Heading size="2xl">商品编辑</Heading>
+        <Box flex="1" maxW="300px">
+          <Input
+            placeholder="搜索商品名称"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            size="md"
+          />
+        </Box>
         {/* 新增 */}
         <ProductAdd />
       </Flex>
