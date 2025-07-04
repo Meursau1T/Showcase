@@ -22,6 +22,12 @@ export type CultureContent = {
 
 export type MainPrisma = {
   banner: string;
+  products: {
+    image: string;
+    title: { zh: string, en: string },
+    description: { zh: string, en: string }
+    url: string
+  }[]
 }
 
 export type CulturePrisma = {

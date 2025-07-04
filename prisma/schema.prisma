@@ -16,6 +16,7 @@ datasource db {
 
 model main_page {
   banner  String  @id @db.VarChar(255) @default("/test_banner.jpg")
+  products Json   @default("[]")
 }
 
 model product {
