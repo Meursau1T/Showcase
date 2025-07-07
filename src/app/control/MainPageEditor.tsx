@@ -7,15 +7,17 @@ import type { MainPrisma } from '@/type'
 interface Props {
   data: MainPrisma | null;
 }
+const defautNewProduct = {
+  image: '',
+  title: { zh: '', en: '' },
+  description: { zh: '', en: '' },
+  url: ''
+}
 
 export default function MainPageEditor(props: Props) {
   const [banner, setBanner] = useState(props.data?.banner || '')
-  const [newProduct, setNewProduct] = useState({
-    image: '',
-    title: { zh: '', en: '' },
-    description: { zh: '', en: '' },
-    url: ''
-  })
+  const [currList, setCurrList] = useState(props.data?.products || [])
+  const [newProduct, setNewProduct] = useState<MainPrisma['products'][0]>(defautNewProduct)
   const [message, setMessage] = useState<string | null>(null)
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
@@ -61,7 +63,6 @@ export default function MainPageEditor(props: Props) {
             <Flex key={index} gap={3} alignItems="center">
               <Input
                 value={product.title.zh}
-                isReadOnly
                 bg="gray.100"
                 width="200px"
               />
