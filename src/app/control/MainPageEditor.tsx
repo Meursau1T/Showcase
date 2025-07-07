@@ -10,6 +10,12 @@ interface Props {
 
 export default function MainPageEditor(props: Props) {
   const [banner, setBanner] = useState(props.data?.banner || '')
+  const [newProduct, setNewProduct] = useState({
+    image: '',
+    title: { zh: '', en: '' },
+    description: { zh: '', en: '' },
+    url: ''
+  })
   const [message, setMessage] = useState<string | null>(null)
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
@@ -90,12 +96,62 @@ export default function MainPageEditor(props: Props) {
           <Heading size="sm" mt={6} mb={4}>新增种类</Heading>
           {/* 空行 + 添加按钮 */}
           <Flex gap={3} alignItems="center" flexWrap="wrap">
-            <Input placeholder="新种类名称（中文）" width="200px" />
-            <Input placeholder="新种类名称（英文）" width="200px" />
-            <Input placeholder="图片地址" />
-            <Input placeholder="中文描述" />
-            <Input placeholder="英文描述" />
-            <Input placeholder="链接地址" />
+            <Input
+              placeholder="新种类名称（中文）"
+              width="200px"
+              value={newProduct.title.zh}
+              onChange={(e) => {
+                setNewProduct({
+                  ...newProduct,
+                  title: { ...newProduct.title, zh: e.target.value }
+                })
+              }}
+            />
+            <Input
+              placeholder="新种类名称（英文）"
+              width="200px"
+              value={newProduct.title.en}
+              onChange={(e) => {
+                setNewProduct({
+                  ...newProduct,
+                  title: { ...newProduct.title, en: e.target.value }
+                })
+              }}
+            />
+            <Input
+              placeholder="图片地址"
+              value={newProduct.image}
+              onChange={(e) => {
+                setNewProduct({ ...newProduct, image: e.target.value })
+              }}
+            />
+            <Input
+              placeholder="中文描述"
+              value={newProduct.description.zh}
+              onChange={(e) => {
+                setNewProduct({
+                  ...newProduct,
+                  description: { ...newProduct.description, zh: e.target.value }
+                })
+              }}
+            />
+            <Input
+              placeholder="英文描述"
+              value={newProduct.description.en}
+              onChange={(e) => {
+                setNewProduct({
+                  ...newProduct,
+                  description: { ...newProduct.description, en: e.target.value }
+                })
+              }}
+            />
+            <Input
+              placeholder="链接地址"
+              value={newProduct.url}
+              onChange={(e) => {
+                setNewProduct({ ...newProduct, url: e.target.value })
+              }}
+            />
             <Button colorScheme="green" size="sm" ml="auto">
               添加
             </Button>
