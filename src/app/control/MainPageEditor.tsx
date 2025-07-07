@@ -86,7 +86,8 @@ export default function MainPageEditor(props: Props) {
               />
             </Flex>
           ))}
-
+          {/* 种类编辑模块 */}
+          <Heading size="sm" mt={6} mb={4}>新增种类</Heading>
           {/* 空行 + 添加按钮 */}
           <Flex gap={3} alignItems="center" flexWrap="wrap">
             <Input placeholder="新种类名称（中文）" width="200px" />
