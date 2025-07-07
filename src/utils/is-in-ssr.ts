@@ -1,6 +1,6 @@
 export const isInSSR = () => {
-  if (typeof window === 'undefined') {
-    return true;
-  }
-  return false;
+    if (typeof window === 'undefined') {
+        return true
+    }
+    return false
 }

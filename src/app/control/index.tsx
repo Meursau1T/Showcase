@@ -9,53 +9,53 @@ import type { CategoryPrisma, CulturePrisma, MainPrisma, ProductPrisma } from '@
 import { ControlContext } from './ControlContext'
 
 interface Props {
-  cultureData: CulturePrisma | null;
-  mainPageData: MainPrisma | null;
-  categoryData: CategoryPrisma | null;
-  productData: ProductPrisma[] | null;
-  tab: string;
+    cultureData: CulturePrisma | null
+    mainPageData: MainPrisma | null
+    categoryData: CategoryPrisma | null
+    productData: ProductPrisma[] | null
+    tab: string
 }
 
 export default function ControlIndex({ cultureData, mainPageData, categoryData, productData, tab }: Props) {
-  const contextValue = {
-    categoryData,
-  }
-
-  const tabList = [
-    { value: 'main', label: '首页编辑', component: <MainPageEditor data={mainPageData}/> },
-    { value: 'product', label: '商品编辑', component: <ProductEditor data={productData}/> },
-    { value: 'category', label: '分类编辑', component: <CategoryEditor data={categoryData}/> },
-    { value: 'culture', label: '文化页编辑', component: <CultureEditor data={cultureData}/> },
-  ];
-
-  const getDefault = () => {
-    if (tabList.find(i => i.value === tab)) {
-      return tab;
+    const contextValue = {
+        categoryData,
     }
-    return 'main';
-  }
 
-  return (
-    <ControlContext.Provider value={contextValue}>
-      <Box p="72px" minW="672px">
-        <Flex direction="column" gap="8">
-          <Heading size="4xl">控制面板</Heading>
-          <Tabs.Root defaultValue={getDefault()} variant={'line'}>
-            <Tabs.List>
-              {tabList.map((tab) => (
-                <Tabs.Trigger key={tab.value} value={tab.value}>
-                  {tab.label}
-                </Tabs.Trigger>
-              ))}
-            </Tabs.List>
-            {tabList.map((tab) => (
-              <Tabs.Content key={tab.value} value={tab.value}>
-                {tab.component}
-              </Tabs.Content>
-            ))}
-          </Tabs.Root>
-        </Flex>
-      </Box>
-    </ControlContext.Provider>
-  )
+    const tabList = [
+        { value: 'main', label: '首页编辑', component: <MainPageEditor data={mainPageData} /> },
+        { value: 'product', label: '商品编辑', component: <ProductEditor data={productData} /> },
+        { value: 'category', label: '分类编辑', component: <CategoryEditor data={categoryData} /> },
+        { value: 'culture', label: '文化页编辑', component: <CultureEditor data={cultureData} /> },
+    ]
+
+    const getDefault = () => {
+        if (tabList.find((i) => i.value === tab)) {
+            return tab
+        }
+        return 'main'
+    }
+
+    return (
+        <ControlContext.Provider value={contextValue}>
+            <Box p="72px" minW="672px">
+                <Flex direction="column" gap="8">
+                    <Heading size="4xl">控制面板</Heading>
+                    <Tabs.Root defaultValue={getDefault()} variant={'line'}>
+                        <Tabs.List>
+                            {tabList.map((tab) => (
+                                <Tabs.Trigger key={tab.value} value={tab.value}>
+                                    {tab.label}
+                                </Tabs.Trigger>
+                            ))}
+                        </Tabs.List>
+                        {tabList.map((tab) => (
+                            <Tabs.Content key={tab.value} value={tab.value}>
+                                {tab.component}
+                            </Tabs.Content>
+                        ))}
+                    </Tabs.Root>
+                </Flex>
+            </Box>
+        </ControlContext.Provider>
+    )
 }

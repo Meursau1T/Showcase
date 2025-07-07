@@ -1,3 +1,3 @@
 export default function BrandPage() {
-  return <div>Brand Page</div>;
+    return <div>Brand Page</div>
 }
