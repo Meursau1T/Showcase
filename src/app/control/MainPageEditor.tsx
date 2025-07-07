@@ -45,6 +45,60 @@ export default function MainPageEditor(props: Props) {
             placeholder="输入 Banner 地址"
           />
         </Flex>
+        
+        {/* 种类编辑模块 */}
+        <Heading size="md" mt={6} mb={4}>种类编辑</Heading>
+
+        <Flex direction="column" gap={3}>
+          {/* 已有种类列表 */}
+          {props.data?.products?.map((product, index) => (
+            <Flex key={index} gap={3} alignItems="center">
+              <Input
+                value={product.title.zh}
+                isReadOnly
+                bg="gray.100"
+                width="200px"
+              />
+              <Input
+                defaultValue={product.image}
+                placeholder="图片地址"
+                onChange={(e) => {
+                  const newProducts = [...props.data!.products];
+                  newProducts[index].image = e.target.value;
+                  // 可选：调用 API 更新或设置本地状态
+                }}
+              />
+              <Input
+                defaultValue={product.description.zh}
+                placeholder="中文描述"
+                onChange={(e) => {
+                  const newProducts = [...props.data!.products];
+                  newProducts[index].description.zh = e.target.value;
+                }}
+              />
+              <Input
+                defaultValue={product.url}
+                placeholder="链接地址"
+                onChange={(e) => {
+                  const newProducts = [...props.data!.products];
+                  newProducts[index].url = e.target.value;
+                }}
+              />
+            </Flex>
+          ))}
+
+          {/* 空行 + 添加按钮 */}
+          <Flex gap={3} alignItems="center">
+            <Input placeholder="新种类名称" width="200px" />
+            <Input placeholder="图片地址" />
+            <Input placeholder="中文描述" />
+            <Input placeholder="链接地址" />
+            <Button colorScheme="green" size="sm" ml="auto">
+              添加
+            </Button>
+          </Flex>
+        </Flex>
+
         <Flex align="center" gap={3}>
           <Button colorScheme="blue" onClick={handleSubmit}>
             保存
