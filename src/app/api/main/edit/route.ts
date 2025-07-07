@@ -17,7 +17,7 @@ export async function POST(request: NextRequest) {
       where: { banner: current },
       data: {
         banner,
-        products: JSON.stringify(products), // 假设 products 存储为 JSON 字符串
+        products: products, // 假设 products 存储为 JSON 字符串
       },
     });
 

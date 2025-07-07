@@ -78,8 +78,12 @@ export default function MainPageEditor(props: Props) {
             <Flex key={index} gap={3} alignItems="center">
               <Input
                 value={product.title.zh}
-                bg="gray.100"
                 width="200px"
+                onChange={(e) => {
+                  const newProducts = [...props.data!.products];
+                  newProducts[index].title.zh = e.target.value;
+                  // 可选：调用 API 更新或设置本地状态
+                }}
               />
               <Input
                 defaultValue={product.image}
