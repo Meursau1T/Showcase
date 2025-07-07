@@ -75,90 +75,93 @@ export default function MainPageEditor(props: Props) {
         <Flex direction="column" gap={3}>
           {/* 已有种类列表 */}
           {currList.map((product, index) => (
-            <Flex key={index} gap={3} alignItems="center" flexWrap="wrap">
-              {/* 中文标题 */}
-              <Flex align="center" gap={2} minW="200px">
-                <Text w="80px" fontSize="sm">中文名称</Text>
-                <Input
-                  value={product.title.zh}
-                  onChange={(e) => {
-                    const newProducts = [...currList];
-                    newProducts[index].title.zh = e.target.value;
-                    setCurrList(newProducts);
-                  }}
-                />
-              </Flex>
+            <>
+              <Text w="80px" fontSize="md">{product.title.zh}</Text>
+              <Flex key={index} gap={3} alignItems="center" flexWrap="wrap">
+                {/* 中文标题 */}
+                <Flex align="center" gap={2} minW="200px">
+                  <Text w="80px" fontSize="sm">中文名称</Text>
+                  <Input
+                    value={product.title.zh}
+                    onChange={(e) => {
+                      const newProducts = [...currList];
+                      newProducts[index].title.zh = e.target.value;
+                      setCurrList(newProducts);
+                    }}
+                  />
+                </Flex>
 
-              {/* 英文标题 */}
-              <Flex align="center" gap={2} minW="200px">
-                <Text w="80px" fontSize="sm">英文名称</Text>
-                <Input
-                  value={product.title.en}
-                  placeholder="英文名称"
-                  onChange={(e) => {
-                    const newProducts = [...currList];
-                    newProducts[index].title.en = e.target.value;
-                    setCurrList(newProducts);
-                  }}
-                />
-              </Flex>
+                {/* 英文标题 */}
+                <Flex align="center" gap={2} minW="200px">
+                  <Text w="80px" fontSize="sm">英文名称</Text>
+                  <Input
+                    value={product.title.en}
+                    placeholder="英文名称"
+                    onChange={(e) => {
+                      const newProducts = [...currList];
+                      newProducts[index].title.en = e.target.value;
+                      setCurrList(newProducts);
+                    }}
+                  />
+                </Flex>
 
-              {/* 图片地址 */}
-              <Flex align="center" gap={2} minW="200px">
-                <Text w="80px" fontSize="sm">图片地址</Text>
-                <Input
-                  value={product.image}
-                  placeholder="图片地址"
-                  onChange={(e) => {
-                    const newProducts = [...currList];
-                    newProducts[index].image = e.target.value;
-                    setCurrList(newProducts);
-                  }}
-                />
-              </Flex>
+                {/* 图片地址 */}
+                <Flex align="center" gap={2} minW="200px">
+                  <Text w="80px" fontSize="sm">图片地址</Text>
+                  <Input
+                    value={product.image}
+                    placeholder="图片地址"
+                    onChange={(e) => {
+                      const newProducts = [...currList];
+                      newProducts[index].image = e.target.value;
+                      setCurrList(newProducts);
+                    }}
+                  />
+                </Flex>
 
-              {/* 中文描述 */}
-              <Flex align="center" gap={2} minW="200px">
-                <Text w="80px" fontSize="sm">中文描述</Text>
-                <Input
-                  value={product.description.zh}
-                  placeholder="中文描述"
-                  onChange={(e) => {
-                    const newProducts = [...currList];
-                    newProducts[index].description.zh = e.target.value;
-                    setCurrList(newProducts);
-                  }}
-                />
-              </Flex>
+                {/* 中文描述 */}
+                <Flex align="center" gap={2} minW="200px">
+                  <Text w="80px" fontSize="sm">中文描述</Text>
+                  <Input
+                    value={product.description.zh}
+                    placeholder="中文描述"
+                    onChange={(e) => {
+                      const newProducts = [...currList];
+                      newProducts[index].description.zh = e.target.value;
+                      setCurrList(newProducts);
+                    }}
+                  />
+                </Flex>
 
-              {/* 英文描述 */}
-              <Flex align="center" gap={2} minW="200px">
-                <Text w="80px" fontSize="sm">英文描述</Text>
-                <Input
-                  value={product.description.en}
-                  placeholder="英文描述"
-                  onChange={(e) => {
-                    const newProducts = [...currList];
-                    newProducts[index].description.en = e.target.value;
-                    setCurrList(newProducts);
-                  }}
-                />
-              </Flex>
+                {/* 英文描述 */}
+                <Flex align="center" gap={2} minW="200px">
+                  <Text w="80px" fontSize="sm">英文描述</Text>
+                  <Input
+                    value={product.description.en}
+                    placeholder="英文描述"
+                    onChange={(e) => {
+                      const newProducts = [...currList];
+                      newProducts[index].description.en = e.target.value;
+                      setCurrList(newProducts);
+                    }}
+                  />
+                </Flex>
 
-              {/* 链接地址 */}
-              <Flex align="center" gap={2} minW="200px">
-                <Text w="80px" fontSize="sm">链接地址</Text>
-                <Input
-                  value={product.url}
-                  placeholder="链接地址"
-                  onChange={(e) => {
-                    const newProducts = [...currList];
-                    newProducts[index].url = e.target.value;
-                    setCurrList(newProducts);
-                  }}
-                />
+                {/* 链接地址 */}
+                <Flex align="center" gap={2} minW="200px">
+                  <Text w="80px" fontSize="sm">链接地址</Text>
+                  <Input
+                    value={product.url}
+                    placeholder="链接地址"
+                    onChange={(e) => {
+                      const newProducts = [...currList];
+                      newProducts[index].url = e.target.value;
+                      setCurrList(newProducts);
+                    }}
+                  />
+                </Flex>
               </Flex>
-            </Flex>
+            </>
           ))}
           {/* 种类编辑模块 */}
           <Heading size="sm" mt={6} mb={4}>新增种类</Heading>

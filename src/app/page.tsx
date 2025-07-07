@@ -1,4 +1,4 @@
-import type { PageParam } from '@/type';
+import type { MainPrisma } from '@/type';
 import { prisma } from '@/utils';
 import { Flex, Heading, Box, Image, Card, Link } from '@chakra-ui/react';
 import { cookies } from 'next/headers';
@@ -32,8 +32,8 @@ const products = [
 
 export default async function Home() {
   const locale = ((await cookies()).get('lang')?.value || 'en') as 'zh' | 'en';
-  const bannerStorage = await prisma.main_page.findFirst();
-  const categoryStorage = await prisma.category.findMany();
+  const mainPageData = await prisma.main_page.findFirst();
+  const products = mainPageData?.products as MainPrisma['products']
   
   return (
     <Box as="main" className="flex min-h-screen flex-col">
@@ -46,7 +46,7 @@ export default async function Home() {
         alignItems="center" 
         justifyContent="center"
       >
-        <Image src={bannerStorage?.banner || '/test_banner.jpg'} alt="Banner" maxH="100%" w="100vw"/>
+        <Image src={mainPageData?.banner || '/test_banner.jpg'} alt="Banner" maxH="100%" w="100vw"/>
       </Box>
 
       {/* 产品区域 */}
@@ -63,13 +63,13 @@ export default async function Home() {
         >
           {products.map((product) => (
             <Link 
-              key={product.id}
-              href={`/products?tab=${product.title.en.toLowerCase().replace(/\s+/g, '') }`}
+              key={product.title.en}
+              href={`/products?tab=${product.url.toLowerCase().replace(/\s+/g, '') }`}
               textDecoration="none"
               focusRing="none"
             >
               <Card.Root
-                key={product.id}
+                key={product.title.en}
                 className="w-[200px]"
                 overflow="hidden"
                 variant="subtle"
