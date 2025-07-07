@@ -88,10 +88,12 @@ export default function MainPageEditor(props: Props) {
           ))}
 
           {/* 空行 + 添加按钮 */}
-          <Flex gap={3} alignItems="center">
-            <Input placeholder="新种类名称" width="200px" />
+          <Flex gap={3} alignItems="center" flexWrap="wrap">
+            <Input placeholder="新种类名称（中文）" width="200px" />
+            <Input placeholder="新种类名称（英文）" width="200px" />
             <Input placeholder="图片地址" />
             <Input placeholder="中文描述" />
+            <Input placeholder="英文描述" />
             <Input placeholder="链接地址" />
             <Button colorScheme="green" size="sm" ml="auto">
               添加
