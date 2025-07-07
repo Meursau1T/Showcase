@@ -75,39 +75,59 @@ export default function MainPageEditor(props: Props) {
         <Flex direction="column" gap={3}>
           {/* 已有种类列表 */}
           {currList.map((product, index) => (
-            <Flex key={index} gap={3} alignItems="center">
+            <Flex key={index} gap={3} alignItems="center" flexWrap="wrap">
               <Input
                 value={product.title.zh}
                 width="200px"
                 onChange={(e) => {
-                  const newProducts = [...props.data!.products];
+                  const newProducts = [...currList];
                   newProducts[index].title.zh = e.target.value;
-                  // 可选：调用 API 更新或设置本地状态
+                  setCurrList(newProducts);
                 }}
               />
               <Input
-                defaultValue={product.image}
+                value={product.title.en}
+                placeholder="英文名称"
+                onChange={(e) => {
+                  const newProducts = [...currList];
+                  newProducts[index].title.en = e.target.value;
+                  setCurrList(newProducts);
+                }}
+              />
+              <Input
+                value={product.image}
                 placeholder="图片地址"
                 onChange={(e) => {
-                  const newProducts = [...props.data!.products];
+                  const newProducts = [...currList];
                   newProducts[index].image = e.target.value;
-                  // 可选：调用 API 更新或设置本地状态
+                  setCurrList(newProducts);
                 }}
               />
               <Input
-                defaultValue={product.description.zh}
+                value={product.description.zh}
                 placeholder="中文描述"
                 onChange={(e) => {
-                  const newProducts = [...props.data!.products];
+                  const newProducts = [...currList];
                   newProducts[index].description.zh = e.target.value;
+                  setCurrList(newProducts);
                 }}
               />
               <Input
-                defaultValue={product.url}
+                value={product.description.en}
+                placeholder="英文描述"
+                onChange={(e) => {
+                  const newProducts = [...currList];
+                  newProducts[index].description.en = e.target.value;
+                  setCurrList(newProducts);
+                }}
+              />
+              <Input
+                value={product.url}
                 placeholder="链接地址"
                 onChange={(e) => {
-                  const newProducts = [...props.data!.products];
+                  const newProducts = [...currList];
                   newProducts[index].url = e.target.value;
+                  setCurrList(newProducts);
                 }}
               />
             </Flex>
