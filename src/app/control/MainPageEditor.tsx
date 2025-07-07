@@ -59,7 +59,7 @@ export default function MainPageEditor(props: Props) {
 
         <Flex direction="column" gap={3}>
           {/* 已有种类列表 */}
-          {props.data?.products?.map((product, index) => (
+          {currList.map((product, index) => (
             <Flex key={index} gap={3} alignItems="center">
               <Input
                 value={product.title.zh}
