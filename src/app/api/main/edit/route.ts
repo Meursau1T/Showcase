@@ -4,7 +4,7 @@ import { prisma } from "@/utils";
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const { banner, current } = body;
+    const { banner, products, current } = body;
 
     if (!banner) {
       return new Response(JSON.stringify({ error: "Banner URL is required" }), {
@@ -12,11 +12,12 @@ export async function POST(request: NextRequest) {
       });
     }
 
-    // 更新 main_page 表中的 banner 字段
+    // 更新 main_page 表中的 banner 和 products 字段
     const updatedMainPage = await prisma.main_page.update({
       where: { banner: current },
       data: {
         banner,
+        products: JSON.stringify(products), // 假设 products 存储为 JSON 字符串
       },
     });
 

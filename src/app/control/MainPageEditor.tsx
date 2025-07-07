@@ -21,16 +21,31 @@ export default function MainPageEditor(props: Props) {
   const [message, setMessage] = useState<string | null>(null)
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
+  const isValidProduct = (product: typeof newProduct) => {
+    return (
+      product.title.zh.trim() !== '' &&
+      product.title.en.trim() !== '' &&
+      product.image.trim() !== '' &&
+      product.description.zh.trim() !== '' &&
+      product.description.en.trim() !== '' &&
+      product.url.trim() !== ''
+    )
+  }
+
   const handleSubmit = async () => {
     const res = await fetch('/api/main/edit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ banner, current: props.data?.banner }),
+      body: JSON.stringify({
+        banner,
+        products: currList,           // 新增：提交 currList
+        current: props.data?.banner,
+      }),
     })
 
     if (res.ok) {
       setIsSuccess(true)
-      setMessage('首页 Banner 更新成功')
+      setMessage('首页数据更新成功')
     } else {
       setIsSuccess(false)
       const result = await res.json()
@@ -153,7 +168,19 @@ export default function MainPageEditor(props: Props) {
                 setNewProduct({ ...newProduct, url: e.target.value })
               }}
             />
-            <Button colorScheme="green" size="sm" ml="auto">
+            <Button
+              colorScheme="green"
+              size="sm"
+              ml="auto"
+              onClick={() => {
+                if (isValidProduct(newProduct)) {
+                  setCurrList([...currList, newProduct])
+                  setNewProduct(defautNewProduct)
+                } else {
+                  alert('请填写所有字段')
+                }
+              }}
+            >
               添加
             </Button>
           </Flex>
