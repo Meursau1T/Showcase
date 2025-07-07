@@ -36,6 +36,7 @@ const getMainPageData = async (): Promise<MainPrisma | null> => {
 
   return {
     banner: data.banner,
+    products: data.products as any
   };
 };
 
