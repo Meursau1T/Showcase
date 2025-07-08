@@ -25,7 +25,7 @@ interface Props {
     productData: ProductPrisma[] | null
     profileStructureData: ProfileStructurePrisma | null
     brandData: BrandPrisma | null
-    structureData: StructurePrisma | null
+    structureData: CulturePrisma | null
     tab: string
 }
 
