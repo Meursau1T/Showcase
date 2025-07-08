@@ -37,6 +37,7 @@ export default function ControlIndex({
     tab,
     profileStructureData,
     brandData,
+    structureData,
 }: Props) {
     const contextValue = {
         categoryData,

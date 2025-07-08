@@ -126,8 +126,8 @@ const getBrandData = async (): Promise<CulturePrisma | null> => {
 /**
  * 获取 structure 数据并按 StructurePrisma 类型解析
  */
-const getStructureData = async (): Promise<StructurePrisma | null> => {
-    const data = await prisma.struct.findFirst()
+const getStructureData = async (): Promise<CulturePrisma | null> => {
+    const data = await prisma.structure.findFirst()
     if (!data) return null
 
     return {
@@ -156,14 +156,14 @@ export default async function ControlPage({ searchParams }: PageParam) {
     // 并行请求数据
     const [cultureData, mainPageData, categoryData, productData, profileStructureData, brandData, structureData] =
         await Promise.all([
-        getCultureData(),
-        getMainPageData(),
-        getCategoryData(),
-        getProductData(),
-        getProfileStructureData(),
-        getBrandData(),
-        getStructureData(),
-    ])
+            getCultureData(),
+            getMainPageData(),
+            getCategoryData(),
+            getProductData(),
+            getProfileStructureData(),
+            getBrandData(),
+            getStructureData(),
+        ])
 
     return (
         <Page
