@@ -123,6 +123,29 @@ const getBrandData = async (): Promise<CulturePrisma | null> => {
     }
 }
 
+/**
+ * 获取 structure 数据并按 StructurePrisma 类型解析
+ */
+const getStructureData = async (): Promise<StructurePrisma | null> => {
+    const data = await prisma.struct.findFirst()
+    if (!data) return null
+
+    return {
+        data: {
+            zh: {
+                backgroundImage: (data.data as any).zh.backgroundImage ?? undefined,
+                textContent: (data.data as any).zh.textContent ?? undefined,
+                imageContent: (data.data as any).zh.imageContent ?? undefined,
+            },
+            en: {
+                backgroundImage: (data.data as any).en.backgroundImage ?? undefined,
+                textContent: (data.data as any).en.textContent ?? undefined,
+                imageContent: (data.data as any).en.imageContent ?? undefined,
+            },
+        },
+    }
+}
+
 export default async function ControlPage({ searchParams }: PageParam) {
     const tab = (await searchParams)['tab']?.toString() || ''
     const session = await getSession(cookies)
@@ -131,13 +154,15 @@ export default async function ControlPage({ searchParams }: PageParam) {
     }
 
     // 并行请求数据
-    const [cultureData, mainPageData, categoryData, productData, profileStructureData, brandData] = await Promise.all([
+    const [cultureData, mainPageData, categoryData, productData, profileStructureData, brandData, structureData] =
+        await Promise.all([
         getCultureData(),
         getMainPageData(),
         getCategoryData(),
         getProductData(),
         getProfileStructureData(),
         getBrandData(),
+        getStructureData(),
     ])
 
     return (
@@ -148,6 +173,7 @@ export default async function ControlPage({ searchParams }: PageParam) {
             productData={productData}
             profileStructureData={profileStructureData}
             brandData={brandData}
+            structureData={structureData}
             tab={tab}
         />
     )

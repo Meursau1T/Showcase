@@ -37,6 +37,23 @@ export type ProfileStructurePrisma = {
     data: ProfileStructureContent
 }
 
+export type StructureContent = {
+    zh: {
+        backgroundImage?: string
+        textContent?: string
+        imageContent?: string
+    }
+    en: {
+        backgroundImage?: string
+        textContent?: string
+        imageContent?: string
+    }
+}
+
+export type StructurePrisma = {
+    data: StructureContent
+}
+
 export type BrandContent = {
     zh: {
         backgroundImage?: string

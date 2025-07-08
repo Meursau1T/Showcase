@@ -7,6 +7,7 @@ import CategoryEditor from './CategoryEditor'
 import CultureEditor from './CultureEditor'
 import ProfileEditor from './Profile'
 import BrandEditor from './BrandEditor'
+import StructureEditor from './StructureEditor'
 import type {
     CategoryPrisma,
     CulturePrisma,
@@ -24,6 +25,7 @@ interface Props {
     productData: ProductPrisma[] | null
     profileStructureData: ProfileStructurePrisma | null
     brandData: BrandPrisma | null
+    structureData: StructurePrisma | null
     tab: string
 }
 
@@ -47,6 +49,7 @@ export default function ControlIndex({
         { value: 'culture', label: '文化页编辑', component: <CultureEditor data={cultureData} /> },
         { value: 'profile', label: '关于我们编辑', component: <ProfileEditor data={profileStructureData} /> },
         { value: 'brand', label: '品牌编辑', component: <BrandEditor data={brandData} /> },
+        { value: 'structure', label: '组织架构编辑', component: <StructureEditor data={structureData} /> },
     ]
 
     const getDefault = () => {
