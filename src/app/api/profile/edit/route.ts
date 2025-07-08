@@ -13,7 +13,7 @@ export async function POST(request: NextRequest) {
         }
 
         const result = await prisma.profile.upsert({
-            where: { id: id ? Number(id) : -1 },
+            where: { id: 1 },
             update: { data },
             create: { data },
         })

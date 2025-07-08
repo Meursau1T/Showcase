@@ -10,14 +10,14 @@ interface Props {
 
 const defaultVal = { imageContent: '', backgroundImage: '', textContent: '' }
 
-export default function ProfileStructureEditor(props: Props) {
+export default function ProfileEditor(props: Props) {
     const [enData, setEnData] = useState(props.data?.data.en || defaultVal)
     const [zhData, setZhData] = useState(props.data?.data.zh || defaultVal)
     const [isSuccess, setIsSuccess] = useState<boolean>(false)
     const [message, setMessage] = useState<string | null>(null)
 
     const handleSubmit = async () => {
-        const res = await fetch('/api/profile-structure/edit', {
+        const res = await fetch('/api/profile/edit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ data: { en: enData, zh: zhData } }),
@@ -25,7 +25,7 @@ export default function ProfileStructureEditor(props: Props) {
 
         if (res.ok) {
             setIsSuccess(true)
-            setMessage('Profile Structure 内容更新成功')
+            setMessage('公司信息内容更新成功')
         } else {
             setIsSuccess(false)
             const result = await res.json()
@@ -36,7 +36,7 @@ export default function ProfileStructureEditor(props: Props) {
     return (
         <Box borderWidth="1px" borderRadius="md" p={4} bg="white">
             <Heading size="2xl" mb={4}>
-                Profile Structure 编辑
+                关于我们编辑
             </Heading>
             <Flex direction="column" gap={4}>
                 {/* 中文内容 */}

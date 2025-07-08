@@ -5,9 +5,16 @@ import MainPageEditor from './MainPageEditor'
 import ProductEditor from './ProductEditor'
 import CategoryEditor from './CategoryEditor'
 import CultureEditor from './CultureEditor'
-import ProfileStructureEditor from './ProfileStructureEditor'
+import ProfileEditor from './Profile'
 import BrandEditor from './BrandEditor'
-import type { CategoryPrisma, CulturePrisma, MainPrisma, ProductPrisma, ProfileStructurePrisma, BrandPrisma } from '@/type'
+import type {
+    CategoryPrisma,
+    CulturePrisma,
+    MainPrisma,
+    ProductPrisma,
+    ProfileStructurePrisma,
+    BrandPrisma,
+} from '@/type'
 import { ControlContext } from './ControlContext'
 
 interface Props {
@@ -20,7 +27,15 @@ interface Props {
     tab: string
 }
 
-export default function ControlIndex({ cultureData, mainPageData, categoryData, productData, tab }: Props) {
+export default function ControlIndex({
+    cultureData,
+    mainPageData,
+    categoryData,
+    productData,
+    tab,
+    profileStructureData,
+    brandData,
+}: Props) {
     const contextValue = {
         categoryData,
     }
@@ -30,7 +45,7 @@ export default function ControlIndex({ cultureData, mainPageData, categoryData, 
         { value: 'product', label: '商品编辑', component: <ProductEditor data={productData} /> },
         { value: 'category', label: '分类编辑', component: <CategoryEditor data={categoryData} /> },
         { value: 'culture', label: '文化页编辑', component: <CultureEditor data={cultureData} /> },
-        { value: 'profile-structure', label: 'Profile Structure 编辑', component: <ProfileStructureEditor data={profileStructureData} /> },
+        { value: 'profile', label: '关于我们编辑', component: <ProfileEditor data={profileStructureData} /> },
         { value: 'brand', label: '品牌编辑', component: <BrandEditor data={brandData} /> },
     ]
 

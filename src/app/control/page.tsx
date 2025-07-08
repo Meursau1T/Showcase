@@ -80,8 +80,8 @@ const getProductData = async (): Promise<ProductPrisma[] | null> => {
 /**
  * 获取 profile structure 数据并按 ProfileStructurePrisma 类型解析
  */
-const getProfileStructureData = async (): Promise<ProfileStructurePrisma | null> => {
-    const data = await prisma.profile_structure.findFirst()
+const getProfileStructureData = async (): Promise<CulturePrisma | null> => {
+    const data = await prisma.profile.findFirst()
     if (!data) return null
 
     return {
@@ -103,7 +103,7 @@ const getProfileStructureData = async (): Promise<ProfileStructurePrisma | null>
 /**
  * 获取 brand 数据并按 BrandPrisma 类型解析
  */
-const getBrandData = async (): Promise<BrandPrisma | null> => {
+const getBrandData = async (): Promise<CulturePrisma | null> => {
     const data = await prisma.brand.findFirst()
     if (!data) return null
 
