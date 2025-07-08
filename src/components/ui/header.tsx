@@ -39,7 +39,6 @@ const navItems = ({ langCb }: { langCb: Function }) => [
             { name: { zh: '公司简介', en: 'Company Profile' }, path: '/about/profile' },
             { name: { zh: '企业文化', en: 'Corporate Culture' }, path: '/about/culture' },
             { name: { zh: '组织架构', en: 'Organization' }, path: '/about/structure' },
-            { name: { zh: '公司专利', en: 'Patents' }, path: '/about/patents' },
         ],
     },
     {
