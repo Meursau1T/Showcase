@@ -77,6 +77,52 @@ const getProductData = async (): Promise<ProductPrisma[] | null> => {
     }))
 }
 
+/**
+ * 获取 profile structure 数据并按 ProfileStructurePrisma 类型解析
+ */
+const getProfileStructureData = async (): Promise<ProfileStructurePrisma | null> => {
+    const data = await prisma.profile_structure.findFirst()
+    if (!data) return null
+
+    return {
+        data: {
+            zh: {
+                backgroundImage: (data.data as any).zh.backgroundImage ?? undefined,
+                textContent: (data.data as any).zh.textContent ?? undefined,
+                imageContent: (data.data as any).zh.imageContent ?? undefined,
+            },
+            en: {
+                backgroundImage: (data.data as any).en.backgroundImage ?? undefined,
+                textContent: (data.data as any).en.textContent ?? undefined,
+                imageContent: (data.data as any).en.imageContent ?? undefined,
+            },
+        },
+    }
+}
+
+/**
+ * 获取 brand 数据并按 BrandPrisma 类型解析
+ */
+const getBrandData = async (): Promise<BrandPrisma | null> => {
+    const data = await prisma.brand.findFirst()
+    if (!data) return null
+
+    return {
+        data: {
+            zh: {
+                backgroundImage: (data.data as any).zh.backgroundImage ?? undefined,
+                textContent: (data.data as any).zh.textContent ?? undefined,
+                imageContent: (data.data as any).zh.imageContent ?? undefined,
+            },
+            en: {
+                backgroundImage: (data.data as any).en.backgroundImage ?? undefined,
+                textContent: (data.data as any).en.textContent ?? undefined,
+                imageContent: (data.data as any).en.imageContent ?? undefined,
+            },
+        },
+    }
+}
+
 export default async function ControlPage({ searchParams }: PageParam) {
     const tab = (await searchParams)['tab']?.toString() || ''
     const session = await getSession(cookies)
@@ -85,11 +131,13 @@ export default async function ControlPage({ searchParams }: PageParam) {
     }
 
     // 并行请求数据
-    const [cultureData, mainPageData, categoryData, productData] = await Promise.all([
+    const [cultureData, mainPageData, categoryData, productData, profileStructureData, brandData] = await Promise.all([
         getCultureData(),
         getMainPageData(),
         getCategoryData(),
         getProductData(),
+        getProfileStructureData(),
+        getBrandData(),
     ])
 
     return (
@@ -98,6 +146,8 @@ export default async function ControlPage({ searchParams }: PageParam) {
             mainPageData={mainPageData}
             categoryData={categoryData}
             productData={productData}
+            profileStructureData={profileStructureData}
+            brandData={brandData}
             tab={tab}
         />
     )

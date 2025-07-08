@@ -20,6 +20,40 @@ export type CultureContent = {
     }
 }
 
+export type ProfileStructureContent = {
+    zh: {
+        backgroundImage?: string
+        textContent?: string
+        imageContent?: string
+    }
+    en: {
+        backgroundImage?: string
+        textContent?: string
+        imageContent?: string
+    }
+}
+
+export type ProfileStructurePrisma = {
+    data: ProfileStructureContent
+}
+
+export type BrandContent = {
+    zh: {
+        backgroundImage?: string
+        textContent?: string
+        imageContent?: string
+    }
+    en: {
+        backgroundImage?: string
+        textContent?: string
+        imageContent?: string
+    }
+}
+
+export type BrandPrisma = {
+    data: BrandContent
+}
+
 export type MainPrisma = {
     banner: string
     products: {
