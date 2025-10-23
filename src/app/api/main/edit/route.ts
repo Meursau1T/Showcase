@@ -13,9 +13,13 @@ export async function POST(request: NextRequest) {
         }
 
         // 更新 main_page 表中的 banner 和 products 字段
-        const updatedMainPage = await prisma.main_page.update({
+        const updatedMainPage = await prisma.main_page.upsert({
             where: { banner: current },
-            data: {
+            update: {
+                banner,
+                products: products, // 假设 products 存储为 JSON 字符串
+            },
+            create: {
                 banner,
                 products: products, // 假设 products 存储为 JSON 字符串
             },

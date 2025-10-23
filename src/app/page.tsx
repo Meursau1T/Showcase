@@ -33,7 +33,7 @@ const products = [
 export default async function Home() {
     const locale = ((await cookies()).get('lang')?.value || 'en') as 'zh' | 'en'
     const mainPageData = await prisma.main_page.findFirst()
-    const products = mainPageData?.products as MainPrisma['products']
+    const products = (mainPageData?.products as MainPrisma['products']) || []
 
     return (
         <Box as="main" className="flex min-h-screen flex-col">

@@ -13,11 +13,15 @@ export async function POST(request: NextRequest) {
         }
 
         // 更新 category 表中的 types 和 types_en 字段
-        const updatedCategory = await prisma.category.update({
+        const updatedCategory = await prisma.category.upsert({
             where: {
                 id: 1, // 假设你只有一条记录，或根据实际逻辑修改
             },
-            data: {
+            update: {
+                types: types, // 假设字段是字符串类型，用逗号拼接
+                types_en: types_en,
+            },
+            create: {
                 types: types, // 假设字段是字符串类型，用逗号拼接
                 types_en: types_en,
             },
@@ -30,7 +34,7 @@ export async function POST(request: NextRequest) {
             },
         })
     } catch (error) {
-        return new Response(JSON.stringify({ error: 'Failed to update category data' }), {
+        return new Response(JSON.stringify({ error: 'Failed to update category data', reason: error }), {
             status: 500,
         })
     }
