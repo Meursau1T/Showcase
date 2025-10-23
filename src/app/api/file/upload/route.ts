@@ -1,58 +1,49 @@
-// pages/api/files/upload.ts
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest, NextResponse } from 'next/server'
 import formidable from 'formidable'
 import fs from 'fs'
 import path from 'path'
 
 const uploadDir = path.join(process.cwd(), 'public', 'uploads')
 
-export const config = {
-    api: {
-        bodyParser: false, // 禁用默认 body 解析
-    },
-}
-
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method not allowed' })
-    }
-
+export async function POST(request: NextRequest) {
     try {
+        // 确保上传目录存在
         if (!fs.existsSync(uploadDir)) {
             fs.mkdirSync(uploadDir, { recursive: true })
         }
 
-        const form = new formidable.IncomingForm({
-            uploadDir,
-            keepExtensions: true,
-            maxFileSize: 10 * 1024 * 1024, // 10MB 限制
-        })
+        // 获取表单数据
+        const formData = await request.formData()
+        const file = formData.get('file') as File
 
-        form.parse(req, (err, fields, files) => {
-            if (err) {
-                return res.status(500).json({ error: 'Upload failed' })
-            }
+        if (!file) {
+            return NextResponse.json({ error: 'No file uploaded' }, { status: 400 })
+        }
 
-            // formidable 默认会生成随机文件名，这里我们保留原始文件名（注意安全）
-            const file = Array.isArray(files.file) ? files.file[0] : files.file
-            if (!file) {
-                return res.status(400).json({ error: 'No file uploaded' })
-            }
+        // 获取文件信息
+        const bytes = await file.arrayBuffer()
+        const buffer = Buffer.from(bytes)
 
-            const originalName = file.originalFilename || 'unknown'
-            const safeName = Buffer.from(originalName, 'latin1').toString('utf8') // 防止编码问题
-            const newPath = path.join(uploadDir, safeName)
+        // 创建安全的文件名
+        const originalName = file.name
+        const safeName = originalName.replace(/[^a-zA-Z0-9.-]/g, '_') // 简单的文件名清理
+        const filePath = path.join(uploadDir, safeName)
 
-            // 检查是否重名，可选：覆盖或重命名
-            if (fs.existsSync(newPath)) {
-                return res.status(409).json({ error: 'File already exists' })
-            }
+        // 检查文件是否已存在
+        if (fs.existsSync(filePath)) {
+            return NextResponse.json({ error: 'File already exists' }, { status: 409 })
+        }
 
-            fs.renameSync(file.filepath, newPath)
-            res.status(200).json({ success: true, filename: safeName })
+        // 写入文件
+        fs.writeFileSync(filePath, buffer)
+
+        return NextResponse.json({
+            success: true,
+            filename: safeName,
+            message: 'File uploaded successfully',
         })
     } catch (error) {
         console.error('Upload error:', error)
-        res.status(500).json({ error: 'Upload failed' })
+        return NextResponse.json({ error: 'Upload failed' }, { status: 500 })
     }
 }

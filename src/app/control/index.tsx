@@ -17,6 +17,7 @@ import type {
     BrandPrisma,
 } from '@/type'
 import { ControlContext } from './ControlContext'
+import FileListPage from './FileManager'
 
 interface Props {
     cultureData: CulturePrisma | null
@@ -51,6 +52,7 @@ export default function ControlIndex({
         { value: 'profile', label: '关于我们编辑', component: <ProfileEditor data={profileStructureData} /> },
         { value: 'brand', label: '品牌编辑', component: <BrandEditor data={brandData} /> },
         { value: 'structure', label: '组织架构编辑', component: <StructureEditor data={structureData} /> },
+        { value: 'file', label: '文件管理', component: <FileListPage /> },
     ]
 
     const getDefault = () => {

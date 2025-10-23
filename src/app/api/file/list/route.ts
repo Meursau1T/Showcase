@@ -1,33 +1,32 @@
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
-const publicDir = path.join(process.cwd(), 'public', 'uploads') // 建议将可管理文件放在 public/uploads 下
+const uploadDir = path.join(process.cwd(), 'public', 'uploads')
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'GET') {
-        return res.status(405).json({ error: 'Method not allowed' })
-    }
-
+export async function GET() {
     try {
         // 确保目录存在
-        if (!fs.existsSync(publicDir)) {
-            fs.mkdirSync(publicDir, { recursive: true })
+        if (!fs.existsSync(uploadDir)) {
+            fs.mkdirSync(uploadDir, { recursive: true })
+            return NextResponse.json([])
         }
 
-        const files = fs.readdirSync(publicDir).map((file) => {
-            const stats = fs.statSync(path.join(publicDir, file))
+        // 读取目录中的文件
+        const files = fs.readdirSync(uploadDir).map((filename) => {
+            const filePath = path.join(uploadDir, filename)
+            const stats = fs.statSync(filePath)
+
             return {
-                name: file,
+                name: filename,
                 size: stats.size,
-                modified: stats.mtime,
-                url: `/uploads/${file}`, // 用于下载链接
+                created: stats.birthtime,
             }
         })
 
-        res.status(200).json(files)
+        return NextResponse.json(files)
     } catch (error) {
-        console.error('Error listing files:', error)
-        res.status(500).json({ error: 'Failed to list files' })
+        console.error('List files error:', error)
+        return NextResponse.json({ error: 'Failed to list files' }, { status: 500 })
     }
 }

@@ -1,37 +1,34 @@
-// pages/api/files/delete.ts
-import { NextApiRequest, NextApiResponse } from 'next'
+import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
 const uploadDir = path.join(process.cwd(), 'public', 'uploads')
 
-export default function handler(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method !== 'DELETE') {
-        return res.status(405).json({ error: 'Method not allowed' })
-    }
-
-    const { filename } = req.query
-
-    if (!filename || typeof filename !== 'string') {
-        return res.status(400).json({ error: 'Filename is required' })
-    }
-
-    // 防止路径遍历攻击
-    const safePath = path.join(uploadDir, path.basename(filename))
-
-    if (!safePath.startsWith(uploadDir)) {
-        return res.status(403).json({ error: 'Invalid filename' })
-    }
-
+export async function DELETE(request: NextRequest) {
     try {
-        if (!fs.existsSync(safePath)) {
-            return res.status(404).json({ error: 'File not found' })
+        const { searchParams } = new URL(request.url)
+        const filename = searchParams.get('filename')
+
+        if (!filename) {
+            return NextResponse.json({ error: 'Filename is required' }, { status: 400 })
         }
 
-        fs.unlinkSync(safePath)
-        res.status(200).json({ success: true })
+        const filePath = path.join(uploadDir, filename)
+
+        // 检查文件是否存在
+        if (!fs.existsSync(filePath)) {
+            return NextResponse.json({ error: 'File not found' }, { status: 404 })
+        }
+
+        // 删除文件
+        fs.unlinkSync(filePath)
+
+        return NextResponse.json({
+            success: true,
+            message: 'File deleted successfully',
+        })
     } catch (error) {
         console.error('Delete error:', error)
-        res.status(500).json({ error: 'Failed to delete file' })
+        return NextResponse.json({ error: 'Delete failed' }, { status: 500 })
     }
 }
