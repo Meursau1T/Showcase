@@ -110,14 +110,39 @@ const FileListPage = () => {
                         <Text fontSize="md" fontWeight="semibold">
                             上传文件
                         </Text>
-                        <HStack spacing={4} w="full">
-                            <Input id="file-input" type="file" onChange={handleFileSelect} className="flex-1" />
+                        <HStack spacing={4} w="full" className="relative">
+                            <Box position="relative" flex="1" h="40px">
+                                <Input
+                                    id="file-input"
+                                    type="file"
+                                    onChange={handleFileSelect}
+                                    opacity={0}
+                                    position="absolute"
+                                    top={0}
+                                    left={0}
+                                    width="100%"
+                                    height="100%"
+                                    zIndex={2}
+                                    cursor="pointer"
+                                />
+                                <Button
+                                    width="100%"
+                                    height="100%"
+                                    position="absolute"
+                                    variant="outline"
+                                    top={0}
+                                    left={0}
+                                    zIndex={1}
+                                    pointerEvents="none"
+                                >
+                                    {selectedFile?.name || '选择文件'}
+                                </Button>
+                            </Box>
                             <Button
                                 colorScheme="blue"
                                 onClick={uploadFile}
-                                isLoading={uploading}
+                                loading={uploading}
                                 loadingText="上传中..."
-                                leftIcon={<AttachmentIcon />}
                                 disabled={!selectedFile}
                             >
                                 上传
@@ -141,7 +166,7 @@ const FileListPage = () => {
                         <Text fontSize="md" fontWeight="semibold">
                             文件列表
                         </Text>
-                        <Button size="sm" variant="outline" onClick={fetchFiles} isLoading={loading}>
+                        <Button size="sm" variant="outline" onClick={fetchFiles} loading={loading}>
                             刷新
                         </Button>
                     </Flex>
@@ -160,13 +185,13 @@ const FileListPage = () => {
                                 <Box
                                     key={index}
                                     p={3}
+                                    h="60px"
                                     borderWidth="1px"
                                     borderRadius="md"
                                     className="hover:bg-gray-50 transition-colors"
                                 >
                                     <Flex justify="space-between" align="center">
                                         <HStack spacing={3}>
-                                            <DownloadIcon color="blue.500" />
                                             <Text fontSize="sm" className="break-all">
                                                 {typeof file === 'string' ? file : file.name || file.filename}
                                             </Text>
@@ -176,17 +201,16 @@ const FileListPage = () => {
                                                 </Text>
                                             )}
                                         </HStack>
-                                        <IconButton
+                                        <Button
                                             size="sm"
-                                            colorScheme="red"
-                                            variant="ghost"
-                                            icon={<DeleteIcon />}
+                                            colorPalette={'red'}
+                                            loading={loading}
                                             onClick={() =>
                                                 deleteFile(typeof file === 'string' ? file : file.name || file.filename)
                                             }
-                                            aria-label="删除文件"
-                                            className="hover:bg-red-50"
-                                        />
+                                        >
+                                            删除
+                                        </Button>
                                     </Flex>
                                 </Box>
                             ))}
