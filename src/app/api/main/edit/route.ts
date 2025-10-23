@@ -12,16 +12,20 @@ export async function POST(request: NextRequest) {
             })
         }
 
-        // 更新 main_page 表中的 banner 和 products 字段
+        // 先删除旧的（如果 current 存在且不等于新 banner）
+        if (current && current !== banner) {
+            await prisma.main_page.delete({ where: { banner: current } }).catch(() => {})
+        }
+
+        // 然后 upsert 新的 banner
         const updatedMainPage = await prisma.main_page.upsert({
-            where: { banner: current },
+            where: { banner }, // 用新 banner 作为主键查找
             update: {
-                banner,
-                products: products, // 假设 products 存储为 JSON 字符串
+                products: products,
             },
             create: {
                 banner,
-                products: products, // 假设 products 存储为 JSON 字符串
+                products: products,
             },
         })
 
