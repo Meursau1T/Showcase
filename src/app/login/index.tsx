@@ -47,7 +47,7 @@ export default function LoginPage({ lang }: Props) {
 
         try {
             const hashedPassword = await getHash(password)
-            const response = await fetch(`/api/login?name=${encodeURIComponent(name)}&password=${hashedPassword}`)
+            const response = await fetch(`/api/login?name=${encodeURIComponent(name)}&password=${password}`)
             const result = await response.json()
 
             if (!response.ok) {
