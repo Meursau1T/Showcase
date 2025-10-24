@@ -25,14 +25,14 @@ type Props = {
     lang: 'zh' | 'en'
 }
 
-async function getHash(value: string) {
-    const encoder = new TextEncoder()
-    const data = encoder.encode(value)
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data)
-    const hashArray = Array.from(new Uint8Array(hashBuffer))
-    const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
-    return hashHex
-}
+// async function getHash(value: string) {
+//     const encoder = new TextEncoder()
+//     const data = encoder.encode(value)
+//     const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+//     const hashArray = Array.from(new Uint8Array(hashBuffer))
+//     const hashHex = hashArray.map((b) => b.toString(16).padStart(2, '0')).join('')
+//     return hashHex
+// }
 
 export default function LoginPage({ lang }: Props) {
     const [name, setName] = useState('')
@@ -46,7 +46,7 @@ export default function LoginPage({ lang }: Props) {
         setIsLoading(true)
 
         try {
-            const hashedPassword = await getHash(password)
+            // const hashedPassword = await getHash(password)
             const response = await fetch(`/api/login?name=${encodeURIComponent(name)}&password=${password}`)
             const result = await response.json()
 
