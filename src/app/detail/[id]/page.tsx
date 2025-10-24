@@ -19,7 +19,7 @@ const titles = {
 export default async function DetailPage({
     params,
 }: {
-    params: { id: string }
+    params: Promise<{ id: string }>
     searchParams: PageParam['searchParams']
 }) {
     const lang = (await cookies()).get('lang')?.value || 'en'

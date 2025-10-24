@@ -28,6 +28,7 @@
         "@chakra-ui/cli": "^3.19.1",
         "@eslint/eslintrc": "^3",
         "@tailwindcss/postcss": "^4",
+        "@types/formidable": "^3.4.6",
         "@types/node": "^20",
         "@types/react": "^19",
         "@types/react-dom": "^19",
