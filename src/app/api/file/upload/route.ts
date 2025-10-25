@@ -3,7 +3,7 @@ import formidable from 'formidable'
 import fs from 'fs'
 import path from 'path'
 
-const uploadDir = path.join(process.cwd(), 'public')
+const uploadDir = path.join(process.cwd(), 'public', 'uploads')
 
 export async function POST(request: NextRequest) {
     try {
