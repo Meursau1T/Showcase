@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server'
 import fs from 'fs'
 import path from 'path'
 
-const uploadDir = path.join(process.cwd(), 'public', 'uploads')
+const uploadDir = path.join(process.cwd(), 'public')
 
 export async function GET() {
     try {
