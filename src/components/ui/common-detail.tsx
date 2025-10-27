@@ -1,4 +1,5 @@
 import { Box, Text, Image } from '@chakra-ui/react'
+import htmr from 'htmr'
 import React from 'react'
 import ReactMarkdown from 'react-markdown'
 import remarkGfm from 'remark-gfm'
@@ -15,23 +16,7 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({ backgroundImage, tex
     if (textContent) {
         contentElement = (
             <Box p="72px" fontSize="lg">
-                <ReactMarkdown
-                    remarkPlugins={[remarkGfm]}
-                    components={{
-                        p: ({ node, ...props }) => <Text mb={4} {...props} />,
-                        h1: ({ node, ...props }) => <Text as="h1" fontSize="2xl" fontWeight="bold" mb={4} {...props} />,
-                        h2: ({ node, ...props }) => <Text as="h2" fontSize="xl" fontWeight="bold" mb={3} {...props} />,
-                        h3: ({ node, ...props }) => (
-                            <Text as="h3" fontSize="lg" fontWeight="semibold" mb={2} {...props} />
-                        ),
-                        // ul: ({node, ...props}) => <Box as="ul" pl={6} mb={4} {...props} />,
-                        // ol: ({node, ...props}) => <Box as="ol" pl={6} mb={4} {...props} />,
-                        // li: ({node, ...props}) => <Box as="li" mb={2} {...props} />,
-                        // a: ({node, ...props}) => <Text as="a" color="blue.500" textDecoration="underline" {...props} />
-                    }}
-                >
-                    {textContent}
-                </ReactMarkdown>
+                {htmr(textContent)}
             </Box>
         )
     } else if (imageContent) {
@@ -50,7 +35,6 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({ backgroundImage, tex
                     <Image src={backgroundImage} alt="Banner" maxH="100%" w="100vw" objectFit="cover" />
                 </Box>
             )}
-
             {/* 内容区域 */}
             {contentElement}
         </Box>
