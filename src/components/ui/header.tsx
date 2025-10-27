@@ -156,7 +156,7 @@ export function Header(props: HeaderProps) {
         >
             <Flex mx="auto" justify="space-between" align="center">
                 <Link href="/" passHref>
-                    <Box position="relative" maxW="56px" minW="56px" flexShrink={0} marginLeft={'32px'}>
+                    <Box position="relative" maxW="72px" minW="72px" flexShrink={0} marginLeft={'32px'}>
                         <Image
                             src="/logo.jpg"
                             marginTop={'8px'}
