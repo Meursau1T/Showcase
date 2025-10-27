@@ -1,8 +1,7 @@
 import { Box, Text, Image } from '@chakra-ui/react'
 import htmr from 'htmr'
 import React from 'react'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
+import SlideBanner from './slider'
 
 interface CommonDetailProps {
     backgroundImage?: string // 背景图片URL
@@ -30,11 +29,7 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({ backgroundImage, tex
     return (
         <Box className="flex flex-col w-full">
             {/* 背景图片区域 */}
-            {backgroundImage && (
-                <Box w="full" h="300px" bg="gray.100" display="flex" alignItems="center" justifyContent="center">
-                    <Image src={backgroundImage} alt="Banner" maxH="100%" w="100vw" objectFit="cover" />
-                </Box>
-            )}
+            {backgroundImage && <SlideBanner src={backgroundImage} />}
             {/* 内容区域 */}
             {contentElement}
         </Box>

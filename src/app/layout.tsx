@@ -5,6 +5,7 @@ import { cookies } from 'next/headers'
 import { Box } from '@chakra-ui/react'
 import { Provider } from '@/components/ui/provider'
 import './globals.css'
+import { AntdRegistry } from '@ant-design/nextjs-registry'
 import { Header, Footer } from '@/components/ui/'
 import { getSession } from '@/utils'
 
@@ -36,7 +37,7 @@ export default async function RootLayout({ children }: RootLayoutParam) {
                 <Provider>
                     <Header locale={locale as Lang} isLogin={isLogin} />
                     <Box as="main" pt="60px" className="min-h-screen">
-                        {children}
+                        <AntdRegistry>{children}</AntdRegistry>
                     </Box>
                     <Footer locale={locale as Lang} />
                 </Provider>

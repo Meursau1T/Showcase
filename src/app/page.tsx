@@ -1,3 +1,4 @@
+import SlideBanner from '@/components/ui/slider'
 import type { MainPrisma } from '@/type'
 import { prisma } from '@/utils'
 import { Flex, Heading, Box, Image, Card, Link } from '@chakra-ui/react'
@@ -38,9 +39,7 @@ export default async function Home() {
     return (
         <Box as="main" className="flex min-h-screen flex-col">
             {/* 顶部图片展示位 */}
-            <Box w="full" h="300px" bg="gray.100" display="flex" alignItems="center" justifyContent="center">
-                <Image src={mainPageData?.banner || '/test_banner.jpg'} alt="Banner" maxH="100%" w="100vw" />
-            </Box>
+            <SlideBanner src={mainPageData?.banner || ''} />
 
             {/* 产品区域 */}
             <Box className="mt-[24px] mb-[72px] pr-[24px] pl-[24px] md:pr-[144px] md:pl-[144px]">
