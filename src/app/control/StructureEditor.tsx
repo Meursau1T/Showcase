@@ -9,7 +9,7 @@ interface Props {
     data: StructurePrisma | null
 }
 
-const defaultVal = { imageContent: '', backgroundImage: '', textContent: '' }
+const defaultVal = { imageContent: '', backgroundImage: '', imageText: '', textContent: '' }
 
 export default function StructureEditor(props: Props) {
     const [enData, setEnData] = useState(props.data?.data.en || defaultVal)
@@ -61,6 +61,20 @@ export default function StructureEditor(props: Props) {
                     />
                 </Flex>
                 <Flex direction="column" gap={2}>
+                    <Text fontWeight="bold">中文 - 图片中文本</Text>
+                    <Textarea
+                        value={zhData?.imageText || ''}
+                        onChange={(e) => {
+                            setMessage(null)
+                            setZhData({
+                                ...zhData,
+                                imageText: e.target.value,
+                            })
+                        }}
+                        placeholder="输入图片中的中文文本"
+                    />
+                </Flex>
+                <Flex direction="column" gap={2}>
                     <Text fontWeight="bold">中文 - 文案内容</Text>
                     <Textarea
                         value={zhData?.textContent || ''}
@@ -102,6 +116,20 @@ export default function StructureEditor(props: Props) {
                             })
                         }}
                         placeholder="背景图片地址"
+                    />
+                </Flex>
+                <Flex direction="column" gap={2}>
+                    <Text fontWeight="bold">英文 - 图片中文本</Text>
+                    <Textarea
+                        value={enData?.imageText || ''}
+                        onChange={(e) => {
+                            setMessage(null)
+                            setEnData({
+                                ...enData,
+                                imageText: e.target.value,
+                            })
+                        }}
+                        placeholder="输入图片中的英文文本"
                     />
                 </Flex>
                 <Flex direction="column" gap={2}>

@@ -25,6 +25,7 @@ export default async function BrandPage() {
     return (
         <CommonDetail
             backgroundImage={content.backgroundImage}
+            imageText={content.imageText}
             textContent={content.textContent}
             imageContent={content.imageContent}
         />

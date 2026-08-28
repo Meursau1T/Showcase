@@ -15,11 +15,13 @@ const getCultureData = async (): Promise<CulturePrisma | null> => {
         data: {
             zh: {
                 backgroundImage: (data.data as any).zh.backgroundImage ?? undefined,
+                imageText: (data.data as any).zh.imageText ?? undefined,
                 textContent: (data.data as any).zh.textContent ?? undefined,
                 imageContent: (data.data as any).zh.imageContent ?? undefined,
             },
             en: {
                 backgroundImage: (data.data as any).en.backgroundImage ?? undefined,
+                imageText: (data.data as any).en.imageText ?? undefined,
                 textContent: (data.data as any).en.textContent ?? undefined,
                 imageContent: (data.data as any).en.imageContent ?? undefined,
             },
@@ -88,11 +90,13 @@ const getProfileStructureData = async (): Promise<CulturePrisma | null> => {
         data: {
             zh: {
                 backgroundImage: (data.data as any).zh.backgroundImage ?? undefined,
+                imageText: (data.data as any).zh.imageText ?? undefined,
                 textContent: (data.data as any).zh.textContent ?? undefined,
                 imageContent: (data.data as any).zh.imageContent ?? undefined,
             },
             en: {
                 backgroundImage: (data.data as any).en.backgroundImage ?? undefined,
+                imageText: (data.data as any).en.imageText ?? undefined,
                 textContent: (data.data as any).en.textContent ?? undefined,
                 imageContent: (data.data as any).en.imageContent ?? undefined,
             },
@@ -111,11 +115,13 @@ const getBrandData = async (): Promise<CulturePrisma | null> => {
         data: {
             zh: {
                 backgroundImage: (data.data as any).zh.backgroundImage ?? undefined,
+                imageText: (data.data as any).zh.imageText ?? undefined,
                 textContent: (data.data as any).zh.textContent ?? undefined,
                 imageContent: (data.data as any).zh.imageContent ?? undefined,
             },
             en: {
                 backgroundImage: (data.data as any).en.backgroundImage ?? undefined,
+                imageText: (data.data as any).en.imageText ?? undefined,
                 textContent: (data.data as any).en.textContent ?? undefined,
                 imageContent: (data.data as any).en.imageContent ?? undefined,
             },
@@ -134,11 +140,13 @@ const getStructureData = async (): Promise<CulturePrisma | null> => {
         data: {
             zh: {
                 backgroundImage: (data.data as any).zh.backgroundImage ?? undefined,
+                imageText: (data.data as any).zh.imageText ?? undefined,
                 textContent: (data.data as any).zh.textContent ?? undefined,
                 imageContent: (data.data as any).zh.imageContent ?? undefined,
             },
             en: {
                 backgroundImage: (data.data as any).en.backgroundImage ?? undefined,
+                imageText: (data.data as any).en.imageText ?? undefined,
                 textContent: (data.data as any).en.textContent ?? undefined,
                 imageContent: (data.data as any).en.imageContent ?? undefined,
             },

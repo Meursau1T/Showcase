@@ -15,16 +15,17 @@ const defaultVal: CultureContent = {
 export default async function AboutStructurePage() {
     const lang = (await cookies()).get('lang')?.value as 'zh' | 'en'
     const structureData = await prisma.structure.findFirst()
-    
+
     // 定义不同语言的架构内容
     const structureContent = parseJsonValue(structureData?.data, defaultVal)
-    
+
     // 获取当前语言的内容，默认为英文
     const content = structureContent[lang] || structureContent.en
-    
+
     return (
         <CommonDetail
             backgroundImage={content.backgroundImage}
+            imageText={content.imageText}
             textContent={content.textContent}
             imageContent={content.imageContent}
         />

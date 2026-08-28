@@ -5,11 +5,17 @@ import SlideBanner from './slider'
 
 interface CommonDetailProps {
     backgroundImage?: string // 背景图片URL
+    imageText?: string // 背景图片中的文本
     textContent?: string // 可选文本内容
     imageContent?: string // 可选图片内容URL
 }
 
-export const CommonDetail: React.FC<CommonDetailProps> = ({ backgroundImage, textContent, imageContent }) => {
+export const CommonDetail: React.FC<CommonDetailProps> = ({
+    backgroundImage,
+    imageText,
+    textContent,
+    imageContent,
+}) => {
     // 提取内容渲染逻辑到变量
     let contentElement: React.ReactNode = null
     if (textContent) {
@@ -29,7 +35,7 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({ backgroundImage, tex
     return (
         <Box className="flex flex-col w-full">
             {/* 背景图片区域 */}
-            {backgroundImage && <SlideBanner src={backgroundImage} />}
+            {backgroundImage && <SlideBanner src={backgroundImage} text={imageText} />}
             {/* 内容区域 */}
             {contentElement}
         </Box>

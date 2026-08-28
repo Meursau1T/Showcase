@@ -10,11 +10,13 @@ export type RootLayoutParam = Readonly<{
 export type CultureContent = {
     zh: {
         backgroundImage?: string
+        imageText?: string
         textContent?: string
         imageContent?: string
     }
     en: {
         backgroundImage?: string
+        imageText?: string
         textContent?: string
         imageContent?: string
     }
@@ -23,11 +25,13 @@ export type CultureContent = {
 export type ProfileStructureContent = {
     zh: {
         backgroundImage?: string
+        imageText?: string
         textContent?: string
         imageContent?: string
     }
     en: {
         backgroundImage?: string
+        imageText?: string
         textContent?: string
         imageContent?: string
     }
@@ -40,11 +44,13 @@ export type ProfileStructurePrisma = {
 export type StructureContent = {
     zh: {
         backgroundImage?: string
+        imageText?: string
         textContent?: string
         imageContent?: string
     }
     en: {
         backgroundImage?: string
+        imageText?: string
         textContent?: string
         imageContent?: string
     }
@@ -57,11 +63,13 @@ export type StructurePrisma = {
 export type BrandContent = {
     zh: {
         backgroundImage?: string
+        imageText?: string
         textContent?: string
         imageContent?: string
     }
     en: {
         backgroundImage?: string
+        imageText?: string
         textContent?: string
         imageContent?: string
     }

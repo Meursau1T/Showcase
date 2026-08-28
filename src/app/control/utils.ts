@@ -1,5 +1,6 @@
 type ContentWithImages = {
     backgroundImage?: string
+    imageText?: string
     imageContent?: string
     textContent?: string
 }
