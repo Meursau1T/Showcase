@@ -29,3 +29,17 @@ body {
     color: var(--foreground);
     font-family: Arial, Helvetica, sans-serif;
 }
+
+@layer base {
+    .htmr-content,
+    .htmr-content :where(*, *::before, *::after) {
+        all: revert-layer;
+    }
+}
+
+@layer reset {
+    .htmr-content,
+    .htmr-content :where(*, *::before, *::after) {
+        all: revert-layer;
+    }
+}

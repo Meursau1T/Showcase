@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Box, Heading, Flex, Text, Textarea, Button } from '@chakra-ui/react'
 import type { StructurePrisma } from '@/type'
+import { normalizeContentImagePaths, refreshControlPage } from './utils'
 
 interface Props {
     data: StructurePrisma | null
@@ -17,15 +18,20 @@ export default function StructureEditor(props: Props) {
     const [message, setMessage] = useState<string | null>(null)
 
     const handleSubmit = async () => {
+        const data = {
+            en: normalizeContentImagePaths(enData),
+            zh: normalizeContentImagePaths(zhData),
+        }
         const res = await fetch('/api/structure/edit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ data: { en: enData, zh: zhData } }),
+            body: JSON.stringify({ data }),
         })
 
         if (res.ok) {
             setIsSuccess(true)
             setMessage('组织架构内容更新成功')
+            refreshControlPage('structure')
         } else {
             setIsSuccess(false)
             const result = await res.json()

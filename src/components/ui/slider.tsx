@@ -5,12 +5,10 @@ import { Image, Box } from '@chakra-ui/react'
 import { Carousel } from 'antd'
 
 const contentStyle: React.CSSProperties = {
-    margin: 0,
-    height: '160px',
-    color: '#fff',
-    lineHeight: '160px',
-    textAlign: 'center',
-    background: '#364d79',
+    display: 'block',
+    width: '100%',
+    height: '600px',
+    objectFit: 'fill',
 }
 
 export default function SlideBanner({ src }: { src: string }) {
@@ -34,7 +32,9 @@ export default function SlideBanner({ src }: { src: string }) {
             <div style={{ width: '100%', height: 'auto' }}>
                 <Carousel arrows autoplay draggable>
                     {srcList.map((item, index) => (
-                        <Image style={contentStyle} key={index} src={item} />
+                        <div key={index}>
+                            <Image style={contentStyle} src={item} alt={`Banner ${index + 1}`} />
+                        </div>
                     ))}
                 </Carousel>
             </div>

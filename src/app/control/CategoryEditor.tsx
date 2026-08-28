@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Box, Heading, Flex, Text, Input, Button } from '@chakra-ui/react'
 import { CategoryPrisma } from '@/type'
+import { refreshControlPage } from './utils'
 
 interface Props {
     data: CategoryPrisma | null
@@ -49,6 +50,7 @@ export default function CategoryEditor(props: Props) {
         if (res.ok) {
             setIsSuccess(true)
             setMessage('分类更新成功')
+            refreshControlPage('category')
         } else {
             setIsSuccess(false)
             const result = await res.json()

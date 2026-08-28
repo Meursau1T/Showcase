@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Box, Heading, Flex, Text, Textarea, Button } from '@chakra-ui/react'
 import type { ProfileStructurePrisma } from '@/type'
+import { normalizeContentImagePaths, refreshControlPage } from './utils'
 
 interface Props {
     data: ProfileStructurePrisma | null
@@ -17,15 +18,20 @@ export default function ProfileEditor(props: Props) {
     const [message, setMessage] = useState<string | null>(null)
 
     const handleSubmit = async () => {
+        const data = {
+            en: normalizeContentImagePaths(enData),
+            zh: normalizeContentImagePaths(zhData),
+        }
         const res = await fetch('/api/profile/edit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ data: { en: enData, zh: zhData } }),
+            body: JSON.stringify({ data }),
         })
 
         if (res.ok) {
             setIsSuccess(true)
             setMessage('公司信息内容更新成功')
+            refreshControlPage('profile')
         } else {
             setIsSuccess(false)
             const result = await res.json()

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Box, Heading, Flex, Text, Input, Button } from '@chakra-ui/react'
 import type { MainPrisma } from '@/type'
+import { normalizeImagePath, refreshControlPage } from './utils'
 
 interface Props {
     data: MainPrisma | null
@@ -33,12 +34,17 @@ export default function MainPageEditor(props: Props) {
     }
 
     const handleSubmit = async () => {
+        const normalizedBanner = normalizeImagePath(banner)
+        const normalizedProducts = currList.map((product) => ({
+            ...product,
+            image: normalizeImagePath(product.image),
+        }))
         const res = await fetch('/api/main/edit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                banner,
-                products: currList, // 新增：提交 currList
+                banner: normalizedBanner,
+                products: normalizedProducts,
                 current: props.data?.banner,
             }),
         })
@@ -46,6 +52,7 @@ export default function MainPageEditor(props: Props) {
         if (res.ok) {
             setIsSuccess(true)
             setMessage('首页数据更新成功')
+            refreshControlPage('main')
         } else {
             setIsSuccess(false)
             const result = await res.json()

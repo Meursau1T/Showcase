@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Box, Heading, Flex, Text, Textarea, Button } from '@chakra-ui/react'
 import type { CulturePrisma } from '@/type'
+import { normalizeContentImagePaths, refreshControlPage } from './utils'
 
 interface Props {
     data: CulturePrisma | null
@@ -17,15 +18,20 @@ export default function CultureEditor(props: Props) {
     const [message, setMessage] = useState<string | null>(null)
 
     const handleSubmit = async () => {
+        const data = {
+            en: normalizeContentImagePaths(enData),
+            zh: normalizeContentImagePaths(zhData),
+        }
         const res = await fetch('/api/culture/edit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ data: { en: enData, zh: zhData } }),
+            body: JSON.stringify({ data }),
         })
 
         if (res.ok) {
             setIsSuccess(true)
             setMessage('文化页内容更新成功')
+            refreshControlPage('culture')
         } else {
             setIsSuccess(false)
             const result = await res.json()

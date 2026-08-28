@@ -51,6 +51,9 @@ export const Footer = async ({ locale }: Footer) => {
                     <Text fontSize="16px" mb={2}>
                         {footerContent[locale].headquarters}
                     </Text>
+                    <Link href="https://beian.miit.gov.cn" fontSize="14px" color="gray.300">
+                        粤ICP备08003691号
+                    </Link>
                 </Flex>
 
                 {/* 第二列：联系方式 */}

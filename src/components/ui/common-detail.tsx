@@ -1,4 +1,4 @@
-import { Box, Text, Image } from '@chakra-ui/react'
+import { Box } from '@chakra-ui/react'
 import htmr from 'htmr'
 import React from 'react'
 import SlideBanner from './slider'
@@ -14,8 +14,8 @@ export const CommonDetail: React.FC<CommonDetailProps> = ({ backgroundImage, tex
     let contentElement: React.ReactNode = null
     if (textContent) {
         contentElement = (
-            <Box p="72px" fontSize="lg">
-                {htmr(textContent)}
+            <Box p="72px">
+                <div className="htmr-content">{htmr(textContent)}</div>
             </Box>
         )
     } else if (imageContent) {
